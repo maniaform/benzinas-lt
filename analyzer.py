@@ -1,27 +1,34 @@
 import os
 import json
+import time
 import requests
 
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_URL = "https://" + "api.groq" + ".com/openai/v1/chat/completions"
 
-def siusti_groq(promptas, max_tokens=3500):
+def siusti_groq(promptas, max_tokens=3000):
     headers = {
         "Authorization": f"Bearer {GROQ_KEY}",
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "openai/gpt-oss-120b",
+        "model": "llama-3.3-70b-versatile",
         "messages": [{"role": "user", "content": promptas}],
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
         "max_tokens": max_tokens
     }
-    atsakas = requests.post(GROQ_URL, headers=headers, json=payload, timeout=45)
-    if not atsakas.ok:
-        print("Groq klaidos detalės:", atsakas.text)
-    atsakas.raise_for_status()
-    return json.loads(atsakas.json()["choices"][0]["message"]["content"])
+    
+    for bandymas in range(2):
+        atsakas = requests.post(GROQ_URL, headers=headers, json=payload, timeout=45)
+        if atsakas.status_code == 429 and bandymas == 0:
+            print("  -> Pasiektas Groq limitas, laukiame 25 sek. ir kartojame...")
+            time.sleep(25)
+            continue
+        if not atsakas.ok:
+            print("Groq klaidos detalės:", atsakas.text)
+        atsakas.raise_for_status()
+        return json.loads(atsakas.json()["choices"]["message"]["content"])
 
 def analizuoti_viena_tinkla(tinklas_info, surinktas_tekstas, senas_tinklas, dabar_str):
     promptas = f"""Tu esi tikslus Lietuvos degalų rinkos duomenų analitikas. Dabartinis laikas: {dabar_str}.
@@ -44,19 +51,19 @@ NAUJI SURINKTI ŠALTINIAI ŠIAM TINKLUI:
 
 Grąžink TIK gryną JSON objektą su raktais: "id", "name", "best_a95", "best_a98", "best_diesel", "price_time", "source_name", "source_url", "stations" (kiekvienas elementas: "city", "address", "a95", "a98", "diesel", "time", "source")."""
 
-    return siusti_groq(promptas, max_tokens=3800)
+    return siusti_groq(promptas, max_tokens=3200)
 
 def sugeneruoti_santraukas(tinklai_sarasas, dabar_str):
     trumpas_vaizdas = [
-        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel"), "stations_count": len(t.get("stations", []))}
+        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel")}
         for t in tinklai_sarasas
     ]
-    promptas = f"""Remdamasis šiais apibendrintais šiandienos ({dabar_str}) degalų kainų duomenimis Lietuvoje:
+    promptas = f"""Remdamasis šiais šiandienos ({dabar_str}) degalų kainų duomenimis Lietuvoje:
 {json.dumps(trumpas_vaizdas, ensure_ascii=False)}
 
 Parašyk dvi trumpas (1–2 sakinių), aiškias apžvalgas vairuotojams lietuvių kalba:
 1. "summary_petrol" – apie benzino (A95 ir A98) mažiausias kainas ir kur jos fiksuojamos.
 2. "summary_diesel" – apie dyzelino mažiausias kainas ir bendrą situaciją.
 
-Grąžink TIK gryną JSON su raktais "summary_petrol" ir "summary_diesel"."""
-    return siusti_groq(promptas, max_tokens=400)
+Grąžink TIK gryną JSON objektą be jokio papildomo teksto su raktais "summary_petrol" ir "summary_diesel"."""
+    return siusti_groq(promptas, max_tokens=350)
