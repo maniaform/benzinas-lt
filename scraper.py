@@ -10,14 +10,13 @@ def surinkti_visos_lietuvos_paketus():
 
     url = "https://" + "api.tavily" + ".com/search"
     
-    # Tikslinės užklausos, apimančios visą Lietuvą (didmiesčius, rajonus, magistrales ir visus tinklus)
     uzklausos = [
         "site:lt.fuelo.net degalines benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
-        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole",
-        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Utena Telsiai Taurage Mazeikiai Ukmerge Kedainiai",
-        "site:lt.fuelo.net Viada Orlen Baltic Petroleum Emsi Alausa degalines kainos",
-        "site:lt.fuelo.net Neste Circle K Jozita Saurida Stateta degalines kainos",
-        "degalu kainos Lietuvoje 95 benzinas dyzelinas Viada Circle K Neste Orlen Jozita"
+        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole Utena Telsiai",
+        "site:lt.fuelo.net Jozita Viada Orlen Baltic Petroleum Emsi Alausa degalines kainos",
+        "site:pricer.lt degalu kainos benzinas dyzelinas Lietuvoje Circle K Neste Viada Jozita",
+        "degalu kainos Lietuvoje benzinas 95 dyzelinas apzvalga Circle K Neste Viada Orlen Jozita",
+        "pigiausias benzinas dyzelinas degalinese Lietuvoje kainos adresai"
     ]
 
     visi_tekstai = []
@@ -37,16 +36,14 @@ def surinkti_visos_lietuvos_paketus():
                 for r in rezultatai:
                     turinys = r.get("raw_content") or r.get("content") or ""
                     if turinys:
-                        # Apkerpame perteklinį meniu, imame esminį puslapio turinį
                         svarus = " ".join(turinys.split())[:3500]
-                        visi_tekstai.append(f"=== ŠALTINIS: {r.get('title')} ({r.get('url')}) ===\n{svarus}")
+                        visi_tekstai.append(f"=== ŠALTINIS: {r.get('title')} | URL: {r.get('url')} ===\n{svarus}")
         except Exception as e:
             print("Tavily paieškos klaida:", e)
         time.sleep(1)
 
-    print(f"Surinkta {len(visi_tekstai)} šaltinių puslapių iš visos Lietuvos.")
+    print(f"Surinkta {len(visi_tekstai)} šaltinių puslapių iš įvairių šaltinių.")
 
-    # Sugrupuojame surinktus šaltinius į paketus po ~8500 simbolių DI analitikui
     paketai = []
     dabartinis_paketas = ""
     for t in visi_tekstai:
