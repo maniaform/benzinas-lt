@@ -56,7 +56,7 @@ def paleisti_kainu_atnaujinima():
 
     atnaujinti_tinklu_id = set()
     for st in visos_naujos_degalines:
-        raw_name = st.get("network", "").strip()
+        raw_name = (st.get("network") or "").strip()
         if not raw_name:
             continue
         net_name = suvienodinti_tinkla(raw_name)
