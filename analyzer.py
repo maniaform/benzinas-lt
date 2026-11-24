@@ -32,18 +32,18 @@ def siusti_groq(promptas, max_tokens=3000):
 
 def istraukti_paketo_degalines(paketo_nr, paketo_tekstas, dabar_str):
     promptas = f"""Tu esi tikslus Lietuvos degalų duomenų analitikas. Dabartinis laikas: {dabar_str}.
-Iš šio Lietuvos miestų ir rajonų degalinių duomenų paketo (#{paketo_nr}) ištrauk VISAS degalines ir jų kainas (A95, A98, Dyzelinas).
+Iš šio Lietuvos miestų ir rajonų degalinių duomenų paketo (#{paketo_nr}) ištrauk VISAS minimas degalines ir jų kainas (A95, A98, Dyzelinas).
 
 TAISYKLĖS:
-1. Priskirk kiekvienai degalinei tikslų tinklo pavadinimą ("network" – pvz., "Jozita", "Neste", "Circle K", "Viada", "Baltic Petroleum", "Orlen", "Emsi", "Alauša", "Saurida", "Stateta", "Skulas" ar kt.).
-2. Nurodyk tikslų miestą arba rajoną ("city") ir tikslų adresą ("address", įskaitant magistralių kilometrus, jei nurodyta).
+1. Priskirk kiekvienai degalinei tikslų tinklo pavadinimą ("network" – pvz., "Jozita", "Neste", "Circle K", "Viada", "Baltic Petroleum", "Orlen", "Emsi", "Alauša", "Saurida", "Stateta" ar kt.).
+2. Nurodyk tikslų miestą arba rajoną ("city") ir tikslų adresą ("address").
 3. Naudok TIK realius skaičius iš teksto (jei kaina nenurodyta – rašyk null).
-4. Įrašyk tikslų fiksavimo laiką ("time") ir šaltinį ("source": "Fuelo.net").
+4. Svarbu: kiekvienai degalinei įrašyk TIKSLŲ šaltinio pavadinimą ("source", pvz., "Pricer.lt", "Fuelo.net", "15min.lt", "Delfi.lt") ir tikslią to puslapio nuorodą ("source_url") iš bloko antraštės!
 
 DUOMENŲ PAKETAS:
 {paketo_tekstas}
 
-Grąžink TIK gryną JSON objektą su vienu raktu "stations" (sąrašas objektų su raktais: "network", "city", "address", "a95", "a98", "diesel", "time", "source")."""
+Grąžink TIK gryną JSON objektą su vienu raktu "stations" (sąrašas objektų su raktais: "network", "city", "address", "a95", "a98", "diesel", "time", "source", "source_url")."""
 
     return siusti_groq(promptas, max_tokens=3800).get("stations", [])
 
