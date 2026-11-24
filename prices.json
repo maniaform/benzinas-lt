@@ -1,128 +1,74 @@
 {
-  "last_updated": "2026-11-24 16:07",
-  "summary_petrol": "Mažiausios A95 (1.03 €) ir A98 (1.449 €) kainos fiksuotos „Jozita“ degalinėje.",
-  "summary_diesel": "Dyzelinas pigiausias – 0.88 € – taip pat „Jozita“, kitose stotyse kainos gerokai aukštesnės.",
+  "last_updated": "2026-11-24 16:20",
+  "summary_petrol": "A95 pigiausias – 1,03 €/l Jozitoje, o A98 – 1,71 €/l Neste.",
+  "summary_diesel": "Dyzelinas šiuo metu pigiausias – 0,88 €/l Jozitoje, bendroje rinkoje kainos svyruoja nuo 0,88 iki 2,18 €/l.",
   "networks": [
     {
       "id": "jozita",
       "name": "Jozita",
       "best_a95": 1.03,
-      "best_a98": 1.449,
+      "best_a98": null,
       "best_diesel": 0.88,
-      "price_time": "2026-11-24 07:05",
-      "source_name": "Delfi verslas / pricer.lt",
-      "source_url": "https://www.delfi.lt/verslas/transportas/degalu-kainu-reitingas-kur-pigiausia-75278701",
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
       "stations": [
         {
+          "city": "Raseiniai",
+          "address": "Maironio g. 78b",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
+        },
+        {
           "city": "Vilnius",
-          "address": "Savanorių pr. 178B",
-          "a95": 1.389,
-          "a98": 1.449,
-          "diesel": 1.359,
-          "time": "2026-11-24 07:05",
-          "source": "Fuelo.net"
-        },
-        {
-          "city": "Kaunas",
-          "address": "Pramonės pr. 14",
-          "a95": 1.389,
-          "a98": 1.449,
-          "diesel": 1.359,
-          "time": "2026-11-23 19:40",
-          "source": "Fuelo.net"
-        },
-        {
-          "city": "Klaipėda",
-          "address": "Šilutės pl. 83",
-          "a95": 1.399,
-          "a98": 1.459,
-          "diesel": 1.369,
-          "time": "2026-11-23 18:15",
-          "source": "Fuelo.net"
-        },
-        {
-          "city": "Gargždai",
-          "address": "Gamyklos g. 1, 96155, Klaipėdos r. sav.",
+          "address": null,
           "a95": null,
           "a98": null,
           "diesel": null,
-          "time": "2026-11-20",
-          "source": "degalukaina.lt"
-        },
-        {
-          "city": "Garliava",
-          "address": "Vytauto g. 111A, 53253, Kauno r. sav.",
-          "a95": null,
-          "a98": null,
-          "diesel": null,
-          "time": "2026-11-20",
-          "source": "degalukaina.lt"
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
         },
         {
           "city": "Kaunas",
-          "address": "Baltų pr. 141A, 47126, Kauno m. sav.",
+          "address": null,
           "a95": 1.03,
           "a98": null,
           "diesel": 0.88,
-          "time": "2026-11-24",
-          "source": "Delfi verslas"
-        },
-        {
-          "city": "Kaunas",
-          "address": "Betygalos g. 8, 47183, Kauno m. sav.",
-          "a95": 1.03,
-          "a98": null,
-          "diesel": 0.88,
-          "time": "2026-11-24",
-          "source": "Delfi verslas"
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
         }
       ]
     },
     {
       "id": "neste",
       "name": "Neste",
-      "best_a95": 1.419,
-      "best_a98": 1.489,
-      "best_diesel": 1.379,
-      "price_time": "2026-11-24 06:50",
-      "source_name": "Pricer.lt / Fuelo.net",
-      "source_url": "https://pricer.lt",
+      "best_a95": 1.652,
+      "best_a98": 1.71,
+      "best_diesel": 1.747,
+      "price_time": "2026-04-11T09:30:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
       "stations": [
         {
-          "city": "Vilnius",
-          "address": "Ukmergės g. 286",
-          "a95": 1.419,
-          "a98": 1.489,
-          "diesel": 1.379,
-          "time": "2026-11-24 06:50",
+          "city": null,
+          "address": null,
+          "a95": 1.728,
+          "a98": 1.813,
+          "diesel": 2.151,
+          "time": "2026-04-11T09:30:00+02:00",
           "source": "Fuelo.net"
         },
         {
-          "city": "Vilnius",
-          "address": "Ozo g. 14",
-          "a95": 1.429,
-          "a98": 1.499,
-          "diesel": 1.389,
-          "time": "2026-11-23 21:10",
+          "city": "Siauliai",
+          "address": "Tilzes gatve 72",
+          "a95": 1.652,
+          "a98": 1.71,
+          "diesel": 1.747,
+          "time": "2026-11-24T16:20:00+02:00",
           "source": "Fuelo.net"
-        },
-        {
-          "city": "Kaunas",
-          "address": "Savanorių pr. 404",
-          "a95": 1.419,
-          "a98": 1.489,
-          "diesel": 1.379,
-          "time": "2026-11-24 06:30",
-          "source": "Fuelo.net"
-        },
-        {
-          "city": "Mažėikai",
-          "address": "M. Daukšos g. 29",
-          "a95": 1.759,
-          "a98": null,
-          "diesel": 1.849,
-          "time": "2026-06-10 00:00",
-          "source": "degalkainos.lt"
         },
         {
           "city": "Vilnius",
@@ -131,7 +77,7 @@
           "a98": null,
           "diesel": 2.259,
           "time": "2026-11-09 13:30:42",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
           "city": "Vilnius",
@@ -140,7 +86,7 @@
           "a98": null,
           "diesel": 2.259,
           "time": "2026-11-09 11:40:20",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
           "city": "Kaunas",
@@ -149,7 +95,7 @@
           "a98": null,
           "diesel": 2.129,
           "time": "2026-11-08 17:52:12",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
           "city": "Vilnius",
@@ -158,7 +104,7 @@
           "a98": null,
           "diesel": 2.139,
           "time": "2026-11-08 12:43:34",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
           "city": "Vilnius",
@@ -167,7 +113,7 @@
           "a98": null,
           "diesel": 2.139,
           "time": "2026-11-07 20:59:22",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
           "city": "Vilnius",
@@ -176,54 +122,54 @@
           "a98": null,
           "diesel": 2.234,
           "time": "2026-10-31 09:12:41",
-          "source": "Kuro-kainos.lt"
+          "source": "Fuelo.net"
         },
         {
-          "city": "Klaipėda",
-          "address": "Artojo g. 2",
-          "a95": 1.789,
+          "city": "Vilnius",
+          "address": "Savanorių pr. 187",
+          "a95": 1.879,
           "a98": null,
-          "diesel": 2.189,
-          "time": "2026-11-05",
-          "source": "PigusKuras.lt"
+          "diesel": 2.279,
+          "time": "2026-10-30 07:11:00",
+          "source": "Fuelo.net"
+        },
+        {
+          "city": "Vilnius",
+          "address": "Savanorių pr. 220A",
+          "a95": 1.879,
+          "a98": null,
+          "diesel": 2.279,
+          "time": "2026-10-30 07:10:18",
+          "source": "Fuelo.net"
         }
       ]
     },
     {
       "id": "circle-k",
       "name": "Circle K",
-      "best_a95": 1.449,
-      "best_a98": 1.529,
-      "best_diesel": 1.419,
-      "price_time": "2026-11-24 07:00",
-      "source_name": "Pricer.lt apžvalga",
-      "source_url": "https://pricer.lt",
+      "best_a95": 1.759,
+      "best_a98": 1.858,
+      "best_diesel": 1.026,
+      "price_time": "2026-04-11T09:30:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
       "stations": [
         {
-          "city": "Vilnius",
-          "address": "Geležinio Vilko g. 37",
-          "a95": 1.449,
-          "a98": 1.529,
-          "diesel": 1.419,
-          "time": "2026-11-24 07:00",
-          "source": "Pricer.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Konstitucijos pr. 16",
-          "a95": 1.459,
-          "a98": 1.539,
-          "diesel": 1.429,
-          "time": "2026-11-23 20:05",
+          "city": null,
+          "address": null,
+          "a95": 1.759,
+          "a98": 1.858,
+          "diesel": 2.159,
+          "time": "2026-04-11T09:30:00+02:00",
           "source": "Fuelo.net"
         },
         {
-          "city": "Kaunas",
-          "address": "Karaliaus Mindaugo pr. 34",
-          "a95": 1.449,
-          "a98": 1.529,
-          "diesel": 1.419,
-          "time": "2026-11-24 06:15",
+          "city": "Vilnius",
+          "address": null,
+          "a95": null,
+          "a98": null,
+          "diesel": 1.026,
+          "time": "2026-11-24T16:20:00+02:00",
           "source": "Fuelo.net"
         }
       ]
@@ -231,40 +177,41 @@
     {
       "id": "viada",
       "name": "Viada",
-      "best_a95": null,
-      "best_a98": null,
-      "best_diesel": null,
-      "price_time": "2026-11-24 14:27",
+      "best_a95": 1.788,
+      "best_a98": 1.824,
+      "best_diesel": 2.176,
+      "price_time": "2026-04-11T09:30:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://fuelo.net",
-      "stations": []
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": null,
+          "address": null,
+          "a95": 1.788,
+          "a98": 1.824,
+          "diesel": 2.176,
+          "time": "2026-04-11T09:30:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
     },
     {
       "id": "baltic-petroleum",
       "name": "Baltic Petroleum",
-      "best_a95": 1.429,
-      "best_a98": 1.499,
-      "best_diesel": 1.389,
-      "price_time": "2026-11-24 06:40",
+      "best_a95": 1.736,
+      "best_a98": 1.776,
+      "best_diesel": 2.098,
+      "price_time": "2026-04-11T09:30:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
       "stations": [
         {
-          "city": "Vilnius",
-          "address": "Laisvės pr. 43B",
-          "a95": 1.429,
-          "a98": 1.499,
-          "diesel": 1.389,
-          "time": "2026-11-24 06:40",
-          "source": "Fuelo.net"
-        },
-        {
-          "city": "Šiauliai",
-          "address": "Tilžės g. 227",
-          "a95": 1.439,
-          "a98": 1.509,
-          "diesel": 1.399,
-          "time": "2026-11-23 17:20",
+          "city": null,
+          "address": null,
+          "a95": 1.736,
+          "a98": 1.776,
+          "diesel": 2.098,
+          "time": "2026-04-11T09:30:00+02:00",
           "source": "Fuelo.net"
         }
       ]
@@ -272,24 +219,53 @@
     {
       "id": "orlen",
       "name": "Orlen",
-      "best_a95": null,
-      "best_a98": null,
-      "best_diesel": null,
-      "price_time": "2026-11-24 14:27",
+      "best_a95": 1.734,
+      "best_a98": 1.799,
+      "best_diesel": 1.026,
+      "price_time": "2026-04-11T09:30:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://fuelo.net",
-      "stations": []
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": null,
+          "address": null,
+          "a95": 1.734,
+          "a98": 1.799,
+          "diesel": 2.151,
+          "time": "2026-04-11T09:30:00+02:00",
+          "source": "Fuelo.net"
+        },
+        {
+          "city": "Vilnius",
+          "address": null,
+          "a95": null,
+          "a98": null,
+          "diesel": 1.026,
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
     },
     {
       "id": "emsi",
       "name": "Emsi",
-      "best_a95": null,
-      "best_a98": null,
-      "best_diesel": null,
-      "price_time": "2026-11-24 14:27",
+      "best_a95": 1.707,
+      "best_a98": 1.728,
+      "best_diesel": 2.142,
+      "price_time": "2026-04-11T09:30:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://fuelo.net",
-      "stations": []
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": null,
+          "address": null,
+          "a95": 1.707,
+          "a98": 1.728,
+          "diesel": 2.142,
+          "time": "2026-04-11T09:30:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
     },
     {
       "id": "alausa",
@@ -301,6 +277,69 @@
       "source_name": "Fuelo.net",
       "source_url": "https://fuelo.net",
       "stations": []
+    },
+    {
+      "id": "saurida",
+      "name": "Saurida",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": "Siauliai",
+          "address": "Pramonės g.",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
+    },
+    {
+      "id": "skulas",
+      "name": "Skulas",
+      "best_a95": 1.08,
+      "best_a98": null,
+      "best_diesel": 0.96,
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": "Vilnius",
+          "address": null,
+          "a95": 1.08,
+          "a98": null,
+          "diesel": 0.96,
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
+    },
+    {
+      "id": "lukoil",
+      "name": "Lukoil",
+      "best_a95": 1.137,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "Fuelo.net",
+      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "stations": [
+        {
+          "city": "Vilnius",
+          "address": null,
+          "a95": 1.137,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-24T16:20:00+02:00",
+          "source": "Fuelo.net"
+        }
+      ]
     }
   ]
 }
