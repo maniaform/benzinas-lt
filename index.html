@@ -291,6 +291,14 @@
                     <button class="stations-btn" onclick="openNetworkModal(${index})">
                         Degalinių sąrašas (${net.filteredStations.length}) →
                     </button>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="stations-btn" onclick="openNetworkModal(${index})">
+                            Degalinių sąrašas (${net.filteredStations.length}) →
+                        </button>
+                        <a href="tinklai/${net.id}.html" style="text-align: center; font-size: 0.78rem; color: var(--text-muted); text-decoration: none;">
+                            Visas ${net.name} puslapis (SEO) ↗
+                        </a>
+                    </div>
                 </div>
             `}).join('');
         }
