@@ -7,8 +7,7 @@ from analyzer import istraukti_paketo_degalines, sugeneruoti_santraukas
 from seo import generuoti_kuro_seo
 
 def suvienodinti_tinkla(pavadinimas):
-    p = pavadinimas.strip()
-    zemas = p.lower()
+    zemas = pavadinimas.strip().lower()
     if "circle" in zemas: return "Circle K"
     if "neste" in zemas: return "Neste"
     if "viada" in zemas: return "Viada"
@@ -19,7 +18,10 @@ def suvienodinti_tinkla(pavadinimas):
     if "alau" in zemas: return "Alauša"
     if "saurida" in zemas: return "Saurida"
     if "stateta" in zemas: return "Stateta"
-    return p.title()
+    if "skulas" in zemas: return "Skulas"
+    if "ecoil" in zemas: return "Ecoil"
+    if "kvistija" in zemas: return "Kvistija"
+    return None
 
 def sukurti_tinklo_id(pavadinimas):
     p = pavadinimas.lower().strip()
