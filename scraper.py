@@ -18,7 +18,7 @@ def isvalyti_html(html_tekstas):
     tekstas = re.sub(r'<(script|style).*?>.*?</\1>', ' ', html_tekstas, flags=re.DOTALL)
     tekstas = re.sub(r'<[^>]+>', ' ', tekstas)
     tekstas = re.sub(r'\s+', ' ', tekstas).strip()
-    return tekstas[:18000]
+    return tekstas[:9000]
 
 def surinkti_tinklo_duomenis(tinklas, siandien_str):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
