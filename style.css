@@ -427,3 +427,41 @@ body {
 .leader-card.diesel-card .digital-number {
     color: #fbbf24;
 }
+
+/* --- PAGRINDINIS MIESTO FILTRAS PUSLAPIO VIRŠUJE --- */
+.top-city-bar {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.city-select {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--bg-totem);
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-main);
+    background: #f9fafb;
+    cursor: pointer;
+    min-width: 220px;
+}
+
+.leader-location {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #f3f4f6;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
