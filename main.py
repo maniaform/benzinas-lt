@@ -10,7 +10,7 @@ def suvienodinti_tinkla(pavadinimas):
     zemas = pavadinimas.strip().lower()
     if "circle" in zemas: return "Circle K"
     if "neste" in zemas: return "Neste"
-    if "viada" in zemas: return "Viada"
+    if "viada" in zemas or "lukoil" in zemas: return "Viada"
     if "baltic" in zemas: return "Baltic Petroleum"
     if "jozita" in zemas: return "Jozita"
     if "orlen" in zemas: return "Orlen"
@@ -95,9 +95,16 @@ def paleisti_kainu_atnaujinima():
         }
         
         # Tikriname, ar degalinė tokiu adresu jau yra – jei taip, atnaujiname jos kainą, jei ne – pridedame!
+        def normalizuoti_adresa(adr, miest):
+            s = f"{adr} {miest}".lower()
+            s = re.sub(r'[^a-z0-9ąčęėįšųūž]', '', s)
+            return s[:18]
+
+        naujas_raktas = normalizuoti_adresa(naujas_adresas, naujas_miestas)
         rasta_sena = False
         for idx, esama in enumerate(tinklai_dict[net_id]["stations"]):
-            if (esama.get("address") or "").lower() == naujas_adresas.lower():
+            esamas_raktas = normalizuoti_adresa(esama.get("address") or "", esama.get("city") or "")
+            if esamas_raktas == naujas_raktas and esamas_raktas != "":
                 tinklai_dict[net_id]["stations"][idx] = naujas_irasas
                 rasta_sena = True
                 break
