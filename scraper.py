@@ -1,70 +1,61 @@
-import re
+import os
 import time
 import requests
 
-BASE_FUELO = "https://" + "lt.fuelo" + ".net"
-
-def isvalyti_html(html_tekstas):
-    tekstas = re.sub(r'<(script|style).*?>.*?</\1>', ' ', html_tekstas, flags=re.DOTALL)
-    tekstas = re.sub(r'<[^>]+>', ' ', tekstas)
-    tekstas = re.sub(r'\s+', ' ', tekstas).strip()
-    return tekstas
-
 def surinkti_visos_lietuvos_paketus():
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    nuorodos = set()
+    tavily_key = os.environ.get("TAVILY_API_KEY")
+    if not tavily_key:
+        print("KLAIDA: Nerastas TAVILY_API_KEY!")
+        return []
+
+    url = "https://" + "api.tavily" + ".com/search"
     
-    # 1. Paimame pagrindinius Lietuvos puslapius ir ištraukiame visas tikras vietovių nuorodas
-    pradiniai = [
-        f"{BASE_FUELO}/?lang=lt",
-        f"{BASE_FUELO}/fuel/gasoline?lang=lt",
-        f"{BASE_FUELO}/fuel/diesel?lang=lt"
+    # Tikslinės užklausos, apimančios visą Lietuvą (didmiesčius, rajonus, magistrales ir visus tinklus)
+    uzklausos = [
+        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
+        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole",
+        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Utena Telsiai Taurage Mazeikiai Ukmerge Kedainiai",
+        "site:lt.fuelo.net Viada Orlen Baltic Petroleum Emsi Alausa degalines kainos",
+        "site:lt.fuelo.net Neste Circle K Jozita Saurida Stateta degalines kainos",
+        "degalu kainos Lietuvoje 95 benzinas dyzelinas Viada Circle K Neste Orlen Jozita"
     ]
-    
+
     visi_tekstai = []
-    for p_url in pradiniai:
+    for q in uzklausos:
+        print(f"Ieškoma per Tavily: {q}...")
+        payload = {
+            "api_key": tavily_key,
+            "query": q,
+            "search_depth": "advanced",
+            "include_raw_content": True,
+            "max_results": 5
+        }
         try:
-            res = requests.get(p_url, headers=headers, timeout=15)
+            res = requests.post(url, json=payload, timeout=25)
             if res.ok:
-                # Ištraukiame visas vidines miestų/rajonų nuorodas (/city/...)
-                rasti_keliai = re.findall(r'href=["\'](/city/[^"\'\?]+)', res.text)
-                for k in rasti_keliai:
-                    nuorodos.add(f"{BASE_FUELO}{k}?lang=lt")
-                
-                svarus = isvalyti_html(res.text)
-                visi_tekstai.append(f"[Lietuvos suvestinė]: {svarus[:6000]}")
+                rezultatai = res.json().get("results", [])
+                for r in rezultatai:
+                    turinys = r.get("raw_content") or r.get("content") or ""
+                    if turinys:
+                        # Apkerpame perteklinį meniu, imame esminį puslapio turinį
+                        svarus = " ".join(turinys.split())[:3500]
+                        visi_tekstai.append(f"=== ŠALTINIS: {r.get('title')} ({r.get('url')}) ===\n{svarus}")
         except Exception as e:
-            print("Pradinės paieškos klaida:", e)
+            print("Tavily paieškos klaida:", e)
+        time.sleep(1)
 
-    print(f"Rastos {len(nuorodos)} tikros Lietuvos miestų ir rajonų nuorodos.")
+    print(f"Surinkta {len(visi_tekstai)} šaltinių puslapių iš visos Lietuvos.")
 
-    # 2. Nuskaitome visas atrastas miestų ir rajonų nuorodas
-    for url in sorted(list(nuorodos)):
-        try:
-            res = requests.get(url, headers=headers, timeout=10)
-            if res.ok and ("95" in res.text or "Dyzelinas" in res.text):
-                svarus = isvalyti_html(res.text)
-                # Paimame tik duomenų lentelės dalį (be puslapio meniu)
-                pradzia = svarus.find("Degalinė") if "Degalinė" in svarus else 300
-                fragmentas = svarus[pradzia:pradzia + 2500]
-                if len(fragmentas) > 100:
-                    visi_tekstai.append(f"[{url}]: {fragmentas}")
-        except Exception:
-            continue
-        time.sleep(0.25)
-
-    # 3. Sugrupuojame į kompaktiškus paketus po ~8500 simbolių
+    # Sugrupuojame surinktus šaltinius į paketus po ~8500 simbolių DI analitikui
     paketai = []
     dabartinis_paketas = ""
     for t in visi_tekstai:
         if len(dabartinis_paketas) + len(t) > 8500:
             paketai.append(dabartinis_paketas)
-            dabartinis_paketas = t + "\n"
+            dabartinis_paketas = t + "\n\n"
         else:
-            dabartinis_paketas += t + "\n"
+            dabartinis_paketas += t + "\n\n"
     if dabartinis_paketas:
         paketai.append(dabartinis_paketas)
 
     return paketai
-    return paketai
-    
