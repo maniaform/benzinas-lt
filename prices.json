@@ -1,6 +1,62 @@
 {
-  "last_updated": "2026-11-24 20:00",
+  "last_updated": "2026-11-24 18:21",
   "summary_petrol": "Atnaujinami naujausi Lietuvos degalinių tinklų benzino duomenys...",
   "summary_diesel": "Atnaujinami naujausi Lietuvos degalinių tinklų dyzelino duomenys...",
-  "networks": []
+  "networks": [
+    {
+      "id": "viada",
+      "name": "Viada",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 18:21",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/442-2021-m-rugsejo-pricerlt-degaliniu-kainu-tyrimas-nera-jokios-mistikos",
+      "stations": []
+    },
+    {
+      "id": "circle-k",
+      "name": "Circle K",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 18:21",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/442-2021-m-rugsejo-pricerlt-degaliniu-kainu-tyrimas-nera-jokios-mistikos",
+      "stations": []
+    },
+    {
+      "id": "neste",
+      "name": "Neste",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 18:21",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/442-2021-m-rugsejo-pricerlt-degaliniu-kainu-tyrimas-nera-jokios-mistikos",
+      "stations": []
+    },
+    {
+      "id": "orlen",
+      "name": "Orlen",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 18:21",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/442-2021-m-rugsejo-pricerlt-degaliniu-kainu-tyrimas-nera-jokios-mistikos",
+      "stations": []
+    },
+    {
+      "id": "jozita",
+      "name": "Jozita",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 18:21",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/442-2021-m-rugsejo-pricerlt-degaliniu-kainu-tyrimas-nera-jokios-mistikos",
+      "stations": []
+    }
+  ]
 }
