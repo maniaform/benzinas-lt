@@ -38,7 +38,7 @@ def paleisti_kainu_atnaujinima():
         except Exception as e:
             print(f"  -> Klaida analizuojant {tinklas['name']}, paliekami seni duomenys: {e}")
             atnaujinti_tinklai.append(senas_tinklas)
-            time.sleep(8)
+            time.sleep(25)
 
     santraukos = sugeneruoti_santraukas(atnaujinti_tinklai, dabar)
 
