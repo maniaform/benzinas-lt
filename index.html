@@ -51,7 +51,10 @@
                 <h3 id="modal-title" style="font-size: 1.35rem; font-weight: 800;"></h3>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
-            <div class="city-filter" id="city-filter"></div>
+<input type="text" id="station-search" placeholder="🔍 Ieškoti pagal miestą arba gatvę (pvz., Panevėžys, Savanorių)..." 
+       oninput="searchStations(this.value)" 
+       style="width: 100%; padding: 10px 14px; margin-bottom: 12px; border: 1px solid var(--border-light); border-radius: 10px; font-size: 0.9rem;">
+<div class="city-filter" id="city-filter"></div>
             <div id="modal-table-container"></div>
         </div>
     </div>
@@ -198,6 +201,15 @@
                 ? activeNetwork.stations 
                 : activeNetwork.stations.filter(s => s.city === city);
             renderStationsTable(filtered);
+        }
+
+        function searchStations(query) {
+        if (!activeNetwork) return;
+         const q = query.toLowerCase().trim();
+        const filtered = activeNetwork.stations.filter(s => 
+        s.city.toLowerCase().includes(q) || s.address.toLowerCase().includes(q)
+        );
+        renderStationsTable(filtered);
         }
 
         function renderStationsTable(stations) {
