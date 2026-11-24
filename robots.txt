@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://benzinas-lt.vercel.app/sitemap.xml
