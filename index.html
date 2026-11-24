@@ -367,7 +367,9 @@
                                 <td class="mono">${formatPrice(s.a98)}</td>
                                 <td class="mono" style="color: #d97706;">${formatPrice(s.diesel)}</td>
                                 <td style="font-size: 0.78rem; color: var(--text-muted);">${s.time}</td>
-                                <td style="font-size: 0.78rem;">${s.source}</td>
+                                <td style="font-size: 0.78rem;">
+                                    ${s.source_url ? `<a href="${s.source_url}" target="_blank" rel="noopener" style="color: var(--accent-green-dark);">${s.source} ↗</a>` : s.source}
+                                </td>
                             </tr>
                         `).join('')}
                     </tbody>
