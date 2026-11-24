@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KuroPulsas.lt | Mažiausios benzino (A95, A98) ir dyzelino kainos Lietuvoje</title>
-    <meta name="description" content="Kasdien atnaujinamos mažiausios A95, A98 benzino ir dyzelino kainos Lietuvos degalinėse: Jozita, Neste, Circle K, Viada, Baltic Petroleum. Tikslus laikas ir šaltiniai.">
-    <meta name="keywords" content="benzino kainos, dyzelino kainos, pigiausias kuras, degalines lietuvoje, a95 kaina, a98 kaina, neste, circle k, jozita, viada">
-    <link rel="canonical" href="https://benzinas-lt.vercel.app">
-<link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Kasdien atnaujinamos mažiausios A95, A98 benzino ir dyzelino kainos Lietuvos degalinėse: Jozita, Neste, Circle K, Viada, Baltic Petroleum, Orlen. Tikslus adresas, laikas ir šaltiniai.">
+    <link rel="canonical" href="https://vercel.app">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,6 +29,14 @@
     <main class="container">
         <div class="summary-bar" id="daily-summary">Kraunama dienos apžvalga...</div>
 
+        <!-- PAGRINDINIS MIESTO IR RAJONO FILTRAS -->
+        <div class="top-city-bar">
+            <div style="font-weight: 700; font-size: 0.95rem;">📍 Pasirinkite miestą arba rajoną:</div>
+            <select id="global-city-select" class="city-select" onchange="changeGlobalCity(this.value)">
+                <option value="ALL">🇱🇹 Visa Lietuva (visi miestai)</option>
+            </select>
+        </div>
+
         <!-- Pirma lyderių lentelė (A95 arba Dyzelinas) -->
         <h2 class="section-title" id="title-primary-leaders">🏆 Mažiausios A95 benzino kainos šiandien</h2>
         <div class="leaders-grid" id="primary-leaders-grid"></div>
@@ -40,7 +47,7 @@
             <div class="leaders-grid" id="a98-leaders-grid"></div>
         </div>
 
-        <h2 class="section-title">⛽ Pagrindiniai degalinių tinklai Lietuvoje</h2>
+        <h2 class="section-title" id="title-networks">⛽ Degalinių tinklai</h2>
         <div class="networks-grid" id="networks-grid"></div>
     </main>
 
@@ -51,29 +58,51 @@
                 <h3 id="modal-title" style="font-size: 1.35rem; font-weight: 800;"></h3>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
-<input type="text" id="station-search" placeholder="🔍 Ieškoti pagal miestą arba gatvę (pvz., Panevėžys, Savanorių)..." 
-       oninput="searchStations(this.value)" 
-       style="width: 100%; padding: 10px 14px; margin-bottom: 12px; border: 1px solid var(--border-light); border-radius: 10px; font-size: 0.9rem;">
-<div class="city-filter" id="city-filter"></div>
+            <input type="text" id="station-search" placeholder="🔍 Ieškoti pagal miestą arba gatvę..." 
+                   oninput="searchStations(this.value)" 
+                   style="width: 100%; padding: 10px 14px; margin-bottom: 12px; border: 1px solid var(--border-light); border-radius: 10px; font-size: 0.9rem;">
+            <div class="city-filter" id="city-filter"></div>
             <div id="modal-table-container"></div>
         </div>
     </div>
 
     <script>
         let rawData = null;
-        let currentFuel = 'petrol'; // 'petrol' arba 'diesel'
-        let sortedNetworks = [];
-        let activeNetwork = null;
+        let currentFuel = 'petrol';
+        let selectedCity = 'ALL';
+        let activeDisplayNetworks = [];
+        let activeModalStations = [];
 
         async function loadPrices() {
             try {
                 const res = await fetch('prices.json?v=' + new Date().getTime());
                 rawData = await res.json();
                 document.getElementById('last-updated').textContent = `Atnaujinta: ${rawData.last_updated}`;
+                populateCityDropdown();
                 renderAll();
             } catch (err) {
                 console.error("Klaida kraunant kainas:", err);
             }
+        }
+
+        function populateCityDropdown() {
+            const citiesSet = new Set();
+            rawData.networks.forEach(net => {
+                (net.stations || []).forEach(st => {
+                    if (st.city && st.city.trim()) {
+                        citiesSet.add(st.city.trim());
+                    }
+                });
+            });
+            const sortedCities = Array.from(citiesSet).sort((a, b) => a.localeCompare(b, 'lt'));
+            const select = document.getElementById('global-city-select');
+            select.innerHTML = `<option value="ALL">🇱🇹 Visa Lietuva (${sortedCities.length} vietovės)</option>` +
+                sortedCities.map(c => `<option value="${c}">${c}</option>`).join('');
+        }
+
+        function changeGlobalCity(city) {
+            selectedCity = city;
+            renderAll();
         }
 
         function switchFuel(fuelType) {
@@ -98,6 +127,46 @@
             return val ? `${Number(val).toFixed(3)} €` : '—';
         }
 
+                function buildCityFilteredNetworks() {
+            return rawData.networks.map(net => {
+                const cityStations = selectedCity === 'ALL'
+                    ? (net.stations || [])
+                    : (net.stations || []).filter(s => (s.city || '').trim() === selectedCity);
+
+                if (cityStations.length === 0) return null;
+
+                const findBestStation = (fuelKey) => {
+                    const valid = cityStations.filter(s => typeof s[fuelKey] === 'number' && s[fuelKey] > 0);
+                    if (valid.length === 0) return null;
+                    valid.sort((a, b) => a[fuelKey] - b[fuelKey]);
+                    return valid[0];
+                };
+
+                const bestA95St = findBestStation('a95');
+                const bestA98St = findBestStation('a98');
+                const bestDzSt = findBestStation('diesel');
+
+                return {
+                    ...net,
+                    filteredStations: cityStations,
+                    calc_a95: bestA95St ? bestA95St.a95 : (selectedCity === 'ALL' ? net.best_a95 : null),
+                    loc_a95: bestA95St ? `${bestA95St.city}, ${bestA95St.address}` : 'Visame tinkle',
+                    time_a95: bestA95St ? bestA95St.time : net.price_time,
+                    src_a95: bestA95St ? bestA95St.source : net.source_name,
+
+                    calc_a98: bestA98St ? bestA98St.a98 : (selectedCity === 'ALL' ? net.best_a98 : null),
+                    loc_a98: bestA98St ? `${bestA98St.city}, ${bestA98St.address}` : 'Visame tinkle',
+                    time_a98: bestA98St ? bestA98St.time : net.price_time,
+                    src_a98: bestA98St ? bestA98St.source : net.source_name,
+
+                    calc_diesel: bestDzSt ? bestDzSt.diesel : (selectedCity === 'ALL' ? net.best_diesel : null),
+                    loc_diesel: bestDzSt ? `${bestDzSt.city}, ${bestDzSt.address}` : 'Visame tinkle',
+                    time_diesel: bestDzSt ? bestDzSt.time : net.price_time,
+                    src_diesel: bestDzSt ? bestDzSt.source : net.source_name
+                };
+            }).filter(Boolean);
+        }
+
         function renderAll() {
             if (!rawData) return;
 
@@ -106,58 +175,72 @@
                 ? rawData.summary_petrol 
                 : (rawData.summary_diesel || rawData.summary_petrol);
 
-            // Rūšiuojame tinklus pagal pasirinktą pagrindinę kuro rūšį (A95 arba Dyzelinas)
-            const sortField = isPetrol ? 'best_a95' : 'best_diesel';
-            sortedNetworks = [...rawData.networks].sort((a, b) => (a[sortField] || 99) - (b[sortField] || 99));
+            const cityLabel = selectedCity === 'ALL' ? 'Lietuvoje' : `mieste/rajone: ${selectedCity}`;
+            document.getElementById('title-networks').textContent = `⛽ Degalinių tinklai (${cityLabel})`;
+
+            const filtered = buildCityFilteredNetworks();
+            const sortKey = isPetrol ? 'calc_a95' : 'calc_diesel';
+            activeDisplayNetworks = filtered.sort((a, b) => (a[sortKey] || 99) - (b[sortKey] || 99));
 
             if (isPetrol) {
-                document.getElementById('title-primary-leaders').textContent = '🏆 Mažiausios A95 benzino kainos šiandien';
-                renderLeaderCards(sortedNetworks, 'best_a95', 'Benzinas A95', '', 'primary-leaders-grid');
+                document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios A95 benzino kainos (${cityLabel})`;
+                renderLeaderCards(activeDisplayNetworks, 'calc_a95', 'loc_a95', 'time_a95', 'src_a95', 'Benzinas A95', '', 'primary-leaders-grid');
 
-                // Antra lentelė: A98 lyderiai
                 document.getElementById('secondary-leaders-section').style.display = 'block';
-                const sortedA98 = [...rawData.networks].sort((a, b) => (a.best_a98 || 99) - (b.best_a98 || 99));
-                renderLeaderCards(sortedA98, 'best_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
+                const sortedA98 = [...filtered].sort((a, b) => (a.calc_a98 || 99) - (b.calc_a98 || 99));
+                renderLeaderCards(sortedA98, 'calc_a98', 'loc_a98', 'time_a98', 'src_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
             } else {
-                document.getElementById('title-primary-leaders').textContent = '🏆 Mažiausios dyzelino kainos šiandien';
-                renderLeaderCards(sortedNetworks, 'best_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
+                document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios dyzelino kainos (${cityLabel})`;
+                renderLeaderCards(activeDisplayNetworks, 'calc_diesel', 'loc_diesel', 'time_diesel', 'src_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
                 document.getElementById('secondary-leaders-section').style.display = 'none';
             }
 
-            renderNetworks(sortedNetworks);
+            renderNetworks(activeDisplayNetworks);
         }
 
-        function renderLeaderCards(networks, field, label, extraClass, containerId) {
-            const valid = networks.filter(n => n[field] !== null && n[field] !== undefined);
-            if (valid.length === 0) return;
+        function renderLeaderCards(networks, priceKey, locKey, timeKey, srcKey, label, extraClass, containerId) {
+            const valid = networks.filter(n => n[priceKey] !== null && n[priceKey] !== undefined);
+            if (valid.length === 0) {
+                document.getElementById(containerId).innerHTML = `<p style="color: var(--text-muted);">Šioje vietovėje šios kuro rūšies kainų dar neužfiksuota.</p>`;
+                return;
+            }
 
-            const minPrice = valid[0][field];
-            const leaders = valid.filter(n => n[field] <= minPrice + 0.015).slice(0, 2);
+            const minPrice = valid[0][priceKey];
+            const leaders = valid.filter(n => n[priceKey] <= minPrice + 0.015).slice(0, 2);
 
             document.getElementById(containerId).innerHTML = leaders.map(net => `
                 <div class="leader-card ${extraClass}">
                     <span class="leader-tag">Mažiausia žinoma kaina</span>
                     <div class="leader-network">${net.name}</div>
+                    <div class="leader-location">📍 ${net[locKey]}</div>
                     <div class="digital-price-box">
                         <span class="fuel-label">${label}</span>
-                        <span class="digital-number">${formatPrice(net[field])}</span>
+                        <span class="digital-number">${formatPrice(net[priceKey])}</span>
                     </div>
                     <div class="meta-info">
-                        <span>🕒 Fiksuota: <strong>${net.price_time}</strong></span>
-                        <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net.source_name} ↗</a></span>
+                        <span>🕒 Fiksuota: <strong>${net[timeKey]}</strong></span>
+                        <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net[srcKey]} ↗</a></span>
                     </div>
                 </div>
             `).join('');
         }
 
-        function renderNetworks(networks) {
+                function renderNetworks(networks) {
             const isPetrol = currentFuel === 'petrol';
+            if (networks.length === 0) {
+                document.getElementById('networks-grid').innerHTML = `<p>Šioje vietovėje duomenų nerasta.</p>`;
+                return;
+            }
+
             document.getElementById('networks-grid').innerHTML = networks.map((net, index) => {
                 const mainPriceHtml = isPetrol 
-                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.best_a95)}</span></div>
-                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.best_a98)}</span></div>`
-                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.best_diesel)}</span></div>
-                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.best_a95)}</span></div>`;
+                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.calc_a95)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.calc_a98)}</span></div>`
+                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.calc_diesel)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}</span></div>`;
+
+                const displayTime = isPetrol ? net.time_a95 : net.time_diesel;
+                const displayLoc = isPetrol ? net.loc_a95 : net.loc_diesel;
 
                 return `
                 <div class="network-card">
@@ -167,54 +250,57 @@
                         </div>
                         ${mainPriceHtml}
                         <div class="card-meta">
-                            <span>🕒 Kaina fiksuota: <strong>${net.price_time}</strong></span>
+                            <span>📍 Pigiausia: <strong>${displayLoc}</strong></span>
+                            <span>🕒 Fiksuota: <strong>${displayTime}</strong></span>
                             <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net.source_name} ↗</a></span>
                         </div>
                     </div>
                     <button class="stations-btn" onclick="openNetworkModal(${index})">
-                        Visos tinklo degalinės (${net.stations.length}) →
+                        Degalinių sąrašas (${net.filteredStations.length}) →
                     </button>
                 </div>
             `}).join('');
         }
 
         function openNetworkModal(index) {
-            activeNetwork = sortedNetworks[index];
-            if (!activeNetwork) return;
+            const net = activeDisplayNetworks[index];
+            if (!net) return;
 
-            document.getElementById('modal-title').textContent = `${activeNetwork.name} — degalinės ir kainos`;
-            const cities = ['Visi miestai', ...new Set(activeNetwork.stations.map(s => s.city))];
+            activeModalStations = net.filteredStations;
+            document.getElementById('station-search').value = '';
+            document.getElementById('modal-title').textContent = `${net.name} — degalinės ir kainos`;
+            
+            const cities = ['Visi miestai', ...new Set(activeModalStations.map(s => s.city))];
             document.getElementById('city-filter').innerHTML = cities.map((city, i) => `
                 <button class="filter-chip ${i === 0 ? 'active' : ''}" onclick="filterStations('${city}', this)">${city}</button>
             `).join('');
 
-            renderStationsTable(activeNetwork.stations);
+            renderStationsTable(activeModalStations);
             document.getElementById('stations-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
+
         function filterStations(city, btnElement) {
             document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
 
             const filtered = city === 'Visi miestai' 
-                ? activeNetwork.stations 
-                : activeNetwork.stations.filter(s => s.city === city);
+                ? activeModalStations 
+                : activeModalStations.filter(s => s.city === city);
             renderStationsTable(filtered);
         }
 
         function searchStations(query) {
-        if (!activeNetwork) return;
-         const q = query.toLowerCase().trim();
-        const filtered = activeNetwork.stations.filter(s => 
-        s.city.toLowerCase().includes(q) || s.address.toLowerCase().includes(q)
-        );
-        renderStationsTable(filtered);
+            const q = query.toLowerCase().trim();
+            const filtered = activeModalStations.filter(s => 
+                (s.city || '').toLowerCase().includes(q) || (s.address || '').toLowerCase().includes(q)
+            );
+            renderStationsTable(filtered);
         }
 
         function renderStationsTable(stations) {
             if (!stations || stations.length === 0) {
-                document.getElementById('modal-table-container').innerHTML = `<p>Šiame mieste duomenų nerasta.</p>`;
+                document.getElementById('modal-table-container').innerHTML = `<p>Degalinių nerasta.</p>`;
                 return;
             }
 
@@ -257,4 +343,3 @@
     </script>
 </body>
 </html>
-
