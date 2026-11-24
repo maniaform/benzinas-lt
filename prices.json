@@ -1,18 +1,6 @@
 {
-  "last_updated": "2026-11-24 17:43",
-  "summary_petrol": "Mažiausia A95 kaina – 1,03 € – fiksuota „Jozita“ (kiekis 7). Mažiausia A98 kaina – 1,71 € – fiksuota „Neste“ (kiekis 10).",
-  "summary_diesel": "Dyzelino mažiausia kaina – 0,88 € – fiksuota „Jozita“ (kiekis 7). Bendra situacija: kainos išlieka žemos, tačiau kai kurių stotelių (pvz., „Stateta“, „Bonsa“) kainos yra neįprastai aukštos.",
-  "networks": [
-    {
-      "id": "ecoil",
-      "name": "Ecoil",
-      "best_a95": null,
-      "best_a98": null,
-      "best_diesel": null,
-      "price_time": "2026-11-24 17:43",
-      "source_name": "Pricer.lt",
-      "source_url": "https://pricer.lt/posts/476-2022-m-sausio-pricerlt-degaliniu-kainu-tyrimas",
-      "stations": []
-    }
-  ]
+  "last_updated": "2026-11-24 20:00",
+  "summary_petrol": "Atnaujinami naujausi Lietuvos degalinių tinklų benzino duomenys...",
+  "summary_diesel": "Atnaujinami naujausi Lietuvos degalinių tinklų dyzelino duomenys...",
+  "networks": []
 }
