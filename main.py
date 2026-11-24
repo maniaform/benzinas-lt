@@ -1,3 +1,4 @@
+import time
 import json
 from datetime import datetime
 from scraper import TINKLAI, surinkti_tinklo_duomenis
@@ -37,6 +38,7 @@ def paleisti_kainu_atnaujinima():
         except Exception as e:
             print(f"  -> Klaida analizuojant {tinklas['name']}, paliekami seni duomenys: {e}")
             atnaujinti_tinklai.append(senas_tinklas)
+            time.sleep(8)
 
     santraukos = sugeneruoti_santraukas(atnaujinti_tinklai, dabar)
 
