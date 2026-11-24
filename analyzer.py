@@ -29,7 +29,7 @@ def siusti_groq(promptas, max_tokens=3000):
         if not atsakas.ok:
             print(f"Groq klaida ({modelis}):", atsakas.text)
             continue
-        return json.loads(atsakas.json()["choices"]["message"]["content"])
+        return json.loads(atsakas.json()["choices"][0]["message"]["content"])
         
     raise Exception("Visi Groq modeliai laikinai pasiekė limitus.")
 
