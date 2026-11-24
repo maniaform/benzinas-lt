@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-24 16:43",
+  "last_updated": "2026-11-24 17:43",
   "summary_petrol": "Mažiausia A95 kaina – 1,03 € – fiksuota „Jozita“ (kiekis 7). Mažiausia A98 kaina – 1,71 € – fiksuota „Neste“ (kiekis 10).",
   "summary_diesel": "Dyzelino mažiausia kaina – 0,88 € – fiksuota „Jozita“ (kiekis 7). Bendra situacija: kainos išlieka žemos, tačiau kai kurių stotelių (pvz., „Stateta“, „Bonsa“) kainos yra neįprastai aukštos.",
   "networks": [
@@ -45,36 +45,40 @@
           "address": "Gamyklos g. 1, 96155, Klaipėdos r. sav.",
           "a95": null,
           "a98": null,
-          "diesel": 101.02,
-          "time": "2026-11-24 16:43",
-          "source": "degalukaina.lt"
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Garliava",
           "address": "Vytauto g. 111A, 53253, Kauno r. sav.",
           "a95": null,
           "a98": null,
-          "diesel": 101.02,
-          "time": "2026-11-24 16:43",
-          "source": "degalukaina.lt"
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Kaunas",
           "address": "Baltų pr. 141A, 47126, Kauno m. sav.",
           "a95": null,
           "a98": null,
-          "diesel": 101.02,
-          "time": "2026-11-24 16:43",
-          "source": "degalukaina.lt"
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Kaunas",
           "address": "Betygalos g. 8, 47183, Kauno m. sav.",
           "a95": null,
           "a98": null,
-          "diesel": 101.02,
-          "time": "2026-11-24 16:43",
-          "source": "degalukaina.lt"
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -84,19 +88,10 @@
       "best_a95": 1.652,
       "best_a98": 1.71,
       "best_diesel": 1.747,
-      "price_time": "2026-04-11T09:30:00+02:00",
-      "source_name": "Kuro-Kainos.lt",
-      "source_url": "https://www.kuro-kainos.lt/degalu-kainos/neste",
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "degalukaina.lt",
+      "source_url": "https://degalukaina.lt",
       "stations": [
-        {
-          "city": null,
-          "address": null,
-          "a95": 1.728,
-          "a98": 1.813,
-          "diesel": 2.151,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
-        },
         {
           "city": "Siauliai",
           "address": "Tilzes gatve 72",
@@ -107,76 +102,14 @@
           "source": "Fuelo.net"
         },
         {
-          "city": "Vilnius",
-          "address": "Talino g. 2C",
-          "a95": 1.899,
-          "a98": null,
-          "diesel": 2.259,
-          "time": "2026-11-09 13:30:42",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Justiniškių g. 14B",
-          "a95": 1.899,
-          "a98": null,
-          "diesel": 2.259,
-          "time": "2026-11-09 11:40:20",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
           "city": "Kaunas",
-          "address": "Jonavos g. 110",
-          "a95": 1.729,
+          "address": "Kuršių g. 1, 48106, Kauno m. sav.",
+          "a95": null,
           "a98": null,
-          "diesel": 2.129,
-          "time": "2026-11-08 17:52:12",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "P. Lukšio g. 22",
-          "a95": 1.729,
-          "a98": null,
-          "diesel": 2.139,
-          "time": "2026-11-08 12:43:34",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Pilaitės pr. 27",
-          "a95": 1.729,
-          "a98": null,
-          "diesel": 2.139,
-          "time": "2026-11-07 20:59:22",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Geležinio Vilko g. 37A",
-          "a95": 1.819,
-          "a98": null,
-          "diesel": 2.234,
-          "time": "2026-10-31 09:12:41",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Savanorių pr. 187",
-          "a95": 1.879,
-          "a98": null,
-          "diesel": 2.279,
-          "time": "2026-10-30 07:11:00",
-          "source": "Kuro-Kainos.lt"
-        },
-        {
-          "city": "Vilnius",
-          "address": "Savanorių pr. 220A",
-          "a95": 1.879,
-          "a98": null,
-          "diesel": 2.279,
-          "time": "2026-10-30 07:10:18",
-          "source": "Kuro-Kainos.lt"
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -186,19 +119,10 @@
       "best_a95": 1.759,
       "best_a98": 1.858,
       "best_diesel": 1.026,
-      "price_time": "2026-04-11T09:30:00+02:00",
-      "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "price_time": "2026-11-24T16:20:00+02:00",
+      "source_name": "degalukaina.lt",
+      "source_url": "https://degalukaina.lt",
       "stations": [
-        {
-          "city": null,
-          "address": null,
-          "a95": 1.759,
-          "a98": 1.858,
-          "diesel": 2.159,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
-        },
         {
           "city": "Vilnius",
           "address": null,
@@ -207,6 +131,16 @@
           "diesel": 1.026,
           "time": "2026-11-24T16:20:00+02:00",
           "source": "Fuelo.net"
+        },
+        {
+          "city": "Didžiosios Riešės k.",
+          "address": "Molėtų g. 15, 14262, Vilniaus r. sav.",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -216,18 +150,19 @@
       "best_a95": 1.788,
       "best_a98": 1.824,
       "best_diesel": 2.176,
-      "price_time": "2026-04-11T09:30:00+02:00",
-      "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "price_time": "2026-11-20",
+      "source_name": "degalukaina.lt",
+      "source_url": "https://degalukaina.lt",
       "stations": [
         {
-          "city": null,
-          "address": null,
-          "a95": 1.788,
-          "a98": 1.824,
-          "diesel": 2.176,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
+          "city": "Mažeikiai",
+          "address": "Montuotojų g. 2A, 89101, Mažeikių r. sav.",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -237,18 +172,19 @@
       "best_a95": 1.736,
       "best_a98": 1.776,
       "best_diesel": 2.098,
-      "price_time": "2026-04-11T09:30:00+02:00",
-      "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "price_time": "2026-11-20",
+      "source_name": "degalukaina.lt",
+      "source_url": "https://degalukaina.lt",
       "stations": [
         {
-          "city": null,
-          "address": null,
-          "a95": 1.736,
-          "a98": 1.776,
-          "diesel": 2.098,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
+          "city": "Marijampolė",
+          "address": "P. Armino g. 69, 68127, Marijampolės sav.",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -258,19 +194,10 @@
       "best_a95": 1.734,
       "best_a98": 1.799,
       "best_diesel": 1.026,
-      "price_time": "2026-04-11T09:30:00+02:00",
+      "price_time": "2026-11-24T16:20:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "source_url": "https://lt.fuelo.net/prices/date/2025-12-04?lang=en",
       "stations": [
-        {
-          "city": null,
-          "address": null,
-          "a95": 1.734,
-          "a98": 1.799,
-          "diesel": 2.151,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
-        },
         {
           "city": "Vilnius",
           "address": null,
@@ -290,18 +217,8 @@
       "best_diesel": 2.142,
       "price_time": "2026-04-11T09:30:00+02:00",
       "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
-      "stations": [
-        {
-          "city": null,
-          "address": null,
-          "a95": 1.707,
-          "a98": 1.728,
-          "diesel": 2.142,
-          "time": "2026-04-11T09:30:00+02:00",
-          "source": "Fuelo.net"
-        }
-      ]
+      "source_url": "https://lt.fuelo.net/prices/date/2025-12-04?lang=en",
+      "stations": []
     },
     {
       "id": "alausa",
@@ -321,8 +238,8 @@
       "best_a98": null,
       "best_diesel": null,
       "price_time": "2026-11-24T16:20:00+02:00",
-      "source_name": "Fuelo.net",
-      "source_url": "https://lt.fuelo.net/?lang=lt",
+      "source_name": "degalukaina.lt",
+      "source_url": "https://degalukaina.lt",
       "stations": [
         {
           "city": "Siauliai",
@@ -332,6 +249,16 @@
           "diesel": null,
           "time": "2026-11-24T16:20:00+02:00",
           "source": "Fuelo.net"
+        },
+        {
+          "city": "Šilalė",
+          "address": "Rytinio kelio g. 19, 75133, Šilalės r. sav.",
+          "a95": null,
+          "a98": null,
+          "diesel": null,
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -383,45 +310,49 @@
       "best_a95": 78.79,
       "best_a98": null,
       "best_diesel": null,
-      "price_time": "2026-11-24 16:43",
+      "price_time": "2026-11-20",
       "source_name": "degalukaina.lt",
       "source_url": "https://degalukaina.lt",
       "stations": [
         {
           "city": "Alytaus k.",
           "address": "64464, Alytaus r. sav.",
-          "a95": 78.79,
+          "a95": null,
           "a98": null,
           "diesel": null,
-          "time": "2026-11-24 16:43",
-          "source": "degalukaina.lt"
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Alytus",
           "address": "Santaikos g. 28 B, 62123, Alytaus m. sav.",
-          "a95": 78.79,
+          "a95": null,
           "a98": null,
           "diesel": null,
-          "time": "2026-11-24 16:43",
-          "source": "Degalukaina.lt"
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Gustaičių k.",
           "address": "59296, Prienų r. sav.",
-          "a95": 78.79,
+          "a95": null,
           "a98": null,
           "diesel": null,
-          "time": "2026-11-24 16:43",
-          "source": "Degalukaina.lt"
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         },
         {
           "city": "Kaniūkų k.",
           "address": "64104, Alytaus r. sav.",
-          "a95": 78.79,
+          "a95": null,
           "a98": null,
           "diesel": null,
-          "time": "2026-11-24 16:43",
-          "source": "Degalukaina.lt"
+          "time": "2026-11-20",
+          "source": "degalukaina.lt",
+          "source_url": "https://degalukaina.lt"
         }
       ]
     },
@@ -456,6 +387,17 @@
           "source": "degalukaina.lt"
         }
       ]
+    },
+    {
+      "id": "ecoil",
+      "name": "Ecoil",
+      "best_a95": null,
+      "best_a98": null,
+      "best_diesel": null,
+      "price_time": "2026-11-24 17:43",
+      "source_name": "Pricer.lt",
+      "source_url": "https://pricer.lt/posts/476-2022-m-sausio-pricerlt-degaliniu-kainu-tyrimas",
+      "stations": []
     }
   ]
 }
