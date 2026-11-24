@@ -61,6 +61,8 @@ def paleisti_kainu_atnaujinima():
         if not raw_name:
             continue
         net_name = suvienodinti_tinkla(raw_name)
+        if not net_name:
+            continue
         net_id = sukurti_tinklo_id(net_name)
         
         if net_id not in tinklai_dict:
