@@ -121,11 +121,17 @@ def paleisti_kainu_atnaujinima():
     
     atnaujinti_tinklai = []
     for net_id, net in tinklai_dict.items():
-        # Paliekame tik tas degalines, kurių kaina fiksuota per paskutines 7 dienas
-        sviezios_stations = [
-            s for s in net.get("stations", [])
-            if (s.get("time") or dabar)[:10] >= septynios_dienos_atgal
-        ]
+        sviezios_stations = []
+        for s in net.get("stations", []):
+            laikas_str = str(s.get("time") or dabar)
+            # Jei laikas prasideda metais (pvz., 2026-...), tikriname ar ne senesnis nei 7 d.
+            if laikas_str.startswith("202"):
+                if laikas_str[:10] >= septynios_dienos_atgal:
+                    sviezios_stations.append(s)
+            else:
+                # Jei nurodyta tik valanda (pvz., 14:20), laikome įrašą šviežiu
+                sviezios_stations.append(s)
+                
         net["stations"] = sviezios_stations
         stations = sviezios_stations
     
