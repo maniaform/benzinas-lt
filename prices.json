@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-24 14:27",
-  "summary_petrol": "Mažiausios benzino kainos – A95 1,03 €/l ir A98 1,449 €/l – fiksuojamos „Jozita“ degalinėse (7 stotelės).",
-  "summary_diesel": "Dyzelinas pigiausias – 0,88 €/l – taip pat „Jozita“ stotelėse, kitur kainos svyruoja nuo 1,379 €/l iki 1,419 €/l.",
+  "last_updated": "2026-11-24 15:16",
+  "summary_petrol": "Mažiausia A95 kaina – 1,03 €/l, fiksuota Jozitoje. Mažiausia A98 – 1,449 €/l, taip pat Jozitoje.",
+  "summary_diesel": "Mažiausia dyzelino kaina – 0,88 €/l, fiksuota Jozitoje. Kiti tiekėjai siūlo žymiai brangesnį dyzelį (nuo 1,379 €/l iki 1,419 €/l).",
   "networks": [
     {
       "id": "jozita",
@@ -9,7 +9,7 @@
       "best_a95": 1.03,
       "best_a98": 1.449,
       "best_diesel": 0.88,
-      "price_time": "2026-11-24 14:27",
+      "price_time": "2026-11-24 07:05",
       "source_name": "Delfi verslas / pricer.lt",
       "source_url": "https://www.delfi.lt/verslas/transportas/degalu-kainu-reitingas-kur-pigiausia-75278701",
       "stations": [
