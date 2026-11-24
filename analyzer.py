@@ -12,7 +12,7 @@ def siusti_groq(promptas, max_tokens=3000):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "llama-3.3-70b-versatile",
+        "model": "openai/gpt-oss-120b",
         "messages": [{"role": "user", "content": promptas}],
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
