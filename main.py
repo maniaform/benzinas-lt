@@ -49,12 +49,11 @@ def paleisti_kainu_atnaujinima():
             print(f"  -> Klaida pakete #{i}: {e}")
         time.sleep(15)
 
-    # Sugrupuojame visas rastas degalines pagal suvienodintus tinklus
+ # Sugrupuojame visas rastas degalines pagal suvienodintus tinklus (išsaugodami ir senas!)
     tinklai_dict = {}
     for net in seni_duomenys.get("networks", []):
         tinklai_dict[net["id"]] = net
 
-    atnaujinti_tinklu_id = set()
     for st in visos_naujos_degalines:
         raw_name = (st.get("network") or "").strip()
         if not raw_name:
@@ -62,7 +61,7 @@ def paleisti_kainu_atnaujinima():
         net_name = suvienodinti_tinkla(raw_name)
         net_id = sukurti_tinklo_id(net_name)
         
-        if net_id not in atnaujinti_tinklu_id:
+        if net_id not in tinklai_dict:
             tinklai_dict[net_id] = {
                 "id": net_id,
                 "name": net_name,
@@ -70,21 +69,41 @@ def paleisti_kainu_atnaujinima():
                 "best_a98": None,
                 "best_diesel": None,
                 "price_time": dabar,
-                "source_name": "Fuelo.net",
-                "source_url": "https://" + "lt.fuelo" + ".net/?lang=lt",
+                "source_name": st.get("source") or "Pricer.lt / Fuelo.net",
+                "source_url": st.get("source_url") or "https://" + "lt.fuelo" + ".net/?lang=lt",
                 "stations": []
             }
-            atnaujinti_tinklu_id.add(net_id)
         
-        tinklai_dict[net_id]["stations"].append({
-            "city": st.get("city", ""),
-            "address": st.get("address", ""),
+        naujas_miestas = (st.get("city") or "").strip()
+        naujas_adresas = (st.get("address") or "").strip()
+        if not naujas_adresas:
+            continue
+
+        naujas_irasas = {
+            "city": naujas_miestas,
+            "address": naujas_adresas,
             "a95": st.get("a95"),
             "a98": st.get("a98"),
             "diesel": st.get("diesel"),
-            "time": st.get("time", dabar),
-            "source": st.get("source", "Fuelo.net")
-        })
+            "time": st.get("time") or dabar,
+            "source": st.get("source") or "Fuelo.net"
+        }
+
+        # Tikriname, ar degalinė tokiu adresu jau yra – jei taip, atnaujiname jos kainą, jei ne – pridedame!
+        rasta_sena = False
+        for idx, esama in enumerate(tinklai_dict[net_id]["stations"]):
+            if esama.get("address", "").lower() == naujas_adresas.lower():
+                tinklai_dict[net_id]["stations"][idx] = naujas_irasas
+                rasta_sena = True
+                break
+        if not rasta_sena:
+            tinklai_dict[net_id]["stations"].append(naujas_irasas)
+
+        # Atnaujiname pagrindinį tinklo šaltinį, jei atėjo šviežesnis
+        if st.get("source_url"):
+            tinklai_dict[net_id]["source_url"] = st.get("source_url")
+        if st.get("source"):
+            tinklai_dict[net_id]["source_name"] = st.get("source")
 
     # Apskaičiuojame mažiausias kainas kiekvienam tinklui
     atnaujinti_tinklai = []
