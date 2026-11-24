@@ -1,7 +1,7 @@
 import re
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from scraper import surinkti_visos_lietuvos_paketus
 from analyzer import istraukti_paketo_degalines, sugeneruoti_santraukas
 from seo import generuoti_kuro_seo
@@ -90,9 +90,10 @@ def paleisti_kainu_atnaujinima():
             "a98": st.get("a98"),
             "diesel": st.get("diesel"),
             "time": st.get("time") or dabar,
-            "source": st.get("source") or "Fuelo.net"
+            "source": st.get("source") or "Fuelo.net",
+            "source_url": st.get("source_url") or "https://" + "lt.fuelo" + ".net/?lang=lt"
         }
-
+        
         # Tikriname, ar degalinė tokiu adresu jau yra – jei taip, atnaujiname jos kainą, jei ne – pridedame!
         rasta_sena = False
         for idx, esama in enumerate(tinklai_dict[net_id]["stations"]):
@@ -109,6 +110,18 @@ def paleisti_kainu_atnaujinima():
         if st.get("source"):
             tinklai_dict[net_id]["source_name"] = st.get("source")
 
+    septynios_dienos_atgal = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+    
+    atnaujinti_tinklai = []
+    for net_id, net in tinklai_dict.items():
+        # Paliekame tik tas degalines, kurių kaina fiksuota per paskutines 7 dienas
+        sviezios_stations = [
+            s for s in net.get("stations", [])
+            if (s.get("time") or dabar)[:10] >= septynios_dienos_atgal
+        ]
+        net["stations"] = sviezios_stations
+        stations = sviezios_stations
+    
     # Apskaičiuojame mažiausias kainas kiekvienam tinklui
     atnaujinti_tinklai = []
     for net_id, net in tinklai_dict.items():
