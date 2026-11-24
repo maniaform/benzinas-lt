@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-24 15:16",
-  "summary_petrol": "Mažiausia A95 kaina – 1,03 €/l, fiksuota Jozitoje. Mažiausia A98 – 1,449 €/l, taip pat Jozitoje.",
-  "summary_diesel": "Mažiausia dyzelino kaina – 0,88 €/l, fiksuota Jozitoje. Kiti tiekėjai siūlo žymiai brangesnį dyzelį (nuo 1,379 €/l iki 1,419 €/l).",
+  "last_updated": "2026-11-24 16:07",
+  "summary_petrol": "Mažiausios A95 (1.03 €) ir A98 (1.449 €) kainos fiksuotos „Jozita“ degalinėje.",
+  "summary_diesel": "Dyzelinas pigiausias – 0.88 € – taip pat „Jozita“, kitose stotyse kainos gerokai aukštesnės.",
   "networks": [
     {
       "id": "jozita",
