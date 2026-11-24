@@ -1,69 +1,83 @@
-import os
+def istraukti_paketo_degalines(paketo_nr, paketo_tekstas, dabar_str):
+    promptas = f"""Tu esi tikslus Lietuvos degalų duomenų analitikas. Dabartinis laikas: {dabar_str}.
+Iš šio Lietuvos miestų ir rajonų degalinių duomenų paketo (#{paketo_nr}) ištrauk VISAS degalines ir jų kainas (A95, A98, Dyzelinas).
+
+TAISYKLĖS:
+1. Priskirk kiekvienai degalinei tikslų tinklo pavadinimą ("network" – pvz., "Jozita", "Neste", "Circle K", "Viada", "Baltic Petroleum", "Orlen", "Emsi", "Alauša", "Saurida", "Stateta", "Skulas" ar kt.).
+2. Nurodyk tikslų miestą arba rajoną ("city") ir tikslų adresą ("address", įskaitant magistralių kilometrus, jei nurodyta).
+3. Naudok TIK realius skaičius iš teksto (jei kaina nenurodyta – rašyk null).
+4. Įrašyk tikslų fiksavimo laiką ("time") ir šaltinį ("source": "Fuelo.net").
+
+DUOMENŲ PAKETAS:
+{paketo_tekstas}
+
+Grąžink TIK gryną JSON objektą su vienu raktu "stations" (sąrašas objektų su raktais: "network", "city", "address", "a95", "a98", "diesel", "time", "source")."""
+
+    return siusti_groq(promptas, max_tokens=3800).get("stations", [])
+Use code with caution.
+
+3. Atnaujink main.py (Prijungia visos Lietuvos paketus ir pašalina dublikatus)
+
+Pakeisk main.py failo viršutinę dalį (iki # Sugrupuojame visas rastas degalines pagal tinklus), kad jis naudotų naująją surinkti_visos_lietuvos_paketus() funkciją ir automatiškai suvienodintų tinklų pavadinimus (pvz., kad VIADA ir Viada nebūtų du skirtingi tinklai):
+python
+import re
 import json
 import time
-import requests
+from datetime import datetime
+from scraper import surinkti_visos_lietuvos_paketus
+from analyzer import istraukti_paketo_degalines, sugeneruoti_santraukas
+from seo import generuoti_kuro_seo
 
-GROQ_KEY = os.environ.get("GROQ_API_KEY")
-GROQ_URL = "https://" + "api.groq" + ".com/openai/v1/chat/completions"
+def suvienodinti_tinkla(pavadinimas):
+    p = pavadinimas.strip()
+    zemas = p.lower()
+    if "circle" in zemas: return "Circle K"
+    if "neste" in zemas: return "Neste"
+    if "viada" in zemas: return "Viada"
+    if "baltic" in zemas: return "Baltic Petroleum"
+    if "jozita" in zemas: return "Jozita"
+    if "orlen" in zemas: return "Orlen"
+    if "emsi" in zemas: return "Emsi"
+    if "alau" in zemas: return "Alauša"
+    if "saurida" in zemas: return "Saurida"
+    if "stateta" in zemas: return "Stateta"
+    return p.title()
 
-def siusti_groq(promptas, max_tokens=3000):
-    headers = {
-        "Authorization": f"Bearer {GROQ_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "openai/gpt-oss-120b",
-        "messages": [{"role": "user", "content": promptas}],
-        "temperature": 0.1,
-        "response_format": {"type": "json_object"},
-        "max_tokens": max_tokens
-    }
-    
-    for bandymas in range(2):
-        atsakas = requests.post(GROQ_URL, headers=headers, json=payload, timeout=45)
-        if atsakas.status_code == 429 and bandymas == 0:
-            print("  -> Pasiektas Groq limitas, laukiame 25 sek. ir kartojame...")
-            time.sleep(25)
-            continue
-        if not atsakas.ok:
-            print("Groq klaidos detalės:", atsakas.text)
-        atsakas.raise_for_status()
-        return json.loads(atsakas.json()["choices"][0]["message"]["content"])
+def sukurti_tinklo_id(pavadinimas):
+    p = pavadinimas.lower().strip()
+    lt = {'ą': 'a', 'č': 'c', 'ę': 'e', 'ė': 'e', 'į': 'i', 'š': 's', 'ų': 'u', 'ū': 'u', 'ž': 'z'}
+    for k, v in lt.items():
+        p = p.replace(k, v)
+    return re.sub(r'[^a-z0-9]+', '-', p).strip('-')
 
-def analizuoti_viena_tinkla(tinklas_info, surinktas_tekstas, senas_tinklas, dabar_str):
-    promptas = f"""Tu esi tikslus Lietuvos degalų rinkos duomenų analitikas. Dabartinis laikas: {dabar_str}.
-Analizuoji TIK VIENĄ degalinių tinklą: **{tinklas_info['name']}** (id: "{tinklas_info['id']}").
+def paleisti_kainu_atnaujinima():
+    dabar = datetime.now().strftime("%Y-%m-%d %H:%M")
+    print(f"[{dabar}] Pradedamas visos Lietuvos (miestų ir rajonų) degalinių kainų surinkimas...")
 
-UŽDUOTIS:
-Iš pateiktų šaltinių ištrauk VISAS minimas **{tinklas_info['name']}** degalines visoje Lietuvoje (Vilnius, Kaunas, Klaipėda, Šiauliai, Panevėžys, Alytus, Marijampolė, Utena, Telšiai, Tauragė, rajonai) ir jų A95, A98 benzino bei Dyzelino kainas.
+    with open("prices.json", "r", encoding="utf-8") as f:
+        seni_duomenys = json.load(f)
 
-GRIEŽTOS TAISYKLĖS:
-1. JOKIŲ HALIUCINACIJŲ: Naudok TIK realius skaičius ir adresus iš šaltinių. Jei kuriai nors degalinei kaina nenurodyta, įrašyk null.
-2. Nustatyk mažiausią rastą tinklo kainą ("best_a95", "best_a98", "best_diesel"). Jei naujų kainų šaltiniuose neradai – palik senus skaičius iš SENŲ TINKLO DUOMENŲ.
-3. Įrašyk tikslų kainos fiksavimo laiką ("price_time") ir šaltinio nuorodą ("source_url", "source_name").
-4. Į sąrašą "stations" sudėk VISAS rastas šio tinklo degalines (iki 40 degalinių), sujungdamas naujas su senomis, kad sąrašas būtų kuo išsamesnis.
+    paketai = surinkti_visos_lietuvos_paketus()
+    print(f"Suformuoti {len(paketai)} duomenų paketai iš visos Lietuvos.")
 
-SENI TINKLO DUOMENYS:
-{json.dumps(senas_tinklas, ensure_ascii=False)}
+    visos_naujos_degalines = []
+    for i, paketas in enumerate(paketai, 1):
+        print(f"Analizuojamas paketas {i}/{len(paketai)}...")
+        try:
+            rastos = istraukti_paketo_degalines(i, paketas, dabar)
+            visos_naujos_degalines.extend(rastos)
+            print(f"  -> Pakete #{i} rasta {len(rastos)} degalinių.")
+        except Exception as e:
+            print(f"  -> Klaida pakete #{i}: {e}")
+        time.sleep(15)
+Use code with caution.
+(Likusi main.py dalis lieka lygiai tokia pati – tik nepamiršk, kad ten, kur imamasi tinklo pavadinimas net_name, panaudotum net_name = suvienodinti_tinkla(st.get("network", "")), o paskutinėje eilutėje prieš galutiniai_tinklai.append(net) liktų net["price_time"] = stations.get("time", dabar) su nulio indeksu ``!).
 
-NAUJI SURINKTI ŠALTINIAI ŠIAM TINKLUI:
-{surinktas_tekstas}
+Ką gausi po šio atnaujinimo:
 
-Grąžink TIK gryną JSON objektą su raktais: "id", "name", "best_a95", "best_a98", "best_diesel", "price_time", "source_name", "source_url", "stations" (kiekvienas elementas: "city", "address", "a95", "a98", "diesel", "time", "source")."""
+• Sistema peržvelgs visus Lietuvos miestus, rajonų centrus ir magistralių degalines.
+• Paieškos laukelyje svetainėje vairuotojas galės įvesti „Kėdainiai“, „Ukmergė“, „Plungė“, „Alytus“, „A1“ ar bet kurį kitą rajoną ir iškart matyti ten esančių degalinių kainas.
+• Visi tinklai (Viada, Orlen, Circle K, Neste, Jozita, Baltic Petroleum, Emsi, Alauša, Saurida, Stateta) bus tvarkingai suvienodinti be dublikatų.
+Atnaujink scraper.py, analyzer.py ir main.py failus GitHub saugykloje ir paleisk Run workflow – parašyk, kiek iš viso degalinių ir iš kokių Lietuvos rajonų dabar matoma svetainėje!
+AI responses may include mistakes. Learn more
 
-    return siusti_groq(promptas, max_tokens=3200)
-
-def sugeneruoti_santraukas(tinklai_sarasas, dabar_str):
-    trumpas_vaizdas = [
-        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel")}
-        for t in tinklai_sarasas
-    ]
-    promptas = f"""Remdamasis šiais šiandienos ({dabar_str}) degalų kainų duomenimis Lietuvoje:
-{json.dumps(trumpas_vaizdas, ensure_ascii=False)}
-
-Parašyk dvi trumpas (1–2 sakinių), aiškias apžvalgas vairuotojams lietuvių kalba:
-1. "summary_petrol" – apie benzino (A95 ir A98) mažiausias kainas ir kur jos fiksuojamos.
-2. "summary_diesel" – apie dyzelino mažiausias kainas ir bendrą situaciją.
-
-Grąžink TIK gryną JSON objektą be jokio papildomo teksto su raktais "summary_petrol" ir "summary_diesel"."""
-    return siusti_groq(promptas, max_tokens=350)
