@@ -28,7 +28,7 @@ def siusti_groq(promptas, max_tokens=3000):
         if not atsakas.ok:
             print("Groq klaidos detalės:", atsakas.text)
         atsakas.raise_for_status()
-        return json.loads(atsakas.json()["choices"]["message"]["content"])
+        return json.loads(atsakas.json()["choices"][0]["message"]["content"])
 
 def analizuoti_viena_tinkla(tinklas_info, surinktas_tekstas, senas_tinklas, dabar_str):
     promptas = f"""Tu esi tikslus Lietuvos degalų rinkos duomenų analitikas. Dabartinis laikas: {dabar_str}.
