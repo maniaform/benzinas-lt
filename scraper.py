@@ -11,14 +11,14 @@ def surinkti_visos_lietuvos_paketus():
     url = "https://" + "api.tavily" + ".com/search"
     
     uzklausos = [
+        "site:lt.fuelo.net Viada degalines kainos Vilnius Kaunas Klaipeda Siauliai Panevezys Alytus",
         "site:lt.fuelo.net degalines benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
         "site:lt.fuelo.net degalines benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole Utena Telsiai",
-        "site:lt.fuelo.net Jozita Viada Orlen Baltic Petroleum Emsi Alausa degalines kainos",
+        "site:lt.fuelo.net Jozita Orlen Baltic Petroleum Emsi Alausa degalines kainos",
         "site:pricer.lt degalu kainos benzinas dyzelinas Lietuvoje Circle K Neste Viada Jozita",
-        "degalu kainos Lietuvoje benzinas 95 dyzelinas apzvalga Circle K Neste Viada Orlen Jozita",
-        "pigiausias benzinas dyzelinas degalinese Lietuvoje kainos adresai"
+        "degalu kainos Lietuvoje benzinas 95 dyzelinas apzvalga Circle K Neste Viada Orlen Jozita"
     ]
-
+    
     visi_tekstai = []
     for q in uzklausos:
         print(f"Ieškoma per Tavily: {q}...")
