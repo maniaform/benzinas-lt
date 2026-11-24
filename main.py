@@ -128,7 +128,11 @@ def paleisti_kainu_atnaujinima():
             net["price_time"] = stations[0].get("time", dabar)
         atnaujinti_tinklai.append(net)
 
-    santraukos = sugeneruoti_santraukas(atnaujinti_tinklai, dabar)
+    try:
+        santraukos = sugeneruoti_santraukas(atnaujinti_tinklai, dabar)
+    except Exception as e:
+        print("Nepavyko sugeneruoti naujos teksto santraukos, paliekama sena:", e)
+        santraukos = {}
 
     galutinis = {
         "last_updated": dabar,
