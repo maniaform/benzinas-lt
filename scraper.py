@@ -10,54 +10,50 @@ def isvalyti_html(html_tekstas):
     tekstas = re.sub(r'\s+', ' ', tekstas).strip()
     return tekstas
 
-def gauti_visas_lietuvos_vietoves():
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    vietoves = set()
-    try:
-        res = requests.get(f"{BASE_FUELO}/?lang=lt", headers=headers, timeout=15)
-        if res.ok:
-            # Ištraukiame visas nuorodas į miestus ir rajonus (/city/...)
-            rastos = re.findall(r'/city/([a-zA-Z0-9_-]+)', res.text)
-            for v in rastos:
-                vietoves.add(v)
-    except Exception as e:
-        print("Klaida renkant vietovių sąrašą:", e)
-
-    # Pridedame ir svarbiausius rajonų centrus, jei jų nebuvo pagrindiniame sąraše
-    papildomi_rajonai = [
-        "Vilnius", "Kaunas", "Klaipeda", "Siauliai", "Panevezys", "Alytus", "Marijampole",
-        "Mazeikiai", "Jonava", "Utena", "Kedainiai", "Telsiai", "Visaginas", "Taurage",
-        "Ukmerge", "Plunge", "Silute", "Kretinga", "Radviliskis", "Druskininkai", "Palanga",
-        "Raseiniai", "Elektrenai", "Jurbarkas", "Garliava", "Kursenai", "Birzai", "Vilkaviskis",
-        "Garzdzai", "Rokiskis", "Anyksciai", "Prienu", "Varena", "Kaisiadorys", "Pasvalys",
-        "Kupiskis", "Zarasai", "Siauliu-rajonas", "Kauno-rajonas", "Vilniaus-rajonas", "Klaipedos-rajonas"
-    ]
-    for r in papildomi_rajonai:
-        vietoves.add(r)
-
-    return sorted(list(vietoves))
-
 def surinkti_visos_lietuvos_paketus():
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    vietoves = gauti_visas_lietuvos_vietoves()
-    print(f"Iš viso rasta {len(vietoves)} Lietuvos miestų ir rajonų patikrai.")
-
+    nuorodos = set()
+    
+    # 1. Paimame pagrindinius Lietuvos puslapius ir ištraukiame visas tikras vietovių nuorodas
+    pradiniai = [
+        f"{BASE_FUELO}/?lang=lt",
+        f"{BASE_FUELO}/fuel/gasoline?lang=lt",
+        f"{BASE_FUELO}/fuel/diesel?lang=lt"
+    ]
+    
     visi_tekstai = []
-    for v in vietoves:
-        url = f"{BASE_FUELO}/city/{v}?lang=lt"
+    for p_url in pradiniai:
+        try:
+            res = requests.get(p_url, headers=headers, timeout=15)
+            if res.ok:
+                # Ištraukiame visas vidines miestų/rajonų nuorodas (/city/...)
+                rasti_keliai = re.findall(r'href=["\'](/city/[^"\'\?]+)', res.text)
+                for k in rasti_keliai:
+                    nuorodos.add(f"{BASE_FUELO}{k}?lang=lt")
+                
+                svarus = isvalyti_html(res.text)
+                visi_tekstai.append(f"[Lietuvos suvestinė]: {svarus[:6000]}")
+        except Exception as e:
+            print("Pradinės paieškos klaida:", e)
+
+    print(f"Rastos {len(nuorodos)} tikros Lietuvos miestų ir rajonų nuorodos.")
+
+    # 2. Nuskaitome visas atrastas miestų ir rajonų nuorodas
+    for url in sorted(list(nuorodos)):
         try:
             res = requests.get(url, headers=headers, timeout=10)
-            if res.ok and "A95" in res.text:
+            if res.ok and ("95" in res.text or "Dyzelinas" in res.text):
                 svarus = isvalyti_html(res.text)
-                # Paimame tik aktualią lentelės dalį (be puslapio meniu ir poraštės)
-                pradzia = svarus.find("Degalinė") if "Degalinė" in svarus else 0
-                fragmentas = svarus[pradzia:pradzia + 2200]
-                visi_tekstai.append(f"[{v}]: {fragmentas}")
+                # Paimame tik duomenų lentelės dalį (be puslapio meniu)
+                pradzia = svarus.find("Degalinė") if "Degalinė" in svarus else 300
+                fragmentas = svarus[pradzia:pradzia + 2500]
+                if len(fragmentas) > 100:
+                    visi_tekstai.append(f"[{url}]: {fragmentas}")
         except Exception:
             continue
-        time.sleep(0.3)
+        time.sleep(0.25)
 
-    # Sugrupuojame surinktus rajonus į paketus po ~8500 simbolių, kad tilptų į DI langą
+    # 3. Sugrupuojame į kompaktiškus paketus po ~8500 simbolių
     paketai = []
     dabartinis_paketas = ""
     for t in visi_tekstai:
@@ -69,5 +65,6 @@ def surinkti_visos_lietuvos_paketus():
     if dabartinis_paketas:
         paketai.append(dabartinis_paketas)
 
+    return paketai
     return paketai
     
