@@ -92,7 +92,7 @@ def paleisti_kainu_atnaujinima():
         # Tikriname, ar degalinė tokiu adresu jau yra – jei taip, atnaujiname jos kainą, jei ne – pridedame!
         rasta_sena = False
         for idx, esama in enumerate(tinklai_dict[net_id]["stations"]):
-            if esama.get("address", "").lower() == naujas_adresas.lower():
+            if (esama.get("address") or "").lower() == naujas_adresas.lower():
                 tinklai_dict[net_id]["stations"][idx] = naujas_irasas
                 rasta_sena = True
                 break
