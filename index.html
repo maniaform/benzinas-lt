@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KuroPulsas.lt | Mažiausios benzino (A95, A98) ir dyzelino kainos Lietuvoje</title>
+    <meta name="description" content="Kasdien atnaujinamos mažiausios A95, A98 benzino ir dyzelino kainos Lietuvos degalinėse: Jozita, Neste, Circle K, Viada, Baltic Petroleum. Tikslus laikas ir šaltiniai.">
+    <meta name="keywords" content="benzino kainos, dyzelino kainos, pigiausias kuras, degalines lietuvoje, a95 kaina, a98 kaina, neste, circle k, jozita, viada">
+    <link rel="canonical" href="https://benzinas-lt.vercel.app">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header" id="main-header">
+        <div class="container header-inner">
+            <div class="logo">Kuro<span>Pulsas.lt</span></div>
+            <div class="header-controls">
+                <div class="fuel-switch">
+                    <button class="fuel-btn active" id="btn-petrol" onclick="switchFuel('petrol')">⛽ Benzinas</button>
+                    <button class="fuel-btn" id="btn-diesel" onclick="switchFuel('diesel')">🚛 Dyzelinas</button>
+                </div>
+                <div class="update-badge" id="last-updated">Kraunama...</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="summary-bar" id="daily-summary">Kraunama dienos apžvalga...</div>
+
+        <!-- Pirma lyderių lentelė (A95 arba Dyzelinas) -->
+        <h2 class="section-title" id="title-primary-leaders">🏆 Mažiausios A95 benzino kainos šiandien</h2>
+        <div class="leaders-grid" id="primary-leaders-grid"></div>
+
+        <!-- Antra lyderių lentelė (tik Benzinui - A98) -->
+        <div id="secondary-leaders-section">
+            <h2 class="section-title">⚡ Mažiausios A98 benzino kainos šiandien</h2>
+            <div class="leaders-grid" id="a98-leaders-grid"></div>
+        </div>
+
+        <h2 class="section-title">⛽ Pagrindiniai degalinių tinklai Lietuvoje</h2>
+        <div class="networks-grid" id="networks-grid"></div>
+    </main>
+
+    <!-- Modalinis langas konkretaus tinklo degalinėms -->
+    <div id="stations-modal" class="modal-backdrop" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-top">
+                <h3 id="modal-title" style="font-size: 1.35rem; font-weight: 800;"></h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="city-filter" id="city-filter"></div>
+            <div id="modal-table-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let rawData = null;
+        let currentFuel = 'petrol'; // 'petrol' arba 'diesel'
+        let sortedNetworks = [];
+        let activeNetwork = null;
+
+        async function loadPrices() {
+            try {
+                const res = await fetch('prices.json?v=' + new Date().getTime());
+                rawData = await res.json();
+                document.getElementById('last-updated').textContent = `Atnaujinta: ${rawData.last_updated}`;
+                renderAll();
+            } catch (err) {
+                console.error("Klaida kraunant kainas:", err);
+            }
+        }
+
+        function switchFuel(fuelType) {
+            currentFuel = fuelType;
+            const btnPetrol = document.getElementById('btn-petrol');
+            const btnDiesel = document.getElementById('btn-diesel');
+            const header = document.getElementById('main-header');
+
+            if (fuelType === 'petrol') {
+                btnPetrol.className = 'fuel-btn active';
+                btnDiesel.className = 'fuel-btn';
+                header.style.borderBottomColor = '#10b981';
+            } else {
+                btnPetrol.className = 'fuel-btn';
+                btnDiesel.className = 'fuel-btn diesel-active';
+                header.style.borderBottomColor = '#f59e0b';
+            }
+            renderAll();
+        }
+
+        function formatPrice(val) {
+            return val ? `${Number(val).toFixed(3)} €` : '—';
+        }
+
+        function renderAll() {
+            if (!rawData) return;
+
+            const isPetrol = currentFuel === 'petrol';
+            document.getElementById('daily-summary').textContent = isPetrol 
+                ? rawData.summary_petrol 
+                : (rawData.summary_diesel || rawData.summary_petrol);
+
+            // Rūšiuojame tinklus pagal pasirinktą pagrindinę kuro rūšį (A95 arba Dyzelinas)
+            const sortField = isPetrol ? 'best_a95' : 'best_diesel';
+            sortedNetworks = [...rawData.networks].sort((a, b) => (a[sortField] || 99) - (b[sortField] || 99));
+
+            if (isPetrol) {
+                document.getElementById('title-primary-leaders').textContent = '🏆 Mažiausios A95 benzino kainos šiandien';
+                renderLeaderCards(sortedNetworks, 'best_a95', 'Benzinas A95', '', 'primary-leaders-grid');
+
+                // Antra lentelė: A98 lyderiai
+                document.getElementById('secondary-leaders-section').style.display = 'block';
+                const sortedA98 = [...rawData.networks].sort((a, b) => (a.best_a98 || 99) - (b.best_a98 || 99));
+                renderLeaderCards(sortedA98, 'best_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
+            } else {
+                document.getElementById('title-primary-leaders').textContent = '🏆 Mažiausios dyzelino kainos šiandien';
+                renderLeaderCards(sortedNetworks, 'best_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
+                document.getElementById('secondary-leaders-section').style.display = 'none';
+            }
+
+            renderNetworks(sortedNetworks);
+        }
+
+        function renderLeaderCards(networks, field, label, extraClass, containerId) {
+            const valid = networks.filter(n => n[field] !== null && n[field] !== undefined);
+            if (valid.length === 0) return;
+
+            const minPrice = valid[0][field];
+            const leaders = valid.filter(n => n[field] <= minPrice + 0.015).slice(0, 2);
+
+            document.getElementById(containerId).innerHTML = leaders.map(net => `
+                <div class="leader-card ${extraClass}">
+                    <span class="leader-tag">Mažiausia žinoma kaina</span>
+                    <div class="leader-network">${net.name}</div>
+                    <div class="digital-price-box">
+                        <span class="fuel-label">${label}</span>
+                        <span class="digital-number">${formatPrice(net[field])}</span>
+                    </div>
+                    <div class="meta-info">
+                        <span>🕒 Fiksuota: <strong>${net.price_time}</strong></span>
+                        <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net.source_name} ↗</a></span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderNetworks(networks) {
+            const isPetrol = currentFuel === 'petrol';
+            document.getElementById('networks-grid').innerHTML = networks.map((net, index) => {
+                const mainPriceHtml = isPetrol 
+                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.best_a95)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.best_a98)}</span></div>`
+                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.best_diesel)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.best_a95)}</span></div>`;
+
+                return `
+                <div class="network-card">
+                    <div>
+                        <div class="card-header">
+                            <span class="network-name">${net.name}</span>
+                        </div>
+                        ${mainPriceHtml}
+                        <div class="card-meta">
+                            <span>🕒 Kaina fiksuota: <strong>${net.price_time}</strong></span>
+                            <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net.source_name} ↗</a></span>
+                        </div>
+                    </div>
+                    <button class="stations-btn" onclick="openNetworkModal(${index})">
+                        Visos tinklo degalinės (${net.stations.length}) →
+                    </button>
+                </div>
+            `}).join('');
+        }
+
+        function openNetworkModal(index) {
+            activeNetwork = sortedNetworks[index];
+            if (!activeNetwork) return;
+
+            document.getElementById('modal-title').textContent = `${activeNetwork.name} — degalinės ir kainos`;
+            const cities = ['Visi miestai', ...new Set(activeNetwork.stations.map(s => s.city))];
+            document.getElementById('city-filter').innerHTML = cities.map((city, i) => `
+                <button class="filter-chip ${i === 0 ? 'active' : ''}" onclick="filterStations('${city}', this)">${city}</button>
+            `).join('');
+
+            renderStationsTable(activeNetwork.stations);
+            document.getElementById('stations-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function filterStations(city, btnElement) {
+            document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const filtered = city === 'Visi miestai' 
+                ? activeNetwork.stations 
+                : activeNetwork.stations.filter(s => s.city === city);
+            renderStationsTable(filtered);
+        }
+
+        function renderStationsTable(stations) {
+            if (!stations || stations.length === 0) {
+                document.getElementById('modal-table-container').innerHTML = `<p>Šiame mieste duomenų nerasta.</p>`;
+                return;
+            }
+
+            document.getElementById('modal-table-container').innerHTML = `
+                <table class="stations-table">
+                    <thead>
+                        <tr>
+                            <th>Miestas</th>
+                            <th>Adresas</th>
+                            <th>A95</th>
+                            <th>A98</th>
+                            <th>Dyzelinas</th>
+                            <th>Laikas</th>
+                            <th>Šaltinis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${stations.map(s => `
+                            <tr>
+                                <td><strong>${s.city}</strong></td>
+                                <td>${s.address}</td>
+                                <td class="mono" style="color: var(--accent-green-dark);">${formatPrice(s.a95)}</td>
+                                <td class="mono">${formatPrice(s.a98)}</td>
+                                <td class="mono" style="color: #d97706;">${formatPrice(s.diesel)}</td>
+                                <td style="font-size: 0.78rem; color: var(--text-muted);">${s.time}</td>
+                                <td style="font-size: 0.78rem;">${s.source}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function closeModal() {
+            document.getElementById('stations-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        loadPrices();
+    </script>
+</body>
+</html>
+
