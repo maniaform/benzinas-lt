@@ -11,24 +11,27 @@ def siusti_groq(promptas, max_tokens=3000):
         "Authorization": f"Bearer {GROQ_KEY}",
         "Content-Type": "application/json"
     }
-    payload = {
-        "model": "openai/gpt-oss-120b",
-        "messages": [{"role": "user", "content": promptas}],
-        "temperature": 0.1,
-        "response_format": {"type": "json_object"},
-        "max_tokens": max_tokens
-    }
+    modeliai = ["qwen/qwen3.8-27b", "llama-3.1-8b-instant", "openai/gpt-oss-120b"]
     
-    for bandymas in range(3):
+    for modelis in modeliai:
+        payload = {
+            "model": modelis,
+            "messages": [{"role": "user", "content": promptas}],
+            "temperature": 0.1,
+            "response_format": {"type": "json_object"},
+            "max_tokens": max_tokens
+        }
         atsakas = requests.post(GROQ_URL, headers=headers, json=payload, timeout=45)
-        if atsakas.status_code == 429 and bandymas < 2:
-            print("  -> Pasiektas Groq limitas, laukiame 25 sek...")
-            time.sleep(25)
+        if atsakas.status_code == 429:
+            print(f"  -> Modelis {modelis} pasiekė limitą, bandomas kitas modelis...")
+            time.sleep(3)
             continue
         if not atsakas.ok:
-            print("Groq klaidos detalės:", atsakas.text)
-        atsakas.raise_for_status()
-        return json.loads(atsakas.json()["choices"][0]["message"]["content"])
+            print(f"Groq klaida ({modelis}):", atsakas.text)
+            continue
+        return json.loads(atsakas.json()["choices"]["message"]["content"])
+        
+    raise Exception("Visi Groq modeliai laikinai pasiekė limitus.")
 
 def istraukti_paketo_degalines(paketo_nr, paketo_tekstas, dabar_str):
     promptas = f"""Tu esi tikslus Lietuvos degalų duomenų analitikas. Dabartinis laikas: {dabar_str}.
