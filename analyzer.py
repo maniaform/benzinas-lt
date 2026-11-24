@@ -5,26 +5,7 @@ import requests
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_URL = "https://" + "api.groq" + ".com/openai/v1/chat/completions"
 
-def analizuoti_kainas(surinkti_duomenys, seni_duomenys, dabar_str):
-    promptas = f"""Tu esi tikslus Lietuvos degalų rinkos duomenų analitikas. Dabartinis laikas: {dabar_str}.
-
-Tavo užduotis – iš šių surinktų interneto šaltinių ištraukti naujausias žinomas A95, A98 benzino ir Dyzelino kainas pagrindiniuose Lietuvos degalinių tinkluose (Jozita, Neste, Baltic Petroleum, Circle K, Viada, Orlen).
-
-GRIEŽTOS TAISYKLĖS:
-1. JOKIŲ HALIUCINACIJŲ: Niekada neišsigalvok kainų ar adresų! Naudok TIK tai, kas parašyta žemiau pateiktuose šaltiniuose.
-2. JEI TINKLUI NERADAI NAUJESNĖS KAINOS: Palik tiksliai tokią pačią kainą, laiką ("price_time") ir degalinių sąrašą, koks buvo senuose duomenyse!
-3. JEI RADAI NAUJĄ KAINĄ: Atnaujink tinklo "best_a95", "best_a98" arba "best_diesel" (skaičius su 3 skaitmenimis po kablelio, pvz., 1.389), įrašyk tikslų fiksavimo laiką ("price_time") bei tikslų šaltinio pavadinimą ("source_name") ir jo nuorodą ("source_url").
-4. Jei šaltiniuose yra konkrečių degalinių adresų su kainomis, įtrauk jas į to tinklo "stations" sąrašą.
-5. Parašyk trumpą (1–2 sakinių) dienos apžvalgą benzinui ("summary_petrol") ir dyzelinui ("summary_diesel").
-
-SENI DUOMENYS (atskaitos taškas):
-{json.dumps(seni_duomenys, ensure_ascii=False)}
-
-NAUJI SURINKTI ŠALTINIAI:
-{surinkti_duomenys}
-
-Grąžink TIK gryną JSON objektą su tokia pačia struktūra kaip SENI DUOMENYS ("last_updated", "summary_petrol", "summary_diesel", "networks")."""
-
+def siusti_groq(promptas, max_tokens=3500):
     headers = {
         "Authorization": f"Bearer {GROQ_KEY}",
         "Content-Type": "application/json"
@@ -34,11 +15,48 @@ Grąžink TIK gryną JSON objektą su tokia pačia struktūra kaip SENI DUOMENYS
         "messages": [{"role": "user", "content": promptas}],
         "temperature": 0.1,
         "response_format": {"type": "json_object"},
-        "max_tokens": 4000
+        "max_tokens": max_tokens
     }
-
     atsakas = requests.post(GROQ_URL, headers=headers, json=payload, timeout=45)
     if not atsakas.ok:
         print("Groq klaidos detalės:", atsakas.text)
     atsakas.raise_for_status()
     return json.loads(atsakas.json()["choices"][0]["message"]["content"])
+
+def analizuoti_viena_tinkla(tinklas_info, surinktas_tekstas, senas_tinklas, dabar_str):
+    promptas = f"""Tu esi tikslus Lietuvos degalų rinkos duomenų analitikas. Dabartinis laikas: {dabar_str}.
+Analizuoji TIK VIENĄ degalinių tinklą: **{tinklas_info['name']}** (id: "{tinklas_info['id']}").
+
+UŽDUOTIS:
+Iš pateiktų šaltinių ištrauk VISAS minimas **{tinklas_info['name']}** degalines visoje Lietuvoje (Vilnius, Kaunas, Klaipėda, Šiauliai, Panevėžys, Alytus, Marijampolė, Utena, Telšiai, Tauragė, rajonai) ir jų A95, A98 benzino bei Dyzelino kainas.
+
+GRIEŽTOS TAISYKLĖS:
+1. JOKIŲ HALIUCINACIJŲ: Naudok TIK realius skaičius ir adresus iš šaltinių. Jei kuriai nors degalinei kaina nenurodyta, įrašyk null.
+2. Nustatyk mažiausią rastą tinklo kainą ("best_a95", "best_a98", "best_diesel"). Jei naujų kainų šaltiniuose neradai – palik senus skaičius iš SENŲ TINKLO DUOMENŲ.
+3. Įrašyk tikslų kainos fiksavimo laiką ("price_time") ir šaltinio nuorodą ("source_url", "source_name").
+4. Į sąrašą "stations" sudėk VISAS rastas šio tinklo degalines (iki 40 degalinių), sujungdamas naujas su senomis, kad sąrašas būtų kuo išsamesnis.
+
+SENI TINKLO DUOMENYS:
+{json.dumps(senas_tinklas, ensure_ascii=False)}
+
+NAUJI SURINKTI ŠALTINIAI ŠIAM TINKLUI:
+{surinktas_tekstas}
+
+Grąžink TIK gryną JSON objektą su raktais: "id", "name", "best_a95", "best_a98", "best_diesel", "price_time", "source_name", "source_url", "stations" (kiekvienas elementas: "city", "address", "a95", "a98", "diesel", "time", "source")."""
+
+    return siusti_groq(promptas, max_tokens=3800)
+
+def sugeneruoti_santraukas(tinklai_sarasas, dabar_str):
+    trumpas_vaizdas = [
+        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel"), "stations_count": len(t.get("stations", []))}
+        for t in tinklai_sarasas
+    ]
+    promptas = f"""Remdamasis šiais apibendrintais šiandienos ({dabar_str}) degalų kainų duomenimis Lietuvoje:
+{json.dumps(trumpas_vaizdas, ensure_ascii=False)}
+
+Parašyk dvi trumpas (1–2 sakinių), aiškias apžvalgas vairuotojams lietuvių kalba:
+1. "summary_petrol" – apie benzino (A95 ir A98) mažiausias kainas ir kur jos fiksuojamos.
+2. "summary_diesel" – apie dyzelino mažiausias kainas ir bendrą situaciją.
+
+Grąžink TIK gryną JSON su raktais "summary_petrol" ir "summary_diesel"."""
+    return siusti_groq(promptas, max_tokens=400)
