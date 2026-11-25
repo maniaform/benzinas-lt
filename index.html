@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="lKejNqjPr4c-8f9cTjTZx8SZP_VE6Ndmzj38euki0Sw" />
-    <title>KuroPulsas.lt | Mažiausios benzino (A95, A98) ir dyzelino kainos Lietuvoje</title>
+    <title>Mažiausios kuro kainos Lietuvoje | Mažiausios benzino (A95, A98) ir dyzelino kainos</title>
     <meta name="description" content="Kasdien atnaujinamos mažiausios A95, A98 benzino ir dyzelino kainos Lietuvos degalinėse: Jozita, Neste, Circle K, Viada, Baltic Petroleum, Orlen. Tikslus adresas, laikas ir šaltiniai.">
     <link rel="canonical" href="https://vercel.app">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="KuroPulsas.lt">
-    <meta property="og:title" content="KuroPulsas.lt — Mažiausios benzino ir dyzelino kainos Lietuvoje">
+    <meta property="og:site_name" content="Pigiausias kuras Lietuvoje">
+    <meta property="og:title" content="Kuro kainos Lietuvoje — Mažiausios benzino ir dyzelino kainos">
     <meta property="og:description" content="Oficialios kasdien atnaujinamos 750+ Lietuvos degalinių kainos. Raskite pigiausią A95 benziną ar dyzeliną savo mieste per 5 sekundes.">
     <meta property="og:url" content="https://vercel.app">
     <meta property="og:locale" content="lt_LT">
@@ -22,7 +22,7 @@
 
     <header class="header" id="main-header">
         <div class="container header-inner">
-            <div class="logo">Kuro<span>Pulsas.lt</span></div>
+            <div class="logo">Kuro kainos <span>Lietuvoje</span></div>
             <div class="header-controls">
                 <div class="fuel-switch">
                     <button class="fuel-btn active" id="btn-petrol" onclick="switchFuel('petrol')">⛽ Benzinas</button>
@@ -447,7 +447,7 @@
             const minDz = validDz.length ? Math.min(...validDz).toFixed(3) : null;
 
             if (minA95 && minDz) {
-                document.title = `A95 nuo ${minA95} € | Dyzelinas nuo ${minDz} € — KuroPulsas.lt`;
+                document.title = `A95 nuo ${minA95} € | Dyzelinas nuo ${minDz} € — Pigiausias kuras Lietuvoje`;
             }
 
             const faqSchema = {
