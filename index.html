@@ -219,16 +219,15 @@
         }
 
         function renderLeaderCards(networks, priceKey, diffKey, locKey, timeKey, srcKey, urlKey, label, extraClass, containerId) {
-            // Nustatome, kokį konkretų degalinės lauką tikriname ('a95', 'a98' arba 'diesel')
             const rawFuelKey = priceKey.replace('calc_', '');
             
-            // Surenkame VISAS konkrečias degalines pasirinktoje vietovėje, kurios turi šios kuro rūšies kainą
             let candidateStations = [];
             networks.forEach(net => {
                 (net.filteredStations || []).forEach(st => {
                     if (typeof st[rawFuelKey] === 'number' && st[rawFuelKey] > 0) {
                         candidateStations.push({
                             networkName: net.name,
+                            logo: net.logo_url,
                             price: st[rawFuelKey],
                             diff: net[diffKey],
                             location: `${st.city}, ${st.address}`,
@@ -245,14 +244,16 @@
                 return;
             }
 
-            // Rūšiuojame visas degalines nuo mažiausios kainos ir paimame Top 2
             candidateStations.sort((a, b) => a.price - b.price);
             const topTwo = candidateStations.slice(0, 2);
 
             document.getElementById(containerId).innerHTML = topTwo.map((st, idx) => `
                 <div class="leader-card ${extraClass}">
                     <span class="leader-tag">${idx === 0 ? '🏆 1 vieta — Mažiausia kaina' : '🥈 2 vieta — Antra mažiausia kaina'}</span>
-                    <div class="leader-network">${st.networkName}</div>
+                    <div class="network-brand-header" style="margin-bottom: 14px;">
+                        ${st.logo ? `<img src="${st.logo}" alt="${st.networkName}" class="network-logo">` : ''}
+                        <div class="leader-network" style="margin-bottom: 0;">${st.networkName}</div>
+                    </div>
                     <div class="leader-location">📍 ${st.location}</div>
                     <div class="digital-price-box">
                         <span class="fuel-label">${label}</span>
@@ -290,7 +291,10 @@
                 <div class="network-card">
                     <div>
                         <div class="card-header">
-                            <span class="network-name">${net.name}</span>
+                            <div class="network-brand-header">
+                                ${net.logo_url ? `<img src="${net.logo_url}" alt="${net.name}" class="network-logo">` : ''}
+                                <span class="network-name">${net.name}</span>
+                            </div>
                         </div>
                         ${mainPriceHtml}
                         <div class="card-meta">
