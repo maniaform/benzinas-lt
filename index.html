@@ -178,11 +178,11 @@
 
                     url_a95: bestA95St ? (bestA95St.source_url || net.source_url) : net.source_url,
                     url_a98: bestA98St ? (bestA98St.source_url || net.source_url) : net.source_url,
-                    url_diesel: bestDzSt ? (bestDzSt.source_url || net.source_url) : net.source_url
+                    url_diesel: bestDzSt ? (bestDzSt.source_url || net.source_url) : net.source_url,
 
                     diff_a95: selectedCity === 'ALL' ? net.diff_a95 : null,
                     diff_a98: selectedCity === 'ALL' ? net.diff_a98 : null,
-                    diff_diesel: selectedCity === 'ALL' ? net.diff_diesel : null,
+                    diff_diesel: selectedCity === 'ALL' ? net.diff_diesel : null
                 };
             }).filter(Boolean);
         }
@@ -204,43 +204,14 @@
 
             if (isPetrol) {
                 document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios A95 benzino kainos (${cityLabel})`;
-                renderLeaderCards(activeDisplayNetworks, 'calc_a95', 'loc_a95', 'time_a95', 'src_a95', 'Benzinas A95', '', 'primary-leaders-grid');
+                renderLeaderCards(activeDisplayNetworks, 'calc_a95', 'diff_a95', 'loc_a95', 'time_a95', 'src_a95', 'url_a95', 'Benzinas A95', '', 'primary-leaders-grid');
 
                 document.getElementById('secondary-leaders-section').style.display = 'block';
                 const sortedA98 = [...filtered].sort((a, b) => (a.calc_a98 || 99) - (b.calc_a98 || 99));
-                renderLeaderCards(sortedA98, 'calc_a98', 'loc_a98', 'time_a98', 'src_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
+                renderLeaderCards(sortedA98, 'calc_a98', 'diff_a98', 'loc_a98', 'time_a98', 'src_a98', 'url_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
             } else {
                 document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios dyzelino kainos (${cityLabel})`;
-                renderLeaderCards(activeDisplayNetworks, 'calc_diesel', 'loc_diesel', 'time_diesel', 'src_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
-                document.getElementById('secondary-leaders-section').style.display = 'none';
-            }
-
-            renderNetworks(activeDisplayNetworks);
-        }        function renderAll() {
-            if (!rawData) return;
-
-            const isPetrol = currentFuel === 'petrol';
-            document.getElementById('daily-summary').textContent = isPetrol 
-                ? rawData.summary_petrol 
-                : (rawData.summary_diesel || rawData.summary_petrol);
-
-            const cityLabel = selectedCity === 'ALL' ? 'Lietuvoje' : `mieste/rajone: ${selectedCity}`;
-            document.getElementById('title-networks').textContent = `⛽ Degalinių tinklai (${cityLabel})`;
-
-            const filtered = buildCityFilteredNetworks();
-            const sortKey = isPetrol ? 'calc_a95' : 'calc_diesel';
-            activeDisplayNetworks = filtered.sort((a, b) => (a[sortKey] || 99) - (b[sortKey] || 99));
-
-            if (isPetrol) {
-                document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios A95 benzino kainos (${cityLabel})`;
-                renderLeaderCards(activeDisplayNetworks, 'calc_a95', 'loc_a95', 'time_a95', 'src_a95', 'url_a95', 'Benzinas A95', '', 'primary-leaders-grid');
-
-                document.getElementById('secondary-leaders-section').style.display = 'block';
-                const sortedA98 = [...filtered].sort((a, b) => (a.calc_a98 || 99) - (b.calc_a98 || 99));
-                renderLeaderCards(sortedA98, 'calc_a98', 'loc_a98', 'time_a98', 'src_a98', 'url_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
-            } else {
-                document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios dyzelino kainos (${cityLabel})`;
-                renderLeaderCards(activeDisplayNetworks, 'calc_diesel', 'loc_diesel', 'time_diesel', 'src_diesel', 'url_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
+                renderLeaderCards(activeDisplayNetworks, 'calc_diesel', 'diff_diesel', 'loc_diesel', 'time_diesel', 'src_diesel', 'url_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
                 document.getElementById('secondary-leaders-section').style.display = 'none';
             }
 
