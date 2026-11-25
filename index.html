@@ -219,27 +219,48 @@
         }
 
         function renderLeaderCards(networks, priceKey, diffKey, locKey, timeKey, srcKey, urlKey, label, extraClass, containerId) {
-            const valid = networks.filter(n => n[priceKey] !== null && n[priceKey] !== undefined);
-            if (valid.length === 0) {
-                document.getElementById(containerId).innerHTML = `<p style="color: var(--text-muted);">Šioje vietovėje šios kuro rūšies kainų dar neužfiksuota.</p>`;
+            // Nustatome, kokį konkretų degalinės lauką tikriname ('a95', 'a98' arba 'diesel')
+            const rawFuelKey = priceKey.replace('calc_', '');
+            
+            // Surenkame VISAS konkrečias degalines pasirinktoje vietovėje, kurios turi šios kuro rūšies kainą
+            let candidateStations = [];
+            networks.forEach(net => {
+                (net.filteredStations || []).forEach(st => {
+                    if (typeof st[rawFuelKey] === 'number' && st[rawFuelKey] > 0) {
+                        candidateStations.push({
+                            networkName: net.name,
+                            price: st[rawFuelKey],
+                            diff: net[diffKey],
+                            location: `${st.city}, ${st.address}`,
+                            time: st.time || net.price_time,
+                            source: st.source || net.source_name,
+                            url: st.source_url || net.source_url
+                        });
+                    }
+                });
+            });
+
+            if (candidateStations.length === 0) {
+                document.getElementById(containerId).innerHTML = `<p style="color: var(--text-muted);">Šioje vietovėje šios kuro rūšies kainų šiuo metu nėra.</p>`;
                 return;
             }
 
-            const minPrice = valid[0][priceKey];
-            const leaders = valid.filter(n => n[priceKey] <= minPrice + 0.015).slice(0, 2);
+            // Rūšiuojame visas degalines nuo mažiausios kainos ir paimame Top 2
+            candidateStations.sort((a, b) => a.price - b.price);
+            const topTwo = candidateStations.slice(0, 2);
 
-            document.getElementById(containerId).innerHTML = leaders.map(net => `
+            document.getElementById(containerId).innerHTML = topTwo.map((st, idx) => `
                 <div class="leader-card ${extraClass}">
-                    <span class="leader-tag">Mažiausia žinoma kaina</span>
-                    <div class="leader-network">${net.name}</div>
-                    <div class="leader-location">📍 ${net[locKey]}</div>
+                    <span class="leader-tag">${idx === 0 ? '🏆 1 vieta — Mažiausia kaina' : '🥈 2 vieta — Antra mažiausia kaina'}</span>
+                    <div class="leader-network">${st.networkName}</div>
+                    <div class="leader-location">📍 ${st.location}</div>
                     <div class="digital-price-box">
                         <span class="fuel-label">${label}</span>
-                        <span class="digital-number">${formatPrice(net[priceKey])}${formatDiff(net[diffKey])}</span>
+                        <span class="digital-number">${formatPrice(st.price)}${formatDiff(st.diff)}</span>
                     </div>
                     <div class="meta-info">
-                        <span>🕒 Fiksuota: <strong>${net[timeKey]}</strong></span>
-                        <span>🔗 Šaltinis: <a href="${net[urlKey]}" target="_blank" rel="noopener">${net[srcKey]} ↗</a></span>
+                        <span>🕒 Fiksuota: <strong>${st.time}</strong></span>
+                        <span>🔗 Šaltinis: <a href="${st.url}" target="_blank" rel="noopener">${st.source} ↗</a></span>
                     </div>
                 </div>
             `).join('');
