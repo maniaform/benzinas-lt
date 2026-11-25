@@ -27,6 +27,7 @@
                 <div class="fuel-switch">
                     <button class="fuel-btn active" id="btn-petrol" onclick="switchFuel('petrol')">⛽ Benzinas</button>
                     <button class="fuel-btn" id="btn-diesel" onclick="switchFuel('diesel')">🚛 Dyzelinas</button>
+                    <button class="fuel-btn" id="btn-lpg" onclick="switchFuel('lpg')">🔥 Dujos (LPG)</button>
                 </div>
                 <div class="update-badge" id="last-updated">Kraunama...</div>
             </div>
@@ -368,7 +369,7 @@
 <!-- SEO_MIESTAI_END -->
             </div>
         </div>
-            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
+        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
             <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">🛣️ Degalų kainos magistraliniuose keliuose:</h3>
             <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; margin-bottom: 24px;">
                 <a href="keliai/a1-vilnius-kaunas-klaipeda.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Magistralė A1 (Vilnius – Kaunas – Klaipėda)</a>
@@ -378,6 +379,14 @@
                 <a href="keliai/a11-siauliai-palanga.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Kelias A11 (Šiauliai – Plungė – Palanga)</a>
             </div>
 
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">📍 Degalų kainos visose Lietuvos savivaldybėse:</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.82rem;">
+                <!-- SEO_MIESTAI_START -->
+                <a href="miestai/vilnius.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Vilnius</a>
+                <a href="miestai/kaunas.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Kaunas</a>
+                <a href="miestai/klaipeda.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Klaipėda</a>
+                <!-- SEO_MIESTAI_END -->
+            </div>
         </div>
     </main>
 
@@ -492,6 +501,14 @@
             scriptTag.textContent = JSON.stringify(faqSchema);
         }
 
+        const HIGHWAYS = [
+            { id: 'ROAD:A1', name: '🛣️ Magistralė A1 (Vilnius – Kaunas – Klaipėda)', keys: ['a1', 'vilniaus pl', 'kauno pl', 'klaipėdos pl', 'savanorių pr', 'islandijos pl', 'jakų'] },
+            { id: 'ROAD:A2', name: '🛣️ Magistralė A2 (Vilnius – Ukmergė – Panevėžys)', keys: ['a2', 'ukmergės', 'vilniaus g.', 'širvint'] },
+            { id: 'ROAD:VIA', name: '🛣️ Via Baltica (A5 / A8 / A10)', keys: ['a5', 'a8', 'a10', 'via baltica', 'marijampol', 'pasval', 'kedain'] },
+            { id: 'ROAD:A6', name: '🛣️ Kelias A6 (Kaunas – Utena – Zarasai)', keys: ['a6', 'jonav', 'uten', 'zaras'] },
+            { id: 'ROAD:A11', name: '🛣️ Kelias A11 (Šiauliai – Plungė – Palanga)', keys: ['a11', 'telš', 'plung', 'kreting', 'palang'] }
+        ];
+
         function populateCityDropdown() {
             const citiesSet = new Set();
             rawData.networks.forEach(net => {
@@ -515,6 +532,10 @@
                     topCities.map(c => `<option value="${c}">${c}</option>`).join('') +
                     `</optgroup>`;
             }
+
+            optionsHtml += `<optgroup label="Magistraliniai keliai">` +
+                HIGHWAYS.map(h => `<option value="${h.id}">${h.name}</option>`).join('') +
+                `</optgroup>`;
             
             optionsHtml += `<optgroup label="Kiti miestai ir rajonai">` +
                 otherCities.map(c => `<option value="${c}">${c}</option>`).join('') +
@@ -522,6 +543,7 @@
 
             select.innerHTML = optionsHtml;
         }
+        
         function changeGlobalCity(city) {
             selectedCity = city;
             renderAll();
@@ -563,9 +585,18 @@
 
         function buildCityFilteredNetworks() {
             return rawData.networks.map(net => {
-                const cityStations = selectedCity === 'ALL'
-                    ? (net.stations || [])
-                    : (net.stations || []).filter(s => (s.city || '').trim() === selectedCity);
+                let cityStations = net.stations || [];
+                if (selectedCity.startsWith('ROAD:')) {
+                    const hw = HIGHWAYS.find(h => h.id === selectedCity);
+                    if (hw) {
+                        cityStations = cityStations.filter(s => {
+                            const fullAdr = `${s.city || ''} ${s.address || ''}`.toLowerCase();
+                            return hw.keys.some(k => fullAdr.includes(k));
+                        });
+                    }
+                } else if (selectedCity !== 'ALL') {
+                    cityStations = cityStations.filter(s => (s.city || '').trim() === selectedCity);
+                }
 
                 if (cityStations.length === 0) return null;
 
@@ -573,12 +604,13 @@
                     const valid = cityStations.filter(s => typeof s[fuelKey] === 'number' && s[fuelKey] > 0);
                     if (valid.length === 0) return null;
                     valid.sort((a, b) => a[fuelKey] - b[fuelKey]);
-                    return valid[0];
+                    return valid;
                 };
 
                 const bestA95St = findBestStation('a95');
                 const bestA98St = findBestStation('a98');
                 const bestDzSt = findBestStation('diesel');
+                const bestLpgSt = findBestStation('lpg');
 
                 return {
                     ...net,
@@ -587,24 +619,29 @@
                     loc_a95: bestA95St ? `${bestA95St.city}, ${bestA95St.address}` : 'Visame tinkle',
                     time_a95: bestA95St ? bestA95St.time : net.price_time,
                     src_a95: bestA95St ? bestA95St.source : net.source_name,
+                    url_a95: bestA95St ? (bestA95St.source_url || net.source_url) : net.source_url,
+                    diff_a95: selectedCity === 'ALL' ? net.diff_a95 : null,
 
                     calc_a98: bestA98St ? bestA98St.a98 : (selectedCity === 'ALL' ? net.best_a98 : null),
                     loc_a98: bestA98St ? `${bestA98St.city}, ${bestA98St.address}` : 'Visame tinkle',
                     time_a98: bestA98St ? bestA98St.time : net.price_time,
                     src_a98: bestA98St ? bestA98St.source : net.source_name,
+                    url_a98: bestA98St ? (bestA98St.source_url || net.source_url) : net.source_url,
+                    diff_a98: selectedCity === 'ALL' ? net.diff_a98 : null,
 
                     calc_diesel: bestDzSt ? bestDzSt.diesel : (selectedCity === 'ALL' ? net.best_diesel : null),
                     loc_diesel: bestDzSt ? `${bestDzSt.city}, ${bestDzSt.address}` : 'Visame tinkle',
                     time_diesel: bestDzSt ? bestDzSt.time : net.price_time,
                     src_diesel: bestDzSt ? bestDzSt.source : net.source_name,
-
-                    url_a95: bestA95St ? (bestA95St.source_url || net.source_url) : net.source_url,
-                    url_a98: bestA98St ? (bestA98St.source_url || net.source_url) : net.source_url,
                     url_diesel: bestDzSt ? (bestDzSt.source_url || net.source_url) : net.source_url,
+                    diff_diesel: selectedCity === 'ALL' ? net.diff_diesel : null,
 
-                    diff_a95: selectedCity === 'ALL' ? net.diff_a95 : null,
-                    diff_a98: selectedCity === 'ALL' ? net.diff_a98 : null,
-                    diff_diesel: selectedCity === 'ALL' ? net.diff_diesel : null
+                    calc_lpg: bestLpgSt ? bestLpgSt.lpg : (selectedCity === 'ALL' ? net.best_lpg : null),
+                    loc_lpg: bestLpgSt ? `${bestLpgSt.city}, ${bestLpgSt.address}` : 'Visame tinkle',
+                    time_lpg: bestLpgSt ? bestLpgSt.time : net.price_time,
+                    src_lpg: bestLpgSt ? bestLpgSt.source : net.source_name,
+                    url_lpg: bestLpgSt ? (bestLpgSt.source_url || net.source_url) : net.source_url,
+                    diff_lpg: selectedCity === 'ALL' ? net.diff_lpg : null
                 };
             }).filter(Boolean);
         }
