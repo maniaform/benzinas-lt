@@ -37,7 +37,7 @@ def generuoti_kuro_seo(duomenys):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{net['name']} degalų kainos šiandien (A95, A98, Dyzelinas) | KuroPulsas.lt</title>
+    <title>{net['name']} degalų kainos šiandien (A95, A98, Dyzelinas) | Kuro kainos Lietuvoje</title>
     <meta name="description" content="Naujausios {net['name']} degalinių tinklo benzino ir dyzelino kainos Lietuvoje: A95 nuo {net.get('best_a95', '—')} €, dyzelinas nuo {net.get('best_diesel', '—')} €. Visų {len(net.get('stations', []))} degalinių adresai ir kainos.">
     <link rel="canonical" href="{pilnas_url}">
     <link rel="stylesheet" href="../style.css">
@@ -45,7 +45,7 @@ def generuoti_kuro_seo(duomenys):
 <body>
     <header class="header">
         <div class="container header-inner">
-            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro<span>Pulsas.lt</span></div></a>
+            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro kainos <span>Lietuvoje</span></div></a>
             <a href="../index.html" class="fuel-btn active" style="text-decoration:none;">← Visi tinklai</a>
         </div>
     </header>
@@ -103,15 +103,16 @@ def generuoti_kuro_seo(duomenys):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Degalų kainos: {miestas} — A95 nuo {min_a95} €, Dyzelinas nuo {min_dz} € | KuroPulsas.lt</title>
+    <title>Degalų kainos: {miestas} — A95 nuo {min_a95} €, Dyzelinas nuo {min_dz} € | Kuro kainos Lietuvoje</title>
     <meta name="description" content="Naujausios benzino ir dyzelino kainos vietovėje {miestas}. Pigiausias A95 benzinas nuo {min_a95} €, dyzelinas nuo {min_dz} €. Visų {len(stotys)} degalinių adresai.">
     <link rel="canonical" href="{m_url}">
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <header class="header">
+    <header class="header">
         <div class="container header-inner">
-            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro<span>Pulsas.lt</span></div></a>
+            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro kainos <span>Lietuvoje</span></div></a>
             <a href="../index.html" class="fuel-btn active" style="text-decoration:none;">← Visos vietovės</a>
         </div>
     </header>
@@ -173,7 +174,7 @@ def generuoti_kuro_seo(duomenys):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Degalų kainos kelyje: {kelias['name']} | KuroPulsas.lt</title>
+    <title>Degalų kainos kelyje: {kelias['name']} | Kuro kainos Lietuvoje</title>
     <meta name="description" content="Mažiausios benzino ir dyzelino kainos kelyje {kelias['name']}. Pigiausias A95 nuo {min_a95} €, dyzelinas nuo {min_dz} €. Palyginkite pakeliui esančias degalines.">
     <link rel="canonical" href="{k_url}">
     <link rel="stylesheet" href="../style.css">
@@ -181,7 +182,7 @@ def generuoti_kuro_seo(duomenys):
 <body>
     <header class="header">
         <div class="container header-inner">
-            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro<span>Pulsas.lt</span></div></a>
+            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro kainos <span>Lietuvoje</span></div></a>
             <a href="../index.html" class="fuel-btn active" style="text-decoration:none;">← Pagrindinis puslapis</a>
         </div>
     </header>
