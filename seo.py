@@ -15,7 +15,7 @@ def generuoti_kuro_seo(duomenys):
     os.makedirs("miestai", exist_ok=True)
     sitemap_urls = [f"{BASE_URL}/"]
 
-    # 1. TINKLŲ SEO PUSLAPIAI (/tinklai/...)
+    # 1. TINKLŲ SEO PUSLAPIAI
     for net in duomenys.get("networks", []):
         slug = net["id"]
         failo_kelias = f"tinklai/{slug}.html"
@@ -66,7 +66,7 @@ def generuoti_kuro_seo(duomenys):
         with open(failo_kelias, "w", encoding="utf-8") as f:
             f.write(html)
 
-    # 2. MIESTŲ SEO PUSLAPIAI (/miestai/vilnius.html ir t.t.)
+    # 2. VISŲ LIETUVOS SAVIVALDYBIŲ SEO PUSLAPIAI
     miestu_degalines = {}
     for net in duomenys.get("networks", []):
         for s in net.get("stations", []):
@@ -74,17 +74,22 @@ def generuoti_kuro_seo(duomenys):
             if miestas:
                 miestu_degalines.setdefault(miestas, []).append({**s, "network": net["name"]})
 
-    for miestas, stotys in miestu_degalines.items():
-        if len(stotys) < 2:
-            continue
+    visu_miestu_nuorodos = []
+
+    for miestas in sorted(miestu_degalines.keys()):
+        stotys = miestu_degalines[miestas]
         m_slug = sukurti_slug(miestas)
         if not m_slug:
             continue
         m_kelias = f"miestai/{m_slug}.html"
         m_url = f"{BASE_URL}/{m_kelias}"
         sitemap_urls.append(m_url)
+        visu_miestu_nuorodos.append(f'<a href="{m_kelias}" class="filter-chip" style="text-decoration:none; color:var(--text-main);">{miestas} ({len(stotys)})</a>')
 
         stotys.sort(key=lambda x: x.get("a95") or 99)
+        min_a95 = next((s["a95"] for s in stotys if s.get("a95")), "—")
+        min_dz = min((s["diesel"] for s in stotys if s.get("diesel")), default="—")
+
         m_eilutes = ""
         for s in stotys:
             a95 = f"{s['a95']:.3f} €" if s.get("a95") else "—"
@@ -97,8 +102,8 @@ def generuoti_kuro_seo(duomenys):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Degalų kainos: {miestas} (Benzinas A95, Dyzelinas) | KuroPulsas.lt</title>
-    <meta name="description" content="Mažiausios benzino ir dyzelino kainos vietovėje {miestas}. Palyginkite visų degalinių kainas vienoje vietoje.">
+    <title>Degalų kainos: {miestas} — A95 nuo {min_a95} €, Dyzelinas nuo {min_dz} € | KuroPulsas.lt</title>
+    <meta name="description" content="Naujausios benzino ir dyzelino kainos vietovėje {miestas}. Pigiausias A95 benzinas nuo {min_a95} €, dyzelinas nuo {min_dz} €. Visų {len(stotys)} degalinių adresai.">
     <link rel="canonical" href="{m_url}">
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -111,7 +116,7 @@ def generuoti_kuro_seo(duomenys):
     </header>
     <main class="container" style="padding-top: 32px; padding-bottom: 60px;">
         <h1 class="section-title" style="font-size: 1.75rem;">📍 Degalų kainos — {miestas}</h1>
-        <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt)</p>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt) • Degalinių skaičius: {len(stotys)}</p>
         <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light); overflow-x:auto;">
             <table class="stations-table">
                 <thead><tr><th>Tinklas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Laikas</th></tr></thead>
@@ -124,7 +129,19 @@ def generuoti_kuro_seo(duomenys):
         with open(m_kelias, "w", encoding="utf-8") as f:
             f.write(m_html)
 
-    # 3. SITEMAP.XML IR ROBOTS.TXT
+    # 3. ATNAUJINAME VISŲ MIESTŲ NUORODAS PAGRINDINIAME INDEX.HTML
+    if os.path.exists("index.html"):
+        with open("index.html", "r", encoding="utf-8") as f:
+            idx_html = f.read()
+        start_tag = "<!-- SEO_MIESTAI_START -->"
+        end_tag = "<!-- SEO_MIESTAI_END -->"
+        if start_tag in idx_html and end_tag in idx_html:
+            naujas_blokas = f"{start_tag}\n" + "\n".join(visu_miestu_nuorodos) + f"\n{end_tag}"
+            idx_html = re.sub(f"{start_tag}.*?{end_tag}", naujas_blokas, idx_html, flags=re.DOTALL)
+            with open("index.html", "w", encoding="utf-8") as f:
+                f.write(idx_html)
+
+    # 4. SITEMAP.XML IR ROBOTS.TXT
     ns = "http://" + "www.sitemaps.org/schemas/sitemap/0.9"
     xml = ['<?xml version="1.0" encoding="UTF-8"?>', f'<urlset xmlns="{ns}">']
     for u in sitemap_urls:
