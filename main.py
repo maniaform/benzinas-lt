@@ -3,6 +3,7 @@ import json
 import time
 from datetime import datetime, timedelta
 from scraper import surinkti_visos_lietuvos_paketus
+from scraper import surinkti_visas_degalines_tiesiogiai
 from analyzer import istraukti_paketo_degalines, sugeneruoti_santraukas
 from seo import generuoti_kuro_seo
 
@@ -40,7 +41,7 @@ def paleisti_kainu_atnaujinima():
     paketai = surinkti_visos_lietuvos_paketus()
     print(f"Suformuoti {len(paketai)} duomenų paketai iš visos Lietuvos.")
 
-    visos_naujos_degalines = []
+    visos_naujos_degalines = surinkti_visas_degalines_tiesiogiai(dabar)
     for i, paketas in enumerate(paketai, 1):
         print(f"Analizuojamas paketas {i}/{len(paketai)}...")
         try:
