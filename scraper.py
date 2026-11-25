@@ -11,14 +11,13 @@ def surinkti_visos_lietuvos_paketus():
     url = "https://" + "api.tavily" + ".com/search"
     
     uzklausos = [
-        "site:lt.fuelo.net Viada degalines kainos Vilnius Kaunas Klaipeda Siauliai Panevezys Alytus",
-        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
-        "site:lt.fuelo.net degalines benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole Utena Telsiai",
-        "site:lt.fuelo.net Jozita Orlen Baltic Petroleum Emsi Alausa degalines kainos",
-        "site:pricer.lt degalu kainos benzinas dyzelinas Lietuvoje Circle K Neste Viada Jozita",
-        "degalu kainos Lietuvoje benzinas 95 dyzelinas apzvalga Circle K Neste Viada Orlen Jozita"
+        "site:lt.fuelo.net/city/ benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
+        "site:lt.fuelo.net/city/ benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole Utena",
+        "site:lt.fuelo.net/gasstation/ Viada Neste Circle K Jozita Orlen Baltic Petroleum",
+        "site:pricer.lt degalu kainos Lietuvoje apzvalga benzinas dyzelinas",
+        "degalu kainos Lietuvoje 15min delfi lrt benzinas dyzelinas Circle K Neste Viada Jozita"
     ]
-    
+
     visi_tekstai = []
     for q in uzklausos:
         print(f"Ieškoma per Tavily: {q}...")
@@ -27,22 +26,26 @@ def surinkti_visos_lietuvos_paketus():
             "query": q,
             "search_depth": "advanced",
             "include_raw_content": True,
-            "max_results": 5
+            "max_results": 6
         }
         try:
             res = requests.post(url, json=payload, timeout=25)
             if res.ok:
                 rezultatai = res.json().get("results", [])
                 for r in rezultatai:
+                    puslapio_url = r.get("url", "")
+                    # Atmetame tuščius titulinius puslapius, jei yra gilesnių nuorodų
+                    if puslapio_url.rstrip("/") in ["https://fuelo.net", "https://pricer.lt"]:
+                        continue
                     turinys = r.get("raw_content") or r.get("content") or ""
                     if turinys:
                         svarus = " ".join(turinys.split())[:3500]
-                        visi_tekstai.append(f"=== ŠALTINIS: {r.get('title')} | URL: {r.get('url')} ===\n{svarus}")
+                        visi_tekstai.append(f"=== ŠALTINIO PAVADINIMAS: {r.get('title')} ===\n=== TIKSLUS ŠALTINIO URL: {puslapio_url} ===\n{svarus}")
         except Exception as e:
             print("Tavily paieškos klaida:", e)
         time.sleep(1)
 
-    print(f"Surinkta {len(visi_tekstai)} šaltinių puslapių iš įvairių šaltinių.")
+    print(f"Surinkta {len(visi_tekstai)} giliųjų šaltinių puslapių.")
 
     paketai = []
     dabartinis_paketas = ""
