@@ -32,8 +32,8 @@ jobs:
 
       - name: Išsaugoti prices.json ir SEO puslapius
         run: |
-          git config --local user.email "bot@kuropulsas.lt"
-          git config --local user.name "KuroPulsas Robotas"
+git config --local user.email "bot@benzinas-lt.vercel.app"
+git config --local user.name "Kuro kainos Lietuvoje Robotas"
           git add prices.json index.html tinklai/ miestai/ keliai/ sitemap.xml robots.txt
           git commit -m "Atnaujintos dienos kuro kainos" || exit 0
           git push
