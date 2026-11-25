@@ -35,13 +35,13 @@ def siusti_groq(promptas, max_tokens=3000):
 
 def istraukti_paketo_degalines(paketo_nr, paketo_tekstas, dabar_str):
     promptas = f"""Tu esi tikslus Lietuvos degalų duomenų analitikas. Dabartinis laikas: {dabar_str}.
-Iš šio Lietuvos miestų ir rajonų degalinių duomenų paketo (#{paketo_nr}) ištrauk VISAS minimas degalines ir jų kainas (A95, A98, Dyzelinas).
+Iš šio Lietuvos degalinių duomenų paketo (#{paketo_nr}) ištrauk VISAS minimas degalines ir jų kainas (A95, A98, Dyzelinas).
 
 TAISYKLĖS:
-1. Priskirk kiekvienai degalinei tikslų tinklo pavadinimą ("network" – pvz., "Jozita", "Neste", "Circle K", "Viada", "Baltic Petroleum", "Orlen", "Emsi", "Alauša", "Saurida", "Stateta" ar kt.).
+1. Priskirk kiekvienai degalinei tikslų tinklo pavadinimą ("network" – pvz., "Jozita", "Neste", "Circle K", "Viada", "Baltic Petroleum", "Orlen", "Emsi", "Alauša", "Saurida", "Stateta").
 2. Nurodyk tikslų miestą arba rajoną ("city") ir tikslų adresą ("address").
 3. Naudok TIK realius skaičius iš teksto (jei kaina nenurodyta – rašyk null).
-4. Svarbu: kiekvienai degalinei įrašyk TIKSLŲ šaltinio pavadinimą ("source", pvz., "Pricer.lt", "Fuelo.net", "15min.lt", "Delfi.lt") ir tikslią to puslapio nuorodą ("source_url") iš bloko antraštės!
+4. KRITIŠKAI SVARBU DĖL ŠALTINIŲ: Kiekvienai degalinei įrašyk TIKSLŲ šaltinio puslapio URL adresą ("source_url") iš antraštės "=== TIKSLUS ŠALTINIO URL: ... ===" (pvz., tikslų miesto puslapio arba straipsnio adresą su keliu po domeno), o ne bendrą titulinį puslapį! Taip pat įrašyk trumpą šaltinio pavadinimą ("source", pvz., "Fuelo.net (Vilnius)", "Pricer.lt apžvalga", "15min.lt").
 
 DUOMENŲ PAKETAS:
 {paketo_tekstas}
