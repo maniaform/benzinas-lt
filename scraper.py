@@ -1,61 +1,83 @@
 import os
-import time
 import requests
 
-def surinkti_visos_lietuvos_paketus():
-    tavily_key = os.environ.get("TAVILY_API_KEY")
-    if not tavily_key:
-        print("KLAIDA: Nerastas TAVILY_API_KEY!")
+ENA_API_URL = "https://" + "api-degalukainos.ena" + ".lt/api/v1/read/prices/latest"
+ENA_WEB_URL = "https://" + "www.ena" + ".lt"
+
+def isvalyti_savivaldybe(sav_pavadinimas, adresas):
+    # Jei adresas prasideda miesto pavadinimu (pvz. "Alytus, Kauno g. 73"), paimame jį
+    if adresas and "," in adresas:
+        pirmas_zodis = adresas.split(",")[0].strip()
+        if len(pirmas_zodis) > 2 and not any(c.isdigit() for c in pirmas_zodis):
+            return pirmas_zodis
+    # Kitu atveju sutvarkome savivaldybės pavadinimą
+    s = (sav_pavadinimas or "").replace(" m. sav.", "").replace(" r. sav.", " r.").strip()
+    return s
+
+def surinkti_visas_degalines_tiesiogiai(dabar_str):
+    token = os.environ.get("ENA_API_TOKEN")
+    if not token:
+        print("KLAIDA: Nerastas ENA_API_TOKEN raktas!")
         return []
 
-    url = "https://" + "api.tavily" + ".com/search"
-    
-    uzklausos = [
-        "site:lt.fuelo.net/city/ benzinas dyzelinas kainos Vilnius Kaunas Klaipeda",
-        "site:lt.fuelo.net/city/ benzinas dyzelinas kainos Siauliai Panevezys Alytus Marijampole Utena",
-        "site:lt.fuelo.net/gasstation/ Viada Neste Circle K Jozita Orlen Baltic Petroleum",
-        "site:pricer.lt degalu kainos Lietuvoje apzvalga benzinas dyzelinas",
-        "degalu kainos Lietuvoje 15min delfi lrt benzinas dyzelinas Circle K Neste Viada Jozita"
-    ]
+    headers = {
+        "Authorization": token if token.startswith("Bearer ") else f"Bearer {token}",
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0"
+    }
 
-    visi_tekstai = []
-    for q in uzklausos:
-        print(f"Ieškoma per Tavily: {q}...")
-        payload = {
-            "api_key": tavily_key,
-            "query": q,
-            "search_depth": "advanced",
-            "include_raw_content": True,
-            "max_results": 6
-        }
+    try:
+        res = requests.get(ENA_API_URL, headers=headers, timeout=25)
+        res.raise_for_status()
+        visi_irasai = res.json().get("data", [])
+        print(f"Gauta {len(visi_irasai)} oficialių kainų įrašų iš ENA.lt API.")
+    except Exception as e:
+        print("Klaida jungiantis prie ENA.lt API:", e)
+        return []
+
+    # Sugrupuojame atskirus kuro įrašus (95, 98, dyzelinas) į vieną konkrečią degalinę
+    degalines_map = {}
+
+    for item in visi_irasai:
+        tinklas = (item.get("gas_station_name") or item.get("company_name") or "").strip()
+        adresas = (item.get("address") or "").strip()
+        savivaldybe = item.get("municipality") or ""
+        kuro_rusis = (item.get("fuel_type") or "").lower()
+        laikas = item.get("submitted_at") or dabar_str
+        
         try:
-            res = requests.post(url, json=payload, timeout=25)
-            if res.ok:
-                rezultatai = res.json().get("results", [])
-                for r in rezultatai:
-                    puslapio_url = r.get("url", "")
-                    # Atmetame tuščius titulinius puslapius, jei yra gilesnių nuorodų
-                    if puslapio_url.rstrip("/") in ["https://fuelo.net", "https://pricer.lt"]:
-                        continue
-                    turinys = r.get("raw_content") or r.get("content") or ""
-                    if turinys:
-                        svarus = " ".join(turinys.split())[:3500]
-                        visi_tekstai.append(f"=== ŠALTINIO PAVADINIMAS: {r.get('title')} ===\n=== TIKSLUS ŠALTINIO URL: {puslapio_url} ===\n{svarus}")
-        except Exception as e:
-            print("Tavily paieškos klaida:", e)
-        time.sleep(1)
+            kaina = round(float(item.get("price")), 3)
+        except (TypeError, ValueError):
+            continue
 
-    print(f"Surinkta {len(visi_tekstai)} giliųjų šaltinių puslapių.")
+        if not tinklas or not adresas or kaina <= 0:
+            continue
 
-    paketai = []
-    dabartinis_paketas = ""
-    for t in visi_tekstai:
-        if len(dabartinis_paketas) + len(t) > 8500:
-            paketai.append(dabartinis_paketas)
-            dabartinis_paketas = t + "\n\n"
-        else:
-            dabartinis_paketas += t + "\n\n"
-    if dabartinis_paketas:
-        paketai.append(dabartinis_paketas)
+        raktas = f"{tinklas.lower()}_{adresas.lower()}"
+        if raktas not in degalines_map:
+            degalines_map[raktas] = {
+                "network": tinklas,
+                "city": isvalyti_savivaldybe(savivaldybe, adresas),
+                "address": adresas,
+                "a95": None,
+                "a98": None,
+                "diesel": None,
+                "time": laikas,
+                "source": "Lietuvos energetikos agentūra (ena.lt)",
+                "source_url": ENA_WEB_URL
+            }
 
-    return paketai
+        if "95" in kuro_rusis:
+            degalines_map[raktas]["a95"] = kaina
+        elif "98" in kuro_rusis:
+            degalines_map[raktas]["a98"] = kaina
+        elif "dyzel" in kuro_rusis:
+            degalines_map[raktas]["diesel"] = kaina
+
+        # Išsaugome naujausią pateikimo laiką
+        if laikas > degalines_map[raktas]["time"]:
+            degalines_map[raktas]["time"] = laikas
+
+    rezultatas = list(degalines_map.values())
+    print(f"Sugrupuota į {len(rezultatas)} unikalių Lietuvos degalinių!")
+    return rezultatas
