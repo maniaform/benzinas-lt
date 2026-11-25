@@ -61,14 +61,14 @@
             <div class="leaders-grid" id="a98-leaders-grid"></div>
         </div>
 
-        <h2 class="section-title" id="title-networks" style="display: flex; align-items: center; gap: 10px;">
-            <svg width="32" height="25" viewBox="0 0 120 94" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.35));">
+        <h2 class="section-title" id="title-networks" style="display: flex; align-items: center; gap: 12px;">
+            <svg width="42" height="33" viewBox="0 0 200 156" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 5px rgba(16, 185, 129, 0.35));">
                 <!-- Kuršių nerija -->
-                <path d="M6 34 L10 18 L12 18 L9 34 Z" fill="#10b981" stroke="#064e3b" stroke-width="2" stroke-linejoin="round"/>
-                <!-- Pagrindinis Lietuvos kontūras -->
-                <path d="M12 18 L18 14 L32 15 L44 8 L58 10 L72 16 L84 14 L96 22 L108 28 L114 38 L104 46 L94 48 L92 60 L82 68 L76 74 L68 72 L62 86 L50 86 L46 76 L34 72 L24 66 L18 52 L14 38 Z" fill="#10b981" stroke="#064e3b" stroke-width="4" stroke-linejoin="round"/>
+                <path d="M11 66 C13 55, 15 44, 17 34 L21 35 C19 45, 17 56, 15 67 Z" fill="#10b981" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round"/>
+                <!-- Tikras Lietuvos sienų kontūras -->
+                <path d="M19 25 L23 23 L32 25 L45 26 L56 23 L68 15 L82 14 L94 18 L108 21 L122 28 L134 26 L146 21 L156 24 L168 33 L182 37 L190 45 L186 55 L178 59 L172 68 L161 73 L156 85 L158 95 L146 105 L138 114 L126 119 L118 118 L112 126 L108 139 L101 146 L90 144 L83 136 L78 122 L66 118 L52 115 L41 106 L35 92 L29 82 L24 68 L22 50 L20 35 Z" fill="#10b981" stroke="#064e3b" stroke-width="5" stroke-linejoin="round"/>
                 <!-- Vilniaus taškas -->
-                <circle cx="84" cy="56" r="4" fill="#fbbf24"/>
+                <circle cx="143" cy="96" r="6.5" fill="#fbbf24" stroke="#064e3b" stroke-width="2"/>
             </svg>
             <span>Degalinių tinklai (Lietuvoje)</span>
         </h2>
@@ -620,7 +620,7 @@
                 : (rawData.summary_diesel || rawData.summary_petrol);
 
             const cityLabel = selectedCity === 'ALL' ? 'Lietuvoje' : `mieste/rajone: ${selectedCity}`;
-            const ltMapSvg = `<svg width="32" height="25" viewBox="0 0 120 94" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.35));"><path d="M6 34 L10 18 L12 18 L9 34 Z" fill="#10b981" stroke="#064e3b" stroke-width="2" stroke-linejoin="round"/><path d="M12 18 L18 14 L32 15 L44 8 L58 10 L72 16 L84 14 L96 22 L108 28 L114 38 L104 46 L94 48 L92 60 L82 68 L76 74 L68 72 L62 86 L50 86 L46 76 L34 72 L24 66 L18 52 L14 38 Z" fill="#10b981" stroke="#064e3b" stroke-width="4" stroke-linejoin="round"/><circle cx="84" cy="56" r="4" fill="#fbbf24"/></svg>`;
+            const ltMapSvg = `<svg width="42" height="33" viewBox="0 0 200 156" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 5px rgba(16, 185, 129, 0.35));"><path d="M11 66 C13 55, 15 44, 17 34 L21 35 C19 45, 17 56, 15 67 Z" fill="#10b981" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 25 L23 23 L32 25 L45 26 L56 23 L68 15 L82 14 L94 18 L108 21 L122 28 L134 26 L146 21 L156 24 L168 33 L182 37 L190 45 L186 55 L178 59 L172 68 L161 73 L156 85 L158 95 L146 105 L138 114 L126 119 L118 118 L112 126 L108 139 L101 146 L90 144 L83 136 L78 122 L66 118 L52 115 L41 106 L35 92 L29 82 L24 68 L22 50 L20 35 Z" fill="#10b981" stroke="#064e3b" stroke-width="5" stroke-linejoin="round"/><circle cx="143" cy="96" r="6.5" fill="#fbbf24" stroke="#064e3b" stroke-width="2"/></svg>`;
             document.getElementById('title-networks').innerHTML = `${ltMapSvg}<span>Degalinių tinklai (${cityLabel})</span>`;
 
             const filtered = buildCityFilteredNetworks();
