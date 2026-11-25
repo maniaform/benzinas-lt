@@ -34,7 +34,14 @@
     </header>
 
     <main class="container">
-        <div class="summary-bar" id="daily-summary">Kraunama dienos apžvalga...</div>
+        <div class="top-hero-grid">
+            <div class="summary-bar" id="daily-summary">Kraunama dienos apžvalga...</div>
+            <div class="widget-promo-card" onclick="openWidgetModal()">
+                <span class="widget-promo-badge">Nemokamas įrankis</span>
+                <div class="widget-promo-title">📊 Įsidėkite kainų švieslentę</div>
+                <div class="widget-promo-sub">Padidinkite savo svetainės lankytojų srautą automatiškai atsinaujinančiomis kainomis →</div>
+            </div>
+        </div>
 
         <!-- PAGRINDINIS MIESTO IR RAJONO FILTRAS -->
         <div class="top-city-bar">
@@ -352,7 +359,7 @@
 <!-- SEO_MIESTAI_END -->
             </div>
         </div>
-                <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
             <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">🛣️ Degalų kainos magistraliniuose keliuose:</h3>
             <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; margin-bottom: 24px;">
                 <a href="keliai/a1-vilnius-kaunas-klaipeda.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Magistralė A1 (Vilnius – Kaunas – Klaipėda)</a>
@@ -362,12 +369,6 @@
                 <a href="keliai/a11-siauliai-palanga.html" class="filter-chip" style="text-decoration:none; color:var(--text-main);">Kelias A11 (Šiauliai – Plungė – Palanga)</a>
             </div>
 
-            <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 16px;">
-                <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px;">🔗 Turite svetainę ar tinklaraštį? Įsidėkite nemokamą kuro kainų švieslentę:</div>
-                <code style="display: block; background: #f3f4f6; padding: 10px; border-radius: 8px; font-size: 0.78rem; color: #374151; overflow-x: auto;">
-                    &lt;iframe src="https://vercel.app" width="100%" height="185" frameborder="0" style="border-radius:12px; max-width:360px;"&gt;&lt;/iframe&gt;
-                </code>
-            </div>
         </div>
     </main>
 
@@ -386,6 +387,32 @@
         </div>
     </div>
 
+    <!-- Valdiklio įdiegimo instrukcijų langas -->
+    <div id="widget-modal" class="modal-backdrop" onclick="closeWidgetModal()">
+        <div class="modal-box" style="max-width: 580px;" onclick="event.stopPropagation()">
+            <div class="modal-top">
+                <h3 style="font-size: 1.3rem; font-weight: 800;">📊 Nemokama kuro kainų švieslentė jūsų svetainei</h3>
+                <button class="close-btn" onclick="closeWidgetModal()">&times;</button>
+            </div>
+            
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.5;">
+                Suteikite savo skaitytojams ar klientams kasdien naudingą informaciją. Tai padidins lankytojų įsitraukimą ir privers juos sugrįžti į jūsų puslapį kasdien.
+            </p>
+
+            <ul class="widget-guide-list">
+                <li><strong>Nulinė priežiūra:</strong> Kainos atsinaujina pačios 4 kartus per parą iš oficialios valstybinės ENA.lt duomenų bazės.</li>
+                <li><strong>Jokio lėtėjimo:</strong> Valdiklis kraunasi atskirai ir visiškai neapkrauna jūsų svetainės serverio.</li>
+                <li><strong>Svarbu dėl pločio:</strong> Kad lentelė gražiai atrodytų ir mobiliuosiuose telefonuose, nefiksuokite kieto pločio pikseliais – palikite kode nurodytą <code>width="100%"</code>.</li>
+                <li><strong>Kur įklijuoti:</strong> Kodą dėkite į svetainės HTML redaktorių (<em>Text / Custom HTML</em> režimu), o ne į paprastą teksto lauką, kad sistema nesugadintų kodo žymių.</li>
+            </ul>
+
+            <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 6px;">Nukopijuokite šį kodą:</div>
+            <textarea id="widget-embed-code" readonly rows="3" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-light); background: #f3f4f6; font-family: monospace; font-size: 0.8rem; color: #1f2937; resize: none;"><iframe src="https://vercel.app" width="100%" height="185" frameborder="0" style="border-radius:12px; max-width:380px;"></iframe></textarea>
+            
+            <button class="copy-code-btn" id="copy-widget-btn" onclick="copyWidgetCode()">📋 Kopijuoti kodą į atmintinę</button>
+        </div>
+    </div>
+    
     <script>
         let rawData = null;
         let currentFuel = 'petrol';
@@ -773,6 +800,29 @@
         function closeModal() {
             document.getElementById('stations-modal').classList.remove('active');
             document.body.style.overflow = 'auto';
+        }
+
+        function openWidgetModal() {
+            document.getElementById('widget-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWidgetModal() {
+            document.getElementById('widget-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyWidgetCode() {
+            const codeBox = document.getElementById('widget-embed-code');
+            codeBox.select();
+            codeBox.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(codeBox.value);
+            
+            const btn = document.getElementById('copy-widget-btn');
+            btn.textContent = '✅ Kodas sėkmingai nukopijuotas!';
+            setTimeout(() => {
+                btn.textContent = '📋 Kopijuoti kodą į atmintinę';
+            }, 3000);
         }
 
         function updateDynamicSeoAndTitle() {
