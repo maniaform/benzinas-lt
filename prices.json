@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-25 01:15",
-  "summary_petrol": "Mažiausia A95 benzino kaina – 1.599 €/l – fiksuota „Baltic Petroleum“ ir „Bonsa“ stoteliuose.",
-  "summary_diesel": "Dyzelino kaina žemiausia – 2.0 €/l – stebima „Trevena“ stotelėje; daugumoje kitų vietų jis svyruoja apie 2.1–2.2 €/l.",
+  "last_updated": "2026-11-25 01:32",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,599 Eur/l, kurią siūlo „Baltic Petroleum“, „Bonsa“ ir „Emsi“. Šios kainos yra žymiai palankesnės nei vidutinės rinkos vertės, todėl verta atkreipti dėmesį į šiuos tinklus.",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,00 Eur/l iki 2,30 Eur/l, o mažiausią kainą (2,00 Eur/l) siūlo „Trevena“. Bendra situacija rodo, kad dyzelinas vis dar yra brangesnis už benziną, tačiau yra keletas tinklų, siūlančių gana konkurencingas kainas.",
   "networks": [
     {
       "id": "viada",
@@ -1405,7 +1405,8 @@
         }
       ],
       "diff_a95": 0.0,
-      "diff_diesel": 0.0
+      "diff_diesel": 0.0,
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/NqdMHAZsHLPqUeDXNk18yCkVCJVCiK6dbVc7TzAd.png"
     },
     {
       "id": "circle-k",
@@ -2349,7 +2350,8 @@
         }
       ],
       "diff_a95": 0.0,
-      "diff_diesel": 0.0
+      "diff_diesel": 0.0,
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/ip8moBFDyrIxcWnsSDmksXUDhbVGmdwJDbeYeIs8.png"
     },
     {
       "id": "neste",
@@ -3183,7 +3185,8 @@
         }
       ],
       "diff_a95": 0.0,
-      "diff_diesel": 0.0
+      "diff_diesel": 0.0,
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/IjggNIvuQ9mfmjxxzfU8CvmxjwjS1Aup3N2WUEz8.png"
     },
     {
       "id": "orlen",
@@ -3497,7 +3500,8 @@
         }
       ],
       "diff_a95": 0.0,
-      "diff_diesel": 0.0
+      "diff_diesel": 0.0,
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/JORHLpHqCnmZoS9rCeb4TzCQGuQxr3fLPHQMNdkD.png"
     },
     {
       "id": "jozita",
@@ -3811,7 +3815,8 @@
         }
       ],
       "diff_a95": 0.0,
-      "diff_diesel": 0.0
+      "diff_diesel": 0.0,
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/osjg7QVU1ja8zH6dGxpzaI5ifKqoUhn6xh3WiTxZ.png"
     },
     {
       "id": "pynauja",
@@ -3836,7 +3841,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/aOSGty1io1gN2JN2Vl7XyzhP9AGjGcNnNaCo3Rlj.png"
     },
     {
       "id": "ii-a-praskeviciaus",
@@ -4351,7 +4357,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/GwbYfBRG5gEqiFTYGEs7PugMhMnws1hYyP2XASZ6.png"
     },
     {
       "id": "andopas",
@@ -4506,7 +4513,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/W296AGSJFdIBb5Q2Io3x4Y65bTdY142rg6UNYg70.png"
     },
     {
       "id": "atsiauta",
@@ -4531,7 +4539,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/gSzIRhy1e5OvG7M1WC90LWr3xzq5G2ZzvTCszmzl.png"
     },
     {
       "id": "autograndas",
@@ -4556,7 +4565,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/uTpZtPmkCaQ69Kn4ufFFY1znEDMPBoHtAxlQbpMd.png"
     },
     {
       "id": "baltic-petroleum",
@@ -5511,7 +5521,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/fw7Ilu4sHHNDsBUMYGXxn9bRHD280Wn7aujdkVW2.png"
     },
     {
       "id": "bonsa",
@@ -5546,7 +5557,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/1gIuQYg47meXA0QwAiwLH3sHT2kXLv7edYXlvJ12.png"
     },
     {
       "id": "abromika",
@@ -5671,7 +5683,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/3kxV3VzQyiJKZ2nseBU9aq5FIKUtQ8UOrFraN44g.png"
     },
     {
       "id": "deguva",
@@ -5696,7 +5709,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/pzvsDa9f8TzJMjR1qBVUZLdSTlgVEyylBYDRpaMP.png"
     },
     {
       "id": "deliuvis",
@@ -5741,7 +5755,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/augYDfcuQhIoqnXMwwS2jdmOztmkdDQtp2pFKDWB.png"
     },
     {
       "id": "dujovita",
@@ -6336,7 +6351,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/w8fxpV23fRAPwb5WyT6h9kQ8jYZy5Up42UTBhsWb.png"
     },
     {
       "id": "milda",
@@ -6491,7 +6507,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/gxGdFVhHCi4y2XFtiJgshyqoFtsAhWqI601gtb7L.png"
     },
     {
       "id": "kvistija",
@@ -6606,7 +6623,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/lXnO5iRy1hF1Prxx9yklPViWDWnorEZWon7HY14k.png"
     },
     {
       "id": "eu-verslas",
@@ -6661,7 +6679,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/dFCx5zJXZL4tBDuLJEa9TKMOrQ6OapqWNfSpBe0t.png"
     },
     {
       "id": "gelvybe",
@@ -6851,7 +6870,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/qBEtZo0nRy65nNQzBC9YGCKEtn89ljp6KnfoH3Lt.png"
     },
     {
       "id": "madalva",
@@ -6916,7 +6936,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/TrYalEiBzmFpuD5QNjDzHbgP7O5E2nNrqORyC6Ms.png"
     },
     {
       "id": "medelsta",
@@ -6941,7 +6962,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/s5UNYLX2q0w5nGU3H48u0ZfRaZlji7hhKNxQ3YGU.png"
     },
     {
       "id": "melkasta",
@@ -7011,7 +7033,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/gas_stations/758O3gSiILXUu2RbR3I9voKCiQM5hOcF1JCvNDl5.jpg"
     },
     {
       "id": "rv",
@@ -7056,7 +7079,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/j4EJ8FRScXyKN536N6Xi4Ci7zaRUHSFsi6OOLWq2.png"
     },
     {
       "id": "naftrus",
@@ -7311,7 +7335,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/k9BJfjNcLtllVTlYNcS9GTiKAdV7jIlOUi88dxoP.png"
     },
     {
       "id": "propano-ir-butano-duju-centras",
@@ -7381,7 +7406,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/y6Pwodk4C9qNlAyrqRetciamBLYTw9Xh99qjFldU.png"
     },
     {
       "id": "saurida",
@@ -7736,7 +7762,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/tkTig8LdoLCx1rJBDKqZ258OWJlIcdAu5MxTkWJe.png"
     },
     {
       "id": "skulas",
@@ -7821,7 +7848,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/XIQDCGjd9kJrxCfzKu7fG7RMivP7gmd6QnAPlhme.png"
     },
     {
       "id": "stateta",
@@ -7966,7 +7994,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/dtf0ZD7fuh6KYc6MSnzNzL26Sf23m8O0f4B8rOap.png"
     },
     {
       "id": "sventosios-investicijos",
@@ -8221,7 +8250,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/5Q2u7qHWVVMopNcnI5HCj8NJVZ9k4ubcqa4d0xAO.png"
     },
     {
       "id": "tumasa",
@@ -8296,7 +8326,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/qfFyil4vfDmy7tMN9rvRlWvdThP3MtFe5yCgb0r3.jpg"
     },
     {
       "id": "vildega",
@@ -8321,7 +8352,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/lrpgcz6q6Ol94DwnKOlstIe1xi9QQ9BmNGlRNNh3.jpg"
     },
     {
       "id": "vimijula",
@@ -8371,7 +8403,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/vbDVDgbsJFArN3w1oSOf5rW9I5jncJXYy7puXU1p.png"
     },
     {
       "id": "visvilas",
@@ -8471,7 +8504,8 @@
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
-      ]
+      ],
+      "logo_url": "https://api-degalukainos.ena.lt/storage/companies/eGD6ZYppIGKXqdbO85f4DGTq8d0ee79US2b0Lnu4.jpg"
     }
   ]
 }
