@@ -671,11 +671,14 @@
         function renderLeaderCards(networks, priceKey, diffKey, locKey, timeKey, srcKey, urlKey, label, extraClass, containerId) {
             const rawFuelKey = priceKey.replace('calc_', '');
             
-            let candidateStations = [];
+            let bestByNetwork = [];
+            let allStations = [];
+
             networks.forEach(net => {
+                let netStations = [];
                 (net.filteredStations || []).forEach(st => {
                     if (typeof st[rawFuelKey] === 'number' && st[rawFuelKey] > 0) {
-                        candidateStations.push({
+                        const item = {
                             networkName: net.name,
                             logo: net.logo_url,
                             price: st[rawFuelKey],
@@ -684,18 +687,30 @@
                             time: st.time || net.price_time,
                             source: st.source || net.source_name,
                             url: st.source_url || net.source_url
-                        });
+                        };
+                        netStations.push(item);
+                        allStations.push(item);
                     }
                 });
+
+                if (netStations.length > 0) {
+                    netStations.sort((a, b) => a.price - b.price);
+                    bestByNetwork.push(netStations[0]);
+                }
             });
 
-            if (candidateStations.length === 0) {
+            if (allStations.length === 0) {
                 document.getElementById(containerId).innerHTML = `<p style="color: var(--text-muted);">Šioje vietovėje šios kuro rūšies kainų šiuo metu nėra.</p>`;
                 return;
             }
 
-            candidateStations.sort((a, b) => a.price - b.price);
-            const topTwo = candidateStations.slice(0, 2);
+            bestByNetwork.sort((a, b) => a.price - b.price);
+            let topTwo = bestByNetwork.slice(0, 2);
+
+            if (topTwo.length < 2 && allStations.length >= 2) {
+                allStations.sort((a, b) => a.price - b.price);
+                topTwo = allStations.slice(0, 2);
+            }
 
             document.getElementById(containerId).innerHTML = topTwo.map((st, idx) => `
                 <div class="leader-card ${extraClass}">
