@@ -60,19 +60,21 @@ def paleisti_kainu_atnaujinima():
             tinklai_dict[net_id] = {
                 "id": net_id,
                 "name": net_name,
+                "logo_url": "",
                 "best_a95": None,
                 "best_a98": None,
                 "best_diesel": None,
+                "best_lpg": None,
                 "diff_a95": 0,
                 "diff_a98": 0,
                 "diff_diesel": 0,
+                "diff_lpg": 0,
                 "price_time": dabar,
                 "source_name": st.get("source") or "Lietuvos energetikos agentūra (ena.lt)",
                 "source_url": st.get("source_url") or "https://" + "www.ena" + ".lt",
-                "stations": [],
-                "logo_url": ""
+                "stations": []
             }
-        
+
         naujas_miestas = (st.get("city") or "").strip()
         naujas_adresas = (st.get("address") or "").strip()
         if not naujas_adresas:
@@ -84,6 +86,7 @@ def paleisti_kainu_atnaujinima():
             "a95": st.get("a95"),
             "a98": st.get("a98"),
             "diesel": st.get("diesel"),
+            "lpg": st.get("lpg"),
             "time": st.get("time") or dabar,
             "source": st.get("source") or "Lietuvos energetikos agentūra (ena.lt)",
             "source_url": st.get("source_url") or "https://" + "www.ena" + ".lt"
@@ -126,10 +129,12 @@ def paleisti_kainu_atnaujinima():
         sena_a95 = net.get("best_a95")
         sena_a98 = net.get("best_a98")
         sena_dz = net.get("best_diesel")
+        sena_lpg = net.get("best_lpg")
 
         a95_kainos = [s["a95"] for s in stations if isinstance(s.get("a95"), (int, float)) and s["a95"] > 0]
         a98_kainos = [s["a98"] for s in stations if isinstance(s.get("a98"), (int, float)) and s["a98"] > 0]
         dz_kainos = [s["diesel"] for s in stations if isinstance(s.get("diesel"), (int, float)) and s["diesel"] > 0]
+        lpg_kainos = [s["lpg"] for s in stations if isinstance(s.get("lpg"), (int, float)) and s["lpg"] > 0]
 
         if a95_kainos:
             nauja_a95 = min(a95_kainos)
@@ -145,6 +150,11 @@ def paleisti_kainu_atnaujinima():
             nauja_dz = min(dz_kainos)
             net["diff_diesel"] = round(nauja_dz - sena_dz, 3) if isinstance(sena_dz, (int, float)) else 0
             net["best_diesel"] = nauja_dz
+
+        if lpg_kainos:
+            nauja_lpg = min(lpg_kainos)
+            net["diff_lpg"] = round(nauja_lpg - sena_lpg, 3) if isinstance(sena_lpg, (int, float)) else 0
+            net["best_lpg"] = nauja_lpg
         
         if stations:
             net["price_time"] = stations[0].get("time", dabar)
