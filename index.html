@@ -879,51 +879,6 @@
             }, 3000);
         }
 
-        function updateDynamicSeoAndTitle() {
-            if (!rawData || !rawData.networks) return;
-            const validA95 = rawData.networks.map(n => n.best_a95).filter(v => typeof v === 'number' && v > 0);
-            const validDz = rawData.networks.map(n => n.best_diesel).filter(v => typeof v === 'number' && v > 0);
-            
-            const minA95 = validA95.length ? Math.min(...validA95).toFixed(3) : null;
-            const minDz = validDz.length ? Math.min(...validDz).toFixed(3) : null;
-
-            if (minA95 && minDz) {
-                document.title = `A95 nuo ${minA95} € | Dyzelinas nuo ${minDz} € — KuroPulsas.lt`;
-            }
-
-            const faqSchema = {
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "Kokia šiandien mažiausia A95 benzino kaina Lietuvoje?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": `Šiandien (${rawData.last_updated}) mažiausia oficiali A95 benzino kaina Lietuvos degalinėse prasideda nuo ${minA95 || '—'} € už litrą.`
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Kokia šiandien mažiausia dyzelino kaina Lietuvoje?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": `Šiandien (${rawData.last_updated}) mažiausia oficiali dyzelino kaina Lietuvos degalinėse prasideda nuo ${minDz || '—'} € už litrą.`
-                        }
-                    }
-                ]
-            };
-
-            let scriptTag = document.getElementById('dynamic-faq-schema');
-            if (!scriptTag) {
-                scriptTag = document.createElement('script');
-                scriptTag.id = 'dynamic-faq-schema';
-                scriptTag.type = 'application/ld+json';
-                document.head.appendChild(scriptTag);
-            }
-            scriptTag.textContent = JSON.stringify(faqSchema);
-        }
-
         loadPrices();
     </script>
 </body>
