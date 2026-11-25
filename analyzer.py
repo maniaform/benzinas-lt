@@ -52,15 +52,18 @@ Grąžink TIK gryną JSON objektą su vienu raktu "stations" (sąrašas objektų
 
 def sugeneruoti_santraukas(tinklai_sarasas, dabar_str):
     trumpas_vaizdas = [
-        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel"), "kiekis": len(t.get("stations", []))}
+        {"name": t["name"], "a95": t.get("best_a95"), "a98": t.get("best_a98"), "diesel": t.get("best_diesel")}
         for t in tinklai_sarasas
+        if t.get("best_a95") or t.get("best_diesel")
     ]
     promptas = f"""Remdamasis šiais šiandienos ({dabar_str}) degalų kainų duomenimis Lietuvoje:
 {json.dumps(trumpas_vaizdas, ensure_ascii=False)}
 
 Parašyk dvi trumpas (1–2 sakinių), aiškias apžvalgas vairuotojams lietuvių kalba:
-1. "summary_petrol" – apie benzino (A95 ir A98) mažiausias kainas ir kur jos fiksuojamos.
+1. "summary_petrol" – apie benzino mažiausias kainas ir kur jos fiksuojamos.
 2. "summary_diesel" – apie dyzelino mažiausias kainas ir bendrą situaciją.
+
+GRIEŽTA TAISYKLĖ: Niekada nerašyk programavimo terminų („null“, „None“, „duomenyse nenurodyta“). Jei kurios nors kuro rūšies (pvz., A98) skaičiaus nėra, tiesiog jos neminėk ir rašyk tik apie A95 benziną!
 
 Grąžink TIK gryną JSON objektą su raktais "summary_petrol" ir "summary_diesel"."""
     return siusti_groq(promptas, max_tokens=1200)
