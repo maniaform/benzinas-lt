@@ -5,12 +5,10 @@ ENA_API_URL = "https://" + "api-degalukainos.ena" + ".lt/api/v1/read/prices/late
 ENA_WEB_URL = "https://" + "www.ena" + ".lt"
 
 def isvalyti_savivaldybe(sav_pavadinimas, adresas):
-    # Jei adresas prasideda miesto pavadinimu (pvz. "Alytus, Kauno g. 73"), paimame jį
     if adresas and "," in adresas:
         pirmas_zodis = adresas.split(",")[0].strip()
         if len(pirmas_zodis) > 2 and not any(c.isdigit() for c in pirmas_zodis):
             return pirmas_zodis
-    # Kitu atveju sutvarkome savivaldybės pavadinimą
     s = (sav_pavadinimas or "").replace(" m. sav.", "").replace(" r. sav.", " r.").strip()
     return s
 
@@ -35,7 +33,6 @@ def surinkti_visas_degalines_tiesiogiai(dabar_str):
         print("Klaida jungiantis prie ENA.lt API:", e)
         return []
 
-    # Sugrupuojame atskirus kuro įrašus (95, 98, dyzelinas) į vieną konkrečią degalinę
     degalines_map = {}
 
     for item in visi_irasai:
@@ -63,6 +60,7 @@ def surinkti_visas_degalines_tiesiogiai(dabar_str):
                 "a95": None,
                 "a98": None,
                 "diesel": None,
+                "lpg": None,
                 "time": laikas,
                 "source": "Lietuvos energetikos agentūra (ena.lt)",
                 "source_url": ENA_WEB_URL
@@ -74,8 +72,9 @@ def surinkti_visas_degalines_tiesiogiai(dabar_str):
             degalines_map[raktas]["a98"] = kaina
         elif "dyzel" in kuro_rusis:
             degalines_map[raktas]["diesel"] = kaina
+        elif "snd" in kuro_rusis or "duj" in kuro_rusis or "lpg" in kuro_rusis:
+            degalines_map[raktas]["lpg"] = kaina
 
-        # Išsaugome naujausią pateikimo laiką
         if laikas > degalines_map[raktas]["time"]:
             degalines_map[raktas]["time"] = laikas
 
