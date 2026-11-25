@@ -61,14 +61,12 @@
             <div class="leaders-grid" id="a98-leaders-grid"></div>
         </div>
 
-        <h2 class="section-title" id="title-networks" style="display: flex; align-items: center; gap: 12px;">
-            <svg width="42" height="33" viewBox="0 0 200 156" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 5px rgba(16, 185, 129, 0.35));">
-                <!-- Kuršių nerija -->
-                <path d="M11 66 C13 55, 15 44, 17 34 L21 35 C19 45, 17 56, 15 67 Z" fill="#10b981" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round"/>
-                <!-- Tikras Lietuvos sienų kontūras -->
-                <path d="M19 25 L23 23 L32 25 L45 26 L56 23 L68 15 L82 14 L94 18 L108 21 L122 28 L134 26 L146 21 L156 24 L168 33 L182 37 L190 45 L186 55 L178 59 L172 68 L161 73 L156 85 L158 95 L146 105 L138 114 L126 119 L118 118 L112 126 L108 139 L101 146 L90 144 L83 136 L78 122 L66 118 L52 115 L41 106 L35 92 L29 82 L24 68 L22 50 L20 35 Z" fill="#10b981" stroke="#064e3b" stroke-width="5" stroke-linejoin="round"/>
-                <!-- Vilniaus taškas -->
-                <circle cx="143" cy="96" r="6.5" fill="#fbbf24" stroke="#064e3b" stroke-width="2"/>
+        <h2 class="section-title" id="title-networks" style="display: flex; align-items: center; gap: 10px;">
+            <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                <rect x="2" y="4" width="32" height="9" rx="2" fill="#FDB913"/>
+                <rect x="2" y="13" width="32" height="10" fill="#006A44"/>
+                <rect x="2" y="23" width="32" height="9" rx="2" fill="#C1272D"/>
+                <rect x="2" y="4" width="32" height="28" rx="6" stroke="#111827" stroke-width="2"/>
             </svg>
             <span>Degalinių tinklai (Lietuvoje)</span>
         </h2>
@@ -620,7 +618,7 @@
                 : (rawData.summary_diesel || rawData.summary_petrol);
 
             const cityLabel = selectedCity === 'ALL' ? 'Lietuvoje' : `mieste/rajone: ${selectedCity}`;
-            const ltMapSvg = `<svg width="42" height="33" viewBox="0 0 200 156" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 5px rgba(16, 185, 129, 0.35));"><path d="M11 66 C13 55, 15 44, 17 34 L21 35 C19 45, 17 56, 15 67 Z" fill="#10b981" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 25 L23 23 L32 25 L45 26 L56 23 L68 15 L82 14 L94 18 L108 21 L122 28 L134 26 L146 21 L156 24 L168 33 L182 37 L190 45 L186 55 L178 59 L172 68 L161 73 L156 85 L158 95 L146 105 L138 114 L126 119 L118 118 L112 126 L108 139 L101 146 L90 144 L83 136 L78 122 L66 118 L52 115 L41 106 L35 92 L29 82 L24 68 L22 50 L20 35 Z" fill="#10b981" stroke="#064e3b" stroke-width="5" stroke-linejoin="round"/><circle cx="143" cy="96" r="6.5" fill="#fbbf24" stroke="#064e3b" stroke-width="2"/></svg>`;
+            const ltMapSvg = `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"><rect x="2" y="4" width="32" height="9" rx="2" fill="#FDB913"/><rect x="2" y="13" width="32" height="10" fill="#006A44"/><rect x="2" y="23" width="32" height="9" rx="2" fill="#C1272D"/><rect x="2" y="4" width="32" height="28" rx="6" stroke="#111827" stroke-width="2"/></svg>`;
             document.getElementById('title-networks').innerHTML = `${ltMapSvg}<span>Degalinių tinklai (${cityLabel})</span>`;
 
             const filtered = buildCityFilteredNetworks();
