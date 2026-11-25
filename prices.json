@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-25 11:33",
-  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,570 Eur/l, kurią siūlo „Jozita“ ir „Eu Verslas“. Kitos pigiausios alternatyvos yra „Alauša“ (1,574 Eur/l) bei „Orlen“, „Baltic Petroleum“, „Degta“ ir „Velseka“ (1,579 Eur/l).",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,000 iki 2,300 Eur/l, o pigiausia kaina (2,000 Eur/l) fiksuojama „Trevena“ degalinėje. Bendra situacija rodo, kad didžioji dalis degalinių siūlo dyzeliną už mažiau nei 2,10 Eur/l.",
+  "last_updated": "2026-11-25 11:49",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,570 Eur/l, kurią siūlo „Jozita“ ir „Eu Verslas“. Kitos pigiausios kainos siekia 1,574–1,579 Eur/l įmonėse „Alauša“, „Orlen“, „Baltic Petroleum“, „Degta“ ir „Velseka“.",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,000 iki 2,300 Eur/l, o mažiausią kainą (2,000 Eur/l) siūlo „Trevena“. Bendra situacija rodo, kad dauguma degalinių dyzelino kainas laiko 2,04–2,10 Eur/l ribose.",
   "networks": [
     {
       "id": "viada",
