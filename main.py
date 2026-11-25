@@ -144,7 +144,7 @@ def paleisti_kainu_atnaujinima():
             net["best_diesel"] = nauja_dz
         
         if stations:
-            net["price_time"] = stations.get("time", dabar)
+            net["price_time"] = stations[0].get("time", dabar)
         atnaujinti_tinklai.append(net)
 
     try:
