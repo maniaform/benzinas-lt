@@ -94,12 +94,27 @@
                     }
                 });
             });
-            const sortedCities = Array.from(citiesSet).sort((a, b) => a.localeCompare(b, 'lt'));
-            const select = document.getElementById('global-city-select');
-            select.innerHTML = `<option value="ALL">🇱🇹 Visa Lietuva (${sortedCities.length} vietovės)</option>` +
-                sortedCities.map(c => `<option value="${c}">${c}</option>`).join('');
-        }
 
+            const topCities = ['Vilnius', 'Kaunas', 'Klaipėda'].filter(c => citiesSet.has(c));
+            const otherCities = Array.from(citiesSet)
+                .filter(c => !topCities.includes(c))
+                .sort((a, b) => a.localeCompare(b, 'lt'));
+
+            const select = document.getElementById('global-city-select');
+            let optionsHtml = `<option value="ALL">🇱🇹 Visa Lietuva (${citiesSet.size} vietovės)</option>`;
+            
+            if (topCities.length > 0) {
+                optionsHtml += `<optgroup label="Didieji miestai">` +
+                    topCities.map(c => `<option value="${c}">${c}</option>`).join('') +
+                    `</optgroup>`;
+            }
+            
+            optionsHtml += `<optgroup label="Kiti miestai ir rajonai">` +
+                otherCities.map(c => `<option value="${c}">${c}</option>`).join('') +
+                `</optgroup>`;
+
+            select.innerHTML = optionsHtml;
+        }
         function changeGlobalCity(city) {
             selectedCity = city;
             renderAll();
