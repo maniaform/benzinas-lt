@@ -38,7 +38,7 @@
             <div class="summary-bar" id="daily-summary">Kraunama dienos apžvalga...</div>
             <div class="widget-promo-card" onclick="openWidgetModal()">
                 <span class="widget-promo-badge">Nemokamas įrankis</span>
-                <div class="widget-promo-title">📊 Įsidėkite kainų švieslentę</div>
+                <div class="widget-promo-title">📊 Nemokama kuro kainų švieslentė jūsų svetainei</div>
                 <div class="widget-promo-sub">Padidinkite savo svetainės lankytojų srautą automatiškai atsinaujinančiomis kainomis →</div>
             </div>
         </div>
@@ -389,27 +389,32 @@
 
     <!-- Valdiklio įdiegimo instrukcijų langas -->
     <div id="widget-modal" class="modal-backdrop" onclick="closeWidgetModal()">
-        <div class="modal-box" style="max-width: 580px;" onclick="event.stopPropagation()">
+        <div class="modal-box" style="max-width: 580px; max-height: 90vh; overflow-y: auto;" onclick="event.stopPropagation()">
             <div class="modal-top">
-                <h3 style="font-size: 1.3rem; font-weight: 800;">📊 Nemokama kuro kainų švieslentė jūsų svetainei</h3>
+                <h3 style="font-size: 1.3rem; font-weight: 800;">📊 Įsidėkite nemokamą kuro kainų švieslentę</h3>
                 <button class="close-btn" onclick="closeWidgetModal()">&times;</button>
             </div>
             
             <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.5;">
-                Suteikite savo skaitytojams ar klientams kasdien naudingą informaciją. Tai padidins lankytojų įsitraukimą ir privers juos sugrįžti į jūsų puslapį kasdien.
+                Suteikite savo skaitytojams ar klientams kasdien naudingą informaciją. Tai padidins lankytojų įsitraukimą ir paskatins juos sugrįžti į jūsų puslapį kasdien.
             </p>
 
             <ul class="widget-guide-list">
-                <li><strong>Nulinė priežiūra:</strong> Kainos atsinaujina pačios 4 kartus per parą iš oficialios valstybinės ENA.lt duomenų bazės.</li>
-                <li><strong>Jokio lėtėjimo:</strong> Valdiklis kraunasi atskirai ir visiškai neapkrauna jūsų svetainės serverio.</li>
-                <li><strong>Svarbu dėl pločio:</strong> Kad lentelė gražiai atrodytų ir mobiliuosiuose telefonuose, nefiksuokite kieto pločio pikseliais – palikite kode nurodytą <code>width="100%"</code>.</li>
-                <li><strong>Kur įklijuoti:</strong> Kodą dėkite į svetainės HTML redaktorių (<em>Text / Custom HTML</em> režimu), o ne į paprastą teksto lauką, kad sistema nesugadintų kodo žymių.</li>
+                <li><strong>Nulinė priežiūra ir jokio lėtėjimo:</strong> Kainos atsinaujina pačios 4 kartus per parą iš oficialios valstybinės ENA.lt duomenų bazės, o pats valdiklis kraunasi atskirai ir visiškai neapkrauna jūsų svetainės serverio.</li>
+                <li><strong>Teisingas įdiegimas ir prisitaikantis plotis:</strong> Kodą dėkite tik į svetainės HTML redaktorių (<em>Text / Custom HTML</em> režimu), o ne į paprastą teksto lauką, ir palikite kode nurodytą <code>width="100%"</code>, kad lentelė gražiai prisitaikytų tiek kompiuterių, tiek mobiliųjų telefonų ekranuose.</li>
             </ul>
 
             <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 6px;">Nukopijuokite šį kodą:</div>
             <textarea id="widget-embed-code" readonly rows="3" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-light); background: #f3f4f6; font-family: monospace; font-size: 0.8rem; color: #1f2937; resize: none;"><iframe src="https://vercel.app" width="100%" height="185" frameborder="0" style="border-radius:12px; max-width:380px;"></iframe></textarea>
             
             <button class="copy-code-btn" id="copy-widget-btn" onclick="copyWidgetCode()">📋 Kopijuoti kodą į atmintinę</button>
+
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-light);">
+                <div style="font-weight: 700; font-size: 0.88rem; margin-bottom: 10px; color: var(--text-main);">Taip atrodytų švieslentė jūsų puslapyje šiandien:</div>
+                <div style="display: flex; justify-content: center; background: #f9fafb; padding: 12px; border-radius: 12px; border: 1px dashed #d1d5db;">
+                    <iframe src="widget.html" width="100%" height="185" frameborder="0" style="border-radius:12px; max-width:380px;"></iframe>
+                </div>
+            </div>
         </div>
     </div>
     
