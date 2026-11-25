@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuro kainų valdiklis | KuroPulsas.lt</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; margin: 0; padding: 12px; background: #111827; color: #ffffff; }
+        .w-box { border: 1px solid #374151; border-radius: 12px; padding: 14px; background: #1f2937; }
+        .w-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; }
+        .w-logo { font-weight: 800; color: #ffffff; text-decoration: none; }
+        .w-logo span { color: #10b981; }
+        .w-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #111827; border-radius: 8px; margin-bottom: 6px; font-size: 0.88rem; }
+        .w-price { font-family: monospace; font-size: 1.05rem; font-weight: 800; color: #10b981; }
+        .w-dz { color: #fbbf24; }
+        .w-foot { text-align: right; font-size: 0.72rem; color: #9ca3af; margin-top: 6px; }
+        .w-foot a { color: #6ee7b7; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="w-box">
+        <div class="w-top">
+            <a href="https://vercel.app" target="_blank" class="w-logo">Kuro<span>Pulsas.lt</span></a>
+            <span id="w-time" style="color:#9ca3af; font-size:0.75rem;">Kraunama...</span>
+        </div>
+        <div class="w-row">
+            <span>⛽ Pigiausias A95 (<strong id="w-a95-net">—</strong>)</span>
+            <span class="w-price" id="w-a95-val">—</span>
+        </div>
+        <div class="w-row">
+            <span>🚛 Pigiausias Dyzelinas (<strong id="w-dz-net">—</strong>)</span>
+            <span class="w-price w-dz" id="w-dz-val">—</span>
+        </div>
+        <div class="w-foot">
+            Visos 750+ degalinių kainos → <a href="https://vercel.app" target="_blank">KuroPulsas.lt ↗</a>
+        </div>
+    </div>
+
+    <script>
+        fetch('prices.json?v=' + new Date().getTime())
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('w-time').textContent = data.last_updated;
+                const a95Nets = data.networks.filter(n => n.best_a95).sort((a, b) => a.best_a95 - b.best_a95);
+                const dzNets = data.networks.filter(n => n.best_diesel).sort((a, b) => a.best_diesel - b.best_diesel);
+
+                if (a95Nets.length) {
+                    document.getElementById('w-a95-net').textContent = a95Nets[0].name;
+                    document.getElementById('w-a95-val').textContent = a95Nets[0].best_a95.toFixed(3) + ' €';
+                }
+                if (dzNets.length) {
+                    document.getElementById('w-dz-net').textContent = dzNets[0].name;
+                    document.getElementById('w-dz-val').textContent = dzNets[0].best_diesel.toFixed(3) + ' €';
+                }
+            });
+    </script>
+</body>
+</html>
