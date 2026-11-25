@@ -127,7 +127,19 @@
             return val ? `${Number(val).toFixed(3)} €` : '—';
         }
 
-                function buildCityFilteredNetworks() {
+        function formatDiff(diff) {
+            if (diff === null || diff === undefined) return '';
+            const val = Number(diff);
+            if (val < -0.0001) {
+                return `<span class="diff-badge diff-down">${val.toFixed(3)} € ↓</span>`;
+            } else if (val > 0.0001) {
+                return `<span class="diff-badge diff-up">+${val.toFixed(3)} € ↑</span>`;
+            } else {
+                return `<span class="diff-badge diff-same">0.000 € =</span>`;
+            }
+        }
+
+        function buildCityFilteredNetworks() {
             return rawData.networks.map(net => {
                 const cityStations = selectedCity === 'ALL'
                     ? (net.stations || [])
@@ -167,6 +179,10 @@
                     url_a95: bestA95St ? (bestA95St.source_url || net.source_url) : net.source_url,
                     url_a98: bestA98St ? (bestA98St.source_url || net.source_url) : net.source_url,
                     url_diesel: bestDzSt ? (bestDzSt.source_url || net.source_url) : net.source_url
+
+                    diff_a95: selectedCity === 'ALL' ? net.diff_a95 : null,
+                    diff_a98: selectedCity === 'ALL' ? net.diff_a98 : null,
+                    diff_diesel: selectedCity === 'ALL' ? net.diff_diesel : null,
                 };
             }).filter(Boolean);
         }
@@ -231,7 +247,7 @@
             renderNetworks(activeDisplayNetworks);
         }
 
-        function renderLeaderCards(networks, priceKey, locKey, timeKey, srcKey, urlKey, label, extraClass, containerId) {
+        function renderLeaderCards(networks, priceKey, diffKey, locKey, timeKey, srcKey, urlKey, label, extraClass, containerId) {
             const valid = networks.filter(n => n[priceKey] !== null && n[priceKey] !== undefined);
             if (valid.length === 0) {
                 document.getElementById(containerId).innerHTML = `<p style="color: var(--text-muted);">Šioje vietovėje šios kuro rūšies kainų dar neužfiksuota.</p>`;
@@ -248,7 +264,7 @@
                     <div class="leader-location">📍 ${net[locKey]}</div>
                     <div class="digital-price-box">
                         <span class="fuel-label">${label}</span>
-                        <span class="digital-number">${formatPrice(net[priceKey])}</span>
+                        <span class="digital-number">${formatPrice(net[priceKey])}${formatDiff(net[diffKey])}</span>
                     </div>
                     <div class="meta-info">
                         <span>🕒 Fiksuota: <strong>${net[timeKey]}</strong></span>
@@ -257,8 +273,8 @@
                 </div>
             `).join('');
         }
-
-                function renderNetworks(networks) {
+        
+        function renderNetworks(networks) {
             const isPetrol = currentFuel === 'petrol';
             if (networks.length === 0) {
                 document.getElementById('networks-grid').innerHTML = `<p>Šioje vietovėje duomenų nerasta.</p>`;
@@ -266,11 +282,14 @@
             }
 
             document.getElementById('networks-grid').innerHTML = networks.map((net, index) => {
+                const a98Row = net.calc_a98 
+                    ? `<div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.calc_a98)}${formatDiff(net.diff_a98)}</span></div>` 
+                    : '';
+
                 const mainPriceHtml = isPetrol 
-                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.calc_a95)}</span></div>
-                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.calc_a98)}</span></div>`
-                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.calc_diesel)}</span></div>
-                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}</span></div>`;
+                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>${a98Row}`
+                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.calc_diesel)}${formatDiff(net.diff_diesel)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>`;
 
                 const displayTime = isPetrol ? net.time_a95 : net.time_diesel;
                 const displayLoc = isPetrol ? net.loc_a95 : net.loc_diesel;
@@ -288,9 +307,6 @@
                             <span>🔗 Šaltinis: <a href="${net.source_url}" target="_blank" rel="noopener">${net.source_name} ↗</a></span>
                         </div>
                     </div>
-                    <button class="stations-btn" onclick="openNetworkModal(${index})">
-                        Degalinių sąrašas (${net.filteredStations.length}) →
-                    </button>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
                         <button class="stations-btn" onclick="openNetworkModal(${index})">
                             Degalinių sąrašas (${net.filteredStations.length}) →
@@ -302,7 +318,7 @@
                 </div>
             `}).join('');
         }
-
+        
         function openNetworkModal(index) {
             const net = activeDisplayNetworks[index];
             if (!net) return;
