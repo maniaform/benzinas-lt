@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-25 09:16",
+  "last_updated": "2026-11-25 10:19",
   "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,570 Eur/l ir ji fiksuojama „Jozita“ bei „Eu Verslas“ degalinėse. Kitos pigiausios kainos siekia 1,574–1,579 Eur/l, o vidutinė rinkos kaina yra apie 1,70 Eur/l.",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,000 iki 2,300 Eur/l, o mažiausia kaina (2,000 Eur/l) pasitaiko „Trevena“ degalinėje. Bendra situacija rodo, kad dyzelinas yra žymiai brangesnis už benziną, o kainų skirtumai tarp degalinių yra gana dideli.",
+  "summary_diesel": "Pigiausias dyzelinas kainuoja 2,000 Eur/l „Trevena“ degalinėje, o kitos žemos kainos siekia 2,019–2,029 Eur/l. Bendra dyzelino kaina rinkoje svyruoja nuo 2,00 iki 2,30 Eur/l, priklausomai nuo tiekėjo.",
   "networks": [
     {
       "id": "viada",
@@ -2044,7 +2044,7 @@
           "a95": 1.779,
           "a98": null,
           "diesel": 2.199,
-          "time": "2026-11-25 10:00:00",
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -2054,7 +2054,7 @@
           "a95": 1.899,
           "a98": null,
           "diesel": 2.239,
-          "time": "2026-11-25 10:00:00",
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -4545,23 +4545,23 @@
     {
       "id": "autograndas",
       "name": "Autograndas",
-      "best_a95": 1.597,
+      "best_a95": 1.578,
       "best_a98": null,
-      "best_diesel": 2.064,
+      "best_diesel": 2.048,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-25 10:00:00",
+      "price_time": "2026-11-25 11:44:31",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Visaginas",
           "address": "Visaginas, Taikos pr. 47, 31217",
-          "a95": 1.597,
+          "a95": 1.578,
           "a98": null,
-          "diesel": 2.064,
-          "time": "2026-11-25 10:00:00",
+          "diesel": 2.048,
+          "time": "2026-11-25 11:44:31",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -7140,53 +7140,53 @@
     {
       "id": "narjanta",
       "name": "Narjanta",
-      "best_a95": 1.829,
+      "best_a95": 1.799,
       "best_a98": null,
-      "best_diesel": 2.219,
+      "best_diesel": 2.199,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-25 10:00:00",
+      "price_time": "2026-11-25 12:09:07",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Anykščių r.",
           "address": "Sausalaukės k. 2, 29345",
-          "a95": 1.899,
+          "a95": 1.859,
           "a98": null,
-          "diesel": 2.239,
-          "time": "2026-11-25 10:00:00",
+          "diesel": 2.199,
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
         {
           "city": "Vabalninkas",
           "address": "Vabalninkas, S. Nėries g. 35, 41341",
-          "a95": 1.829,
+          "a95": 1.799,
           "a98": null,
-          "diesel": 2.229,
-          "time": "2026-11-25 10:00:00",
+          "diesel": 2.199,
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
         {
           "city": "Troškūnai",
           "address": "Troškūnai, Vilniaus g. 32, 29306",
-          "a95": 1.969,
+          "a95": 1.899,
           "a98": null,
-          "diesel": 2.239,
-          "time": "2026-11-25 10:00:00",
+          "diesel": 2.199,
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
         {
           "city": "Kupiškio r.",
           "address": "Dvariškių vs. 2, 40402",
-          "a95": 1.839,
+          "a95": 1.799,
           "a98": null,
-          "diesel": 2.219,
-          "time": "2026-11-25 10:00:00",
+          "diesel": 2.199,
+          "time": "2026-11-25 12:09:07",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8563,6 +8563,32 @@
           "a98": null,
           "diesel": 2.229,
           "time": "2026-11-25 10:00:00",
+          "source": "Lietuvos energetikos agentūra (ena.lt)",
+          "source_url": "https://www.ena.lt"
+        }
+      ],
+      "logo_url": ""
+    },
+    {
+      "id": "bemija",
+      "name": "Bemija",
+      "best_a95": 1.74,
+      "best_a98": null,
+      "best_diesel": 2.17,
+      "diff_a95": 0.0,
+      "diff_a98": 0,
+      "diff_diesel": 0.0,
+      "price_time": "2026-11-25 11:56:05",
+      "source_name": "Lietuvos energetikos agentūra (ena.lt)",
+      "source_url": "https://www.ena.lt",
+      "stations": [
+        {
+          "city": "Ukmergė",
+          "address": "Ukmergė, Dariaus ir Girėno g. 31, 20154",
+          "a95": 1.74,
+          "a98": null,
+          "diesel": 2.17,
+          "time": "2026-11-25 11:56:05",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
