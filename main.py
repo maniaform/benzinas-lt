@@ -112,10 +112,11 @@ def paleisti_kainu_atnaujinima():
             tinklai_dict[net_id]["stations"].append(naujas_irasas)
 
         # Atnaujiname pagrindinį tinklo šaltinį, jei atėjo šviežesnis
-        if st.get("source_url"):
-            tinklai_dict[net_id]["source_url"] = st.get("source_url")
-        if st.get("source"):
-            tinklai_dict[net_id]["source_name"] = st.get("source")
+        naujas_url = st.get("source_url") or ""
+        if naujas_url and naujas_url.rstrip("/") not in ["https://fuelo.net", "https://pricer.lt"]:
+            tinklai_dict[net_id]["source_url"] = naujas_url
+            if st.get("source"):
+                tinklai_dict[net_id]["source_name"] = st.get("source")
 
     septynios_dienos_atgal = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
     
