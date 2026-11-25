@@ -644,7 +644,7 @@
                 ? 'Lietuvoje' 
                 : (hwObj ? hwObj.name.replace('🛣️ ', '') : `mieste/rajone: ${selectedCity}`);
 
-            const ltMapSvg = `<img src="https://wikimedia.org" alt="Lietuva" style="width: 38px; height: 29px; object-fit: contain; border-radius: 5px; border: 1px solid #10b981; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.25);">`;
+            const ltMapSvg = `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"><rect x="2" y="4" width="32" height="9" rx="2" fill="#FDB913"/><rect x="2" y="13" width="32" height="10" fill="#006A44"/><rect x="2" y="23" width="32" height="9" rx="2" fill="#C1272D"/><rect x="2" y="4" width="32" height="28" rx="6" stroke="#111827" stroke-width="2"/></svg>`;
             document.getElementById('title-networks').innerHTML = `${ltMapSvg}<span>Degalinių tinklai (${cityLabel})</span>`;
 
             const filtered = buildCityFilteredNetworks();
