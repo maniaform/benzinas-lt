@@ -213,6 +213,7 @@ def generuoti_kuro_seo(duomenys):
                 f.write(idx_html)
 
     # 4. SITEMAP.XML IR ROBOTS.TXT
+    sitemap_urls.append(f"{BASE_URL}/widget.html")
     ns = "http://" + "www.sitemaps.org/schemas/sitemap/0.9"
     xml = ['<?xml version="1.0" encoding="UTF-8"?>', f'<urlset xmlns="{ns}">']
     for u in sitemap_urls:
@@ -220,6 +221,6 @@ def generuoti_kuro_seo(duomenys):
     xml.append("</urlset>")
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(xml))
-
+        
     with open("robots.txt", "w", encoding="utf-8") as f:
         f.write(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
