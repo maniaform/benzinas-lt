@@ -549,23 +549,16 @@
             renderAll();
         }
 
-        function switchFuel(fuelType) {
-            currentFuel = fuelType;
-            const btnPetrol = document.getElementById('btn-petrol');
-            const btnDiesel = document.getElementById('btn-diesel');
-            const header = document.getElementById('main-header');
+     function switchFuel(fuelType) {
+         currentFuel = fuelType;
+         document.getElementById('btn-petrol').className = fuelType === 'petrol' ? 'fuel-btn active' : 'fuel-btn';
+         document.getElementById('btn-diesel').className = fuelType === 'diesel' ? 'fuel-btn diesel-active' : 'fuel-btn';
+         document.getElementById('btn-lpg').className = fuelType === 'lpg' ? 'fuel-btn active' : 'fuel-btn';
 
-            if (fuelType === 'petrol') {
-                btnPetrol.className = 'fuel-btn active';
-                btnDiesel.className = 'fuel-btn';
-                header.style.borderBottomColor = '#10b981';
-            } else {
-                btnPetrol.className = 'fuel-btn';
-                btnDiesel.className = 'fuel-btn diesel-active';
-                header.style.borderBottomColor = '#f59e0b';
-            }
-            renderAll();
-        }
+         const header = document.getElementById('main-header');
+         header.style.borderBottomColor = fuelType === 'diesel' ? '#f59e0b' : (fuelType === 'lpg' ? '#3b82f6' : '#10b981');
+         renderAll();
+     }
 
         function formatPrice(val) {
             return val ? `${Number(val).toFixed(3)} €` : '—';
@@ -649,29 +642,36 @@
         function renderAll() {
             if (!rawData) return;
 
-            const isPetrol = currentFuel === 'petrol';
-            document.getElementById('daily-summary').textContent = isPetrol 
-                ? rawData.summary_petrol 
+            document.getElementById('daily-summary').textContent = currentFuel === 'petrol'
+                ? rawData.summary_petrol
                 : (rawData.summary_diesel || rawData.summary_petrol);
 
-            const cityLabel = selectedCity === 'ALL' ? 'Lietuvoje' : `mieste/rajone: ${selectedCity}`;
-            const ltMapSvg = `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://w3.org" style="flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"><rect x="2" y="4" width="32" height="9" rx="2" fill="#FDB913"/><rect x="2" y="13" width="32" height="10" fill="#006A44"/><rect x="2" y="23" width="32" height="9" rx="2" fill="#C1272D"/><rect x="2" y="4" width="32" height="28" rx="6" stroke="#111827" stroke-width="2"/></svg>`;
+            const hwObj = selectedCity.startsWith('ROAD:') ? HIGHWAYS.find(h => h.id === selectedCity) : null;
+            const cityLabel = selectedCity === 'ALL' 
+                ? 'Lietuvoje' 
+                : (hwObj ? hwObj.name.replace('🛣️ ', '') : `mieste/rajone: ${selectedCity}`);
+
+            const ltMapSvg = `<img src="https://wikimedia.org" alt="Lietuva" style="width: 38px; height: 29px; object-fit: contain; border-radius: 5px; border: 1px solid #10b981; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.25);">`;
             document.getElementById('title-networks').innerHTML = `${ltMapSvg}<span>Degalinių tinklai (${cityLabel})</span>`;
 
             const filtered = buildCityFilteredNetworks();
-            const sortKey = isPetrol ? 'calc_a95' : 'calc_diesel';
+            const sortKey = currentFuel === 'petrol' ? 'calc_a95' : (currentFuel === 'diesel' ? 'calc_diesel' : 'calc_lpg');
             activeDisplayNetworks = filtered.sort((a, b) => (a[sortKey] || 99) - (b[sortKey] || 99));
 
-            if (isPetrol) {
+            if (currentFuel === 'petrol') {
                 document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios A95 benzino kainos (${cityLabel})`;
                 renderLeaderCards(activeDisplayNetworks, 'calc_a95', 'diff_a95', 'loc_a95', 'time_a95', 'src_a95', 'url_a95', 'Benzinas A95', '', 'primary-leaders-grid');
 
                 document.getElementById('secondary-leaders-section').style.display = 'block';
                 const sortedA98 = [...filtered].sort((a, b) => (a.calc_a98 || 99) - (b.calc_a98 || 99));
                 renderLeaderCards(sortedA98, 'calc_a98', 'diff_a98', 'loc_a98', 'time_a98', 'src_a98', 'url_a98', 'Benzinas A98', 'a98-card', 'a98-leaders-grid');
-            } else {
+            } else if (currentFuel === 'diesel') {
                 document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios dyzelino kainos (${cityLabel})`;
                 renderLeaderCards(activeDisplayNetworks, 'calc_diesel', 'diff_diesel', 'loc_diesel', 'time_diesel', 'src_diesel', 'url_diesel', 'Dyzelinas (D)', 'diesel-card', 'primary-leaders-grid');
+                document.getElementById('secondary-leaders-section').style.display = 'none';
+            } else {
+                document.getElementById('title-primary-leaders').textContent = `🏆 Mažiausios suskystintų dujų (LPG) kainos (${cityLabel})`;
+                renderLeaderCards(activeDisplayNetworks, 'calc_lpg', 'diff_lpg', 'loc_lpg', 'time_lpg', 'src_lpg', 'url_lpg', 'Dujos (LPG)', 'a98-card', 'primary-leaders-grid');
                 document.getElementById('secondary-leaders-section').style.display = 'none';
             }
 
@@ -728,7 +728,6 @@
         }
         
         function renderNetworks(networks) {
-            const isPetrol = currentFuel === 'petrol';
             if (networks.length === 0) {
                 document.getElementById('networks-grid').innerHTML = `<p>Šioje vietovėje duomenų nerasta.</p>`;
                 return;
@@ -739,13 +738,23 @@
                     ? `<div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A98</span><span class="price-secondary">${formatPrice(net.calc_a98)}${formatDiff(net.diff_a98)}</span></div>` 
                     : '';
 
-                const mainPriceHtml = isPetrol 
-                    ? `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>${a98Row}`
-                    : `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.calc_diesel)}${formatDiff(net.diff_diesel)}</span></div>
-                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>`;
+                const lpgSubRow = net.calc_lpg 
+                    ? `<div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Dujos (LPG)</span><span class="price-secondary">${formatPrice(net.calc_lpg)}${formatDiff(net.diff_lpg)}</span></div>` 
+                    : '';
 
-                const displayTime = isPetrol ? net.time_a95 : net.time_diesel;
-                const displayLoc = isPetrol ? net.loc_a95 : net.loc_diesel;
+                let mainPriceHtml = '';
+                if (currentFuel === 'petrol') {
+                    mainPriceHtml = `<div class="price-row"><span style="font-weight: 600;">Benzinas A95</span><span class="price-value">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>${a98Row}${lpgSubRow}`;
+                } else if (currentFuel === 'diesel') {
+                    mainPriceHtml = `<div class="price-row"><span style="font-weight: 600;">Dyzelinas (D)</span><span class="price-value">${formatPrice(net.calc_diesel)}${formatDiff(net.diff_diesel)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>${lpgSubRow}`;
+                } else {
+                    mainPriceHtml = `<div class="price-row"><span style="font-weight: 600;">Dujos (LPG)</span><span class="price-value">${formatPrice(net.calc_lpg)}${formatDiff(net.diff_lpg)}</span></div>
+                       <div class="price-row"><span style="font-size: 0.88rem; color: var(--text-muted);">Benzinas A95</span><span class="price-secondary">${formatPrice(net.calc_a95)}${formatDiff(net.diff_a95)}</span></div>`;
+                }
+
+                const displayTime = currentFuel === 'petrol' ? net.time_a95 : (currentFuel === 'diesel' ? net.time_diesel : net.time_lpg);
+                const displayLoc = currentFuel === 'petrol' ? net.loc_a95 : (currentFuel === 'diesel' ? net.loc_diesel : net.loc_lpg);
 
                 return `
                 <div class="network-card">
@@ -826,6 +835,7 @@
                             <th>A95</th>
                             <th>A98</th>
                             <th>Dyzelinas</th>
+                            <th>Dujos</th>
                             <th>Laikas</th>
                             <th>Šaltinis</th>
                         </tr>
@@ -838,6 +848,7 @@
                                 <td class="mono" style="color: var(--accent-green-dark);">${formatPrice(s.a95)}</td>
                                 <td class="mono">${formatPrice(s.a98)}</td>
                                 <td class="mono" style="color: #d97706;">${formatPrice(s.diesel)}</td>
+                                <td class="mono" style="color: #2563eb;">${formatPrice(s.lpg)}</td>
                                 <td style="font-size: 0.78rem; color: var(--text-muted);">${s.time}</td>
                                 <td style="font-size: 0.78rem;">
                                     ${s.source_url ? `<a href="${s.source_url}" target="_blank" rel="noopener" style="color: var(--accent-green-dark);">${s.source} ↗</a>` : s.source}
