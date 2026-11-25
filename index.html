@@ -587,7 +587,7 @@
                     const valid = cityStations.filter(s => typeof s[fuelKey] === 'number' && s[fuelKey] > 0);
                     if (valid.length === 0) return null;
                     valid.sort((a, b) => a[fuelKey] - b[fuelKey]);
-                    return valid;
+                    return valid[0];
                 };
 
                 const bestA95St = findBestStation('a95');
