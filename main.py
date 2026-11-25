@@ -1,10 +1,8 @@
 import re
 import json
-import time
 from datetime import datetime, timedelta
-from scraper import surinkti_visos_lietuvos_paketus
 from scraper import surinkti_visas_degalines_tiesiogiai
-from analyzer import istraukti_paketo_degalines, sugeneruoti_santraukas
+from analyzer import sugeneruoti_santraukas
 from seo import generuoti_kuro_seo
 
 def suvienodinti_tinkla(pavadinimas):
@@ -22,7 +20,7 @@ def suvienodinti_tinkla(pavadinimas):
     if "skulas" in zemas: return "Skulas"
     if "ecoil" in zemas: return "Ecoil"
     if "kvistija" in zemas: return "Kvistija"
-    return None
+    return pavadinimas.strip().title()
 
 def sukurti_tinklo_id(pavadinimas):
     p = pavadinimas.lower().strip()
@@ -31,28 +29,20 @@ def sukurti_tinklo_id(pavadinimas):
         p = p.replace(k, v)
     return re.sub(r'[^a-z0-9]+', '-', p).strip('-')
 
+def normalizuoti_adresa(adr, miest):
+    s = f"{adr} {miest}".lower()
+    s = re.sub(r'[^a-z0-9ąčęėįšųūž]', '', s)
+    return s[:22]
+
 def paleisti_kainu_atnaujinima():
     dabar = datetime.now().strftime("%Y-%m-%d %H:%M")
-    print(f"[{dabar}] Pradedamas visos Lietuvos (miestų ir rajonų) degalinių kainų surinkimas...")
+    print(f"[{dabar}] Pradedamas oficialių ENA.lt degalinių kainų surinkimas...")
 
     with open("prices.json", "r", encoding="utf-8") as f:
         seni_duomenys = json.load(f)
 
-    paketai = surinkti_visos_lietuvos_paketus()
-    print(f"Suformuoti {len(paketai)} duomenų paketai iš visos Lietuvos.")
-
     visos_naujos_degalines = surinkti_visas_degalines_tiesiogiai(dabar)
-    for i, paketas in enumerate(paketai, 1):
-        print(f"Analizuojamas paketas {i}/{len(paketai)}...")
-        try:
-            rastos = istraukti_paketo_degalines(i, paketas, dabar)
-            visos_naujos_degalines.extend(rastos)
-            print(f"  -> Pakete #{i} rasta {len(rastos)} degalinių.")
-        except Exception as e:
-            print(f"  -> Klaida pakete #{i}: {e}")
-        time.sleep(15)
 
- # Sugrupuojame visas rastas degalines pagal suvienodintus tinklus (išsaugodami ir senas!)
     tinklai_dict = {}
     for net in seni_duomenys.get("networks", []):
         tinklai_dict[net["id"]] = net
@@ -73,9 +63,12 @@ def paleisti_kainu_atnaujinima():
                 "best_a95": None,
                 "best_a98": None,
                 "best_diesel": None,
+                "diff_a95": 0,
+                "diff_a98": 0,
+                "diff_diesel": 0,
                 "price_time": dabar,
-                "source_name": st.get("source") or "Pricer.lt / Fuelo.net",
-                "source_url": st.get("source_url") or "https://" + "lt.fuelo" + ".net/?lang=lt",
+                "source_name": st.get("source") or "Lietuvos energetikos agentūra (ena.lt)",
+                "source_url": st.get("source_url") or "https://" + "www.ena" + ".lt",
                 "stations": []
             }
         
@@ -91,15 +84,9 @@ def paleisti_kainu_atnaujinima():
             "a98": st.get("a98"),
             "diesel": st.get("diesel"),
             "time": st.get("time") or dabar,
-            "source": st.get("source") or "Fuelo.net",
-            "source_url": st.get("source_url") or "https://" + "lt.fuelo" + ".net/?lang=lt"
+            "source": st.get("source") or "Lietuvos energetikos agentūra (ena.lt)",
+            "source_url": st.get("source_url") or "https://" + "www.ena" + ".lt"
         }
-        
-        # Tikriname, ar degalinė tokiu adresu jau yra – jei taip, atnaujiname jos kainą, jei ne – pridedame!
-        def normalizuoti_adresa(adr, miest):
-            s = f"{adr} {miest}".lower()
-            s = re.sub(r'[^a-z0-9ąčęėįšųūž]', '', s)
-            return s[:18]
 
         naujas_raktas = normalizuoti_adresa(naujas_adresas, naujas_miestas)
         rasta_sena = False
@@ -112,12 +99,10 @@ def paleisti_kainu_atnaujinima():
         if not rasta_sena:
             tinklai_dict[net_id]["stations"].append(naujas_irasas)
 
-        # Atnaujiname pagrindinį tinklo šaltinį, jei atėjo šviežesnis
-        naujas_url = st.get("source_url") or ""
-        if naujas_url and naujas_url.rstrip("/") not in ["https://fuelo.net", "https://pricer.lt"]:
-            tinklai_dict[net_id]["source_url"] = naujas_url
-            if st.get("source"):
-                tinklai_dict[net_id]["source_name"] = st.get("source")
+        if st.get("source_url"):
+            tinklai_dict[net_id]["source_url"] = st.get("source_url")
+        if st.get("source"):
+            tinklai_dict[net_id]["source_name"] = st.get("source")
 
     septynios_dienos_atgal = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
     
@@ -126,34 +111,40 @@ def paleisti_kainu_atnaujinima():
         sviezios_stations = []
         for s in net.get("stations", []):
             laikas_str = str(s.get("time") or dabar)
-            # Jei laikas prasideda metais (pvz., 2026-...), tikriname ar ne senesnis nei 7 d.
             if laikas_str.startswith("202"):
                 if laikas_str[:10] >= septynios_dienos_atgal:
                     sviezios_stations.append(s)
             else:
-                # Jei nurodyta tik valanda (pvz., 14:20), laikome įrašą šviežiu
                 sviezios_stations.append(s)
                 
         net["stations"] = sviezios_stations
         stations = sviezios_stations
-    
-    # Apskaičiuojame mažiausias kainas kiekvienam tinklui
-    atnaujinti_tinklai = []
-    for net_id, net in tinklai_dict.items():
-        stations = net.get("stations", [])
+
+        sena_a95 = net.get("best_a95")
+        sena_a98 = net.get("best_a98")
+        sena_dz = net.get("best_diesel")
+
         a95_kainos = [s["a95"] for s in stations if isinstance(s.get("a95"), (int, float)) and s["a95"] > 0]
         a98_kainos = [s["a98"] for s in stations if isinstance(s.get("a98"), (int, float)) and s["a98"] > 0]
         dz_kainos = [s["diesel"] for s in stations if isinstance(s.get("diesel"), (int, float)) and s["diesel"] > 0]
 
         if a95_kainos:
-            net["best_a95"] = min(a95_kainos)
+            nauja_a95 = min(a95_kainos)
+            net["diff_a95"] = round(nauja_a95 - sena_a95, 3) if isinstance(sena_a95, (int, float)) else 0
+            net["best_a95"] = nauja_a95
+
         if a98_kainos:
-            net["best_a98"] = min(a98_kainos)
+            nauja_a98 = min(a98_kainos)
+            net["diff_a98"] = round(nauja_a98 - sena_a98, 3) if isinstance(sena_a98, (int, float)) else 0
+            net["best_a98"] = nauja_a98
+
         if dz_kainos:
-            net["best_diesel"] = min(dz_kainos)
+            nauja_dz = min(dz_kainos)
+            net["diff_diesel"] = round(nauja_dz - sena_dz, 3) if isinstance(sena_dz, (int, float)) else 0
+            net["best_diesel"] = nauja_dz
         
         if stations:
-            net["price_time"] = stations[0].get("time", dabar)
+            net["price_time"] = stations.get("time", dabar)
         atnaujinti_tinklai.append(net)
 
     try:
@@ -174,6 +165,9 @@ def paleisti_kainu_atnaujinima():
 
     generuoti_kuro_seo(galutinis)
     print(f"Visi tinklai ({len(atnaujinti_tinklai)}) ir SEO puslapiai sėkmingai atnaujinti!")
+
+if __name__ == "__main__":
+    paleisti_kainu_atnaujinima()
 
 if __name__ == "__main__":
     paleisti_kainu_atnaujinima()
