@@ -508,3 +508,27 @@ body {
     background: rgba(255, 255, 255, 0.12);
     color: #9ca3af;
 }
+
+/* --- TINKLŲ LOGOTIPAI --- */
+.network-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.network-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+
+.leader-card .network-logo {
+    width: 42px;
+    height: 42px;
+    border-color: rgba(255, 255, 255, 0.2);
+}
