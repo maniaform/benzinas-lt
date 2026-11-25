@@ -57,6 +57,7 @@ def surinkti_visas_degalines_tiesiogiai(dabar_str):
         if raktas not in degalines_map:
             degalines_map[raktas] = {
                 "network": tinklas,
+                "logo_url": item.get("logo_url") or "",
                 "city": isvalyti_savivaldybe(savivaldybe, adresas),
                 "address": adresas,
                 "a95": None,
