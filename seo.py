@@ -30,15 +30,16 @@ def generuoti_kuro_seo(duomenys):
             a95 = f"{s['a95']:.3f} €" if s.get("a95") else "—"
             a98 = f"{s['a98']:.3f} €" if s.get("a98") else "—"
             dz = f"{s['diesel']:.3f} €" if s.get("diesel") else "—"
-            eilutes += f"<tr><td><strong>{s['city']}</strong></td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td><td style='font-size:0.8rem; color:#6b7280;'>{s['time']}</td></tr>"
+            lpg = f"{s['lpg']:.3f} €" if s.get("lpg") else "—"
+            eilutes += f"<tr><td><strong>{s['city']}</strong></td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td><td class='mono' style='color:#2563eb;'>{lpg}</td><td style='font-size:0.8rem; color:#6b7280;'>{s['time']}</td></tr>"
 
         html = f"""<!DOCTYPE html>
 <html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{net['name']} degalų kainos šiandien (A95, A98, Dyzelinas) | Kuro kainos Lietuvoje</title>
-    <meta name="description" content="Naujausios {net['name']} degalinių tinklo benzino ir dyzelino kainos Lietuvoje: A95 nuo {net.get('best_a95', '—')} €, dyzelinas nuo {net.get('best_diesel', '—')} €. Visų {len(net.get('stations', []))} degalinių adresai ir kainos.">
+    <title>{net['name']} degalų kainos šiandien (A95, A98, Dyzelinas, Dujos) | Kuro kainos Lietuvoje</title>
+    <meta name="description" content="Naujausios {net['name']} degalinių tinklo benzino, dyzelino ir dujų kainos Lietuvoje: A95 nuo {net.get('best_a95', '—')} €, dyzelinas nuo {net.get('best_diesel', '—')} €. Visų {len(net.get('stations', []))} degalinių adresai ir kainos.">
     <link rel="canonical" href="{pilnas_url}">
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -57,7 +58,7 @@ def generuoti_kuro_seo(duomenys):
         <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt) • Iš viso degalinių: {len(net.get('stations', []))}</p>
         <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light); overflow-x:auto;">
             <table class="stations-table">
-                <thead><tr><th>Miestas / Rajonas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Laikas</th></tr></thead>
+                <thead><tr><th>Miestas / Rajonas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Dujos (LPG)</th><th>Laikas</th></tr></thead>
                 <tbody>{eilutes}</tbody>
             </table>
         </div>
@@ -96,7 +97,8 @@ def generuoti_kuro_seo(duomenys):
             a95 = f"{s['a95']:.3f} €" if s.get("a95") else "—"
             a98 = f"{s['a98']:.3f} €" if s.get("a98") else "—"
             dz = f"{s['diesel']:.3f} €" if s.get("diesel") else "—"
-            m_eilutes += f"<tr><td><strong>{s['network']}</strong></td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td><td style='font-size:0.8rem; color:#6b7280;'>{s['time']}</td></tr>"
+            lpg = f"{s['lpg']:.3f} €" if s.get("lpg") else "—"
+            m_eilutes += f"<tr><td><strong>{s['network']}</strong></td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td><td class='mono' style='color:#2563eb;'>{lpg}</td><td style='font-size:0.8rem; color:#6b7280;'>{s['time']}</td></tr>"
 
         m_html = f"""<!DOCTYPE html>
 <html lang="lt">
@@ -104,12 +106,11 @@ def generuoti_kuro_seo(duomenys):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Degalų kainos: {miestas} — A95 nuo {min_a95} €, Dyzelinas nuo {min_dz} € | Kuro kainos Lietuvoje</title>
-    <meta name="description" content="Naujausios benzino ir dyzelino kainos vietovėje {miestas}. Pigiausias A95 benzinas nuo {min_a95} €, dyzelinas nuo {min_dz} €. Visų {len(stotys)} degalinių adresai.">
+    <meta name="description" content="Naujausios benzino, dyzelino ir dujų kainos vietovėje {miestas}. Pigiausias A95 benzinas nuo {min_a95} €, dyzelinas nuo {min_dz} €. Visų {len(stotys)} degalinių adresai.">
     <link rel="canonical" href="{m_url}">
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header class="header">
     <header class="header">
         <div class="container header-inner">
             <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro kainos <span>Lietuvoje</span></div></a>
@@ -121,7 +122,7 @@ def generuoti_kuro_seo(duomenys):
         <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt) • Degalinių skaičius: {len(stotys)}</p>
         <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light); overflow-x:auto;">
             <table class="stations-table">
-                <thead><tr><th>Tinklas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Laikas</th></tr></thead>
+                <thead><tr><th>Tinklas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Dujos (LPG)</th><th>Laikas</th></tr></thead>
                 <tbody>{m_eilutes}</tbody>
             </table>
         </div>
@@ -140,8 +141,6 @@ def generuoti_kuro_seo(duomenys):
         {"slug": "a11-siauliai-palanga", "name": "Kelias A11 (Šiauliai – Telšiai – Plungė – Palanga)", "raktazodziai": ["a11", "telš", "plung", "kreting", "palang"]}
     ]
 
-    keliu_nuorodos_html = []
-
     for kelias in magistrales:
         k_stotys = []
         for net in duomenys.get("networks", []):
@@ -156,7 +155,6 @@ def generuoti_kuro_seo(duomenys):
         k_kelias = f"keliai/{kelias['slug']}.html"
         k_url = f"{BASE_URL}/{k_kelias}"
         sitemap_urls.append(k_url)
-        keliu_nuorodos_html.append(f'<a href="{k_kelias}" class="filter-chip" style="text-decoration:none; color:var(--text-main);">{kelias["name"]} ({len(k_stotys)})</a>')
 
         k_stotys.sort(key=lambda x: x.get("a95") or 99)
         min_a95 = next((s["a95"] for s in k_stotys if s.get("a95")), "—")
@@ -167,7 +165,8 @@ def generuoti_kuro_seo(duomenys):
             a95 = f"{s['a95']:.3f} €" if s.get("a95") else "—"
             a98 = f"{s['a98']:.3f} €" if s.get("a98") else "—"
             dz = f"{s['diesel']:.3f} €" if s.get("diesel") else "—"
-            k_eilutes += f"<tr><td><strong>{s['network']}</strong></td><td>{s['city']}</td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td></tr>"
+            lpg = f"{s['lpg']:.3f} €" if s.get("lpg") else "—"
+            k_eilutes += f"<tr><td><strong>{s['network']}</strong></td><td>{s['city']}</td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td><td class='mono' style='color:#2563eb;'>{lpg}</td></tr>"
 
         k_html = f"""<!DOCTYPE html>
 <html lang="lt">
@@ -175,7 +174,7 @@ def generuoti_kuro_seo(duomenys):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Degalų kainos kelyje: {kelias['name']} | Kuro kainos Lietuvoje</title>
-    <meta name="description" content="Mažiausios benzino ir dyzelino kainos kelyje {kelias['name']}. Pigiausias A95 nuo {min_a95} €, dyzelinas nuo {min_dz} €. Palyginkite pakeliui esančias degalines.">
+    <meta name="description" content="Mažiausios benzino, dyzelino ir dujų kainos kelyje {kelias['name']}. Pigiausias A95 nuo {min_a95} €, dyzelinas nuo {min_dz} €. Palyginkite pakeliui esančias degalines.">
     <link rel="canonical" href="{k_url}">
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -191,7 +190,7 @@ def generuoti_kuro_seo(duomenys):
         <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt) • Rasta degalinių: {len(k_stotys)}</p>
         <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light); overflow-x:auto;">
             <table class="stations-table">
-                <thead><tr><th>Tinklas</th><th>Miestas / Rajonas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th></tr></thead>
+                <thead><tr><th>Tinklas</th><th>Miestas / Rajonas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th><th>Dujos (LPG)</th></tr></thead>
                 <tbody>{k_eilutes}</tbody>
             </table>
         </div>
@@ -222,6 +221,7 @@ def generuoti_kuro_seo(duomenys):
     xml.append("</urlset>")
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(xml))
-        
+
     with open("robots.txt", "w", encoding="utf-8") as f:
         f.write(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
+
