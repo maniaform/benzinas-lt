@@ -69,7 +69,8 @@ def paleisti_kainu_atnaujinima():
                 "price_time": dabar,
                 "source_name": st.get("source") or "Lietuvos energetikos agentūra (ena.lt)",
                 "source_url": st.get("source_url") or "https://" + "www.ena" + ".lt",
-                "stations": []
+                "stations": [],
+                "logo_url": ""
             }
         
         naujas_miestas = (st.get("city") or "").strip()
@@ -103,6 +104,8 @@ def paleisti_kainu_atnaujinima():
             tinklai_dict[net_id]["source_url"] = st.get("source_url")
         if st.get("source"):
             tinklai_dict[net_id]["source_name"] = st.get("source")
+        if st.get("logo_url"):
+            tinklai_dict[net_id]["logo_url"] = st.get("logo_url")
 
     septynios_dienos_atgal = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
     
