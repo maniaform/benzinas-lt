@@ -13,6 +13,7 @@ def sukurti_slug(tekstas):
 def generuoti_kuro_seo(duomenys):
     os.makedirs("tinklai", exist_ok=True)
     os.makedirs("miestai", exist_ok=True)
+    os.makedirs("keliai", exist_ok=True)
     sitemap_urls = [f"{BASE_URL}/"]
 
     # 1. TINKLŲ SEO PUSLAPIAI
@@ -128,6 +129,76 @@ def generuoti_kuro_seo(duomenys):
 </html>"""
         with open(m_kelias, "w", encoding="utf-8") as f:
             f.write(m_html)
+
+    # 2B. MAGISTRALINIŲ KELIŲ SEO PUSLAPIAI (/keliai/...)
+    magistrales = [
+        {"slug": "a1-vilnius-kaunas-klaipeda", "name": "Magistralė A1 (Vilnius – Kaunas – Klaipėda)", "raktazodziai": ["a1", "vilniaus pl", "kauno pl", "klaipėdos pl", "savanorių pr", "islandijos pl", "jakų"]},
+        {"slug": "a2-vilnius-panevezys", "name": "Magistralė A2 (Vilnius – Ukmergė – Panevėžys)", "raktazodziai": ["a2", "ukmergės", "vilniaus g.", "širvint"]},
+        {"slug": "via-baltica-a5-a8-a10", "name": "Via Baltica (A5 / A8 / A10: Kaunas – Marijampolė – Panevėžys)", "raktazodziai": ["a5", "a8", "a10", "via baltica", "marijampol", "pasval", "kedain"]},
+        {"slug": "a6-kaunas-zarasai", "name": "Kelias A6 (Kaunas – Jonava – Ukmergė – Utena – Zarasai)", "raktazodziai": ["a6", "jonav", "uten", "zaras"]},
+        {"slug": "a11-siauliai-palanga", "name": "Kelias A11 (Šiauliai – Telšiai – Plungė – Palanga)", "raktazodziai": ["a11", "telš", "plung", "kreting", "palang"]}
+    ]
+
+    keliu_nuorodos_html = []
+
+    for kelias in magistrales:
+        k_stotys = []
+        for net in duomenys.get("networks", []):
+            for s in net.get("stations", []):
+                pilnas_adr = f"{s.get('city', '')} {s.get('address', '')}".lower()
+                if any(rz in pilnas_adr for rz in kelias["raktazodziai"]):
+                    k_stotys.append({**s, "network": net["name"]})
+
+        if not k_stotys:
+            continue
+
+        k_kelias = f"keliai/{kelias['slug']}.html"
+        k_url = f"{BASE_URL}/{k_kelias}"
+        sitemap_urls.append(k_url)
+        keliu_nuorodos_html.append(f'<a href="{k_kelias}" class="filter-chip" style="text-decoration:none; color:var(--text-main);">{kelias["name"]} ({len(k_stotys)})</a>')
+
+        k_stotys.sort(key=lambda x: x.get("a95") or 99)
+        min_a95 = next((s["a95"] for s in k_stotys if s.get("a95")), "—")
+        min_dz = min((s["diesel"] for s in k_stotys if s.get("diesel")), default="—")
+
+        k_eilutes = ""
+        for s in k_stotys:
+            a95 = f"{s['a95']:.3f} €" if s.get("a95") else "—"
+            a98 = f"{s['a98']:.3f} €" if s.get("a98") else "—"
+            dz = f"{s['diesel']:.3f} €" if s.get("diesel") else "—"
+            k_eilutes += f"<tr><td><strong>{s['network']}</strong></td><td>{s['city']}</td><td>{s['address']}</td><td class='mono' style='color:#059669;'>{a95}</td><td class='mono'>{a98}</td><td class='mono' style='color:#d97706;'>{dz}</td></tr>"
+
+        k_html = f"""<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degalų kainos kelyje: {kelias['name']} | KuroPulsas.lt</title>
+    <meta name="description" content="Mažiausios benzino ir dyzelino kainos kelyje {kelias['name']}. Pigiausias A95 nuo {min_a95} €, dyzelinas nuo {min_dz} €. Palyginkite pakeliui esančias degalines.">
+    <link rel="canonical" href="{k_url}">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../index.html" style="text-decoration:none; color:white;"><div class="logo">Kuro<span>Pulsas.lt</span></div></a>
+            <a href="../index.html" class="fuel-btn active" style="text-decoration:none;">← Pagrindinis puslapis</a>
+        </div>
+    </header>
+    <main class="container" style="padding-top: 32px; padding-bottom: 60px;">
+        <h1 class="section-title" style="font-size: 1.75rem;">🛣️ Degalų kainos: {kelias['name']}</h1>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Atnaujinta: {duomenys['last_updated']} • Šaltinis: Lietuvos energetikos agentūra (ena.lt) • Rasta degalinių: {len(k_stotys)}</p>
+        <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light); overflow-x:auto;">
+            <table class="stations-table">
+                <thead><tr><th>Tinklas</th><th>Miestas / Rajonas</th><th>Adresas</th><th>Benzinas A95</th><th>Benzinas A98</th><th>Dyzelinas</th></tr></thead>
+                <tbody>{k_eilutes}</tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>"""
+        with open(k_kelias, "w", encoding="utf-8") as f:
+            f.write(k_html)
 
     # 3. ATNAUJINAME VISŲ MIESTŲ NUORODAS PAGRINDINIAME INDEX.HTML
     if os.path.exists("index.html"):
