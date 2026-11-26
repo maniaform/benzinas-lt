@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-26 09:23",
-  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kiti pigūs variantai yra Bonsa, Alauša ir Stateta, kurių kainos siekia 1,599 Eur/l.",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o mažiausią kainą (2,019 Eur/l) siūlo Bonsa. Bendra situacija rodo, kad didžioji dalis degalinų dyzeliną parduoda už 2,05–2,15 Eur/l.",
+  "last_updated": "2026-11-26 11:07",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kitos pigiausios alternatyvos yra Emsi (1,589 Eur/l) bei Alauša ir Bonsa (1,599 Eur/l).",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o pigiausi variantai yra Bonsa (2,019 Eur/l) ir Baltic Petroleum (2,029 Eur/l). Bendra situacija rodo, kad didžiojoje dalyje stotelių dyzelinas kainuoja apie 2,10–2,15 Eur/l.",
   "networks": [
     {
       "id": "viada",
@@ -4984,24 +4984,24 @@
     {
       "id": "atsiauta",
       "name": "Atsiauta",
-      "best_a95": 1.749,
+      "best_a95": 1.699,
       "best_a98": null,
       "best_diesel": 2.159,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-26 10:00:00",
+      "price_time": "2026-11-26 11:25:39",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Kuršėnai",
           "address": "Kuršėnai, Vytauto g. 80, 81146",
-          "a95": 1.749,
+          "a95": 1.699,
           "a98": null,
           "diesel": 2.159,
           "lpg": 1.039,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 11:25:39",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
