@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-26 11:40",
-  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kitos pigiausios alternatyvos yra Emsi (1,589 Eur/l) bei Alauša ir Bonsa (1,599 Eur/l).",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o pigiausias variantas yra Bonsa (2,019 Eur/l). Bendra situacija rodo, kad didžioji dalis degalinių siūlo dyzeliną už mažiau nei 2,15 Eur/l.",
+  "last_updated": "2026-11-26 11:43",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kitos pigiausios galimybės yra Emsi (1,589 Eur/l) bei Bonsa, Alauša ir Stateta (1,599 Eur/l).",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o pigiausias variantas yra Bonsa (2,019 Eur/l). Bendra situacija rodo, kad didžioji dalis degalinų siūlo kainas tarp 2,05 ir 2,15 Eur/l.",
   "networks": [
     {
       "id": "viada",
