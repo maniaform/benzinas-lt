@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuro kainų valdiklis | Kuro kainos Lietuvoje</title>
+    <title>Degalų kainų valdiklis | Kuro kainos Lietuvoje</title>
     <style>
-html, body { 
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; 
-    margin: 0 !important; 
-    padding: 0 !important; 
-    background: transparent; 
-    color: #ffffff; 
-    overflow: hidden !important;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+        html, body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; 
+            margin: 0 !important; 
+            padding: 0 !important; 
+            background: transparent; 
+            color: #ffffff; 
+            overflow: hidden !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
         .w-box { 
             border: 1px solid #374151; 
@@ -28,12 +28,12 @@ html, body {
         }
         .w-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.85rem; }
         .w-logo { font-weight: 800; color: #ffffff; text-decoration: none; }
-        .w-logo span { color: #10b981; }
+        .w-logo span { color: #f59e0b; }
         .w-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; background: #111827; border-radius: 8px; margin-bottom: 6px; font-size: 0.86rem; }
-        .w-price { font-family: monospace; font-size: 1.02rem; font-weight: 800; color: #10b981; }
-        .w-dz { color: #fbbf24; }
+        .w-price { font-family: monospace; font-size: 1.02rem; font-weight: 800; color: #10b981; white-space: nowrap; }
+        .w-diesel { color: #f59e0b; }
         .w-foot { text-align: right; font-size: 0.72rem; color: #9ca3af; margin-top: 4px; }
-        .w-foot a { color: #6ee7b7; text-decoration: none; font-weight: 600; }
+        .w-foot a { color: #fcd34d; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -47,11 +47,11 @@ html, body {
             <span class="w-price" id="w-a95-val">—</span>
         </div>
         <div class="w-row">
-            <span>🚛 Pigiausias Dyzelinas (<strong id="w-dz-net">—</strong>)</span>
-            <span class="w-price w-dz" id="w-dz-val">—</span>
+            <span>🚛 Pigiausias Dyzelinas (<strong id="w-d-net">—</strong>)</span>
+            <span class="w-price w-diesel" id="w-d-val">—</span>
         </div>
         <div class="w-foot">
-            Visos 750+ degalinių kainos → <a href="https://benzinas-lt.vercel.app/" target="_blank">Kuro kainos Lietuvoje ↗</a>
+            Visos 750+ degalinių kainos → <a href="https://vercel.app" target="_blank">Kuro kainos Lietuvoje ↗</a>
         </div>
     </div>
 
@@ -60,16 +60,20 @@ html, body {
             .then(r => r.json())
             .then(data => {
                 document.getElementById('w-time').textContent = data.last_updated;
-                const a95Nets = data.networks.filter(n => n.best_a95).sort((a, b) => a.best_a95 - b.best_a95);
-                const dzNets = data.networks.filter(n => n.best_diesel).sort((a, b) => a.best_diesel - b.best_diesel);
+                const a95Nets = (data.networks || [])
+                    .filter(n => typeof n.best_a95 === 'number' && n.best_a95 > 0)
+                    .sort((a, b) => a.best_a95 - b.best_a95);
+                const dNets = (data.networks || [])
+                    .filter(n => typeof n.best_diesel === 'number' && n.best_diesel > 0)
+                    .sort((a, b) => a.best_diesel - b.best_diesel);
 
                 if (a95Nets.length) {
                     document.getElementById('w-a95-net').textContent = a95Nets[0].name;
-                    document.getElementById('w-a95-val').textContent = a95Nets[0].best_a95.toFixed(3) + ' €';
+                    document.getElementById('w-a95-val').textContent = a95Nets[0].best_a95.toFixed(2) + ' €';
                 }
-                if (dzNets.length) {
-                    document.getElementById('w-dz-net').textContent = dzNets[0].name;
-                    document.getElementById('w-dz-val').textContent = dzNets[0].best_diesel.toFixed(3) + ' €';
+                if (dNets.length) {
+                    document.getElementById('w-d-net').textContent = dNets[0].name;
+                    document.getElementById('w-d-val').textContent = dNets[0].best_diesel.toFixed(2) + ' €';
                 }
             });
     </script>
