@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-26 11:43",
-  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kitos pigiausios galimybės yra Emsi (1,589 Eur/l) bei Bonsa, Alauša ir Stateta (1,599 Eur/l).",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o pigiausias variantas yra Bonsa (2,019 Eur/l). Bendra situacija rodo, kad didžioji dalis degalinų siūlo kainas tarp 2,05 ir 2,15 Eur/l.",
+  "last_updated": "2026-11-26 13:35",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,579 Eur/l, kurią siūlo Baltic Petroleum ir Velseka. Kiti pigūs variantai yra Bonsa, Alauša ir Stateta, kur kainos siekia 1,599 Eur/l.",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 iki 2,30 Eur/l, o mažiausią kainą (2,019 Eur/l) siūlo Bonsa. Bendra situacija rodo, kad didžioji dalis degalinų dyzeliną parduoda už 2,05–2,15 Eur/l.",
   "networks": [
     {
       "id": "viada",
@@ -7581,24 +7581,24 @@
     {
       "id": "madalva",
       "name": "Madalva",
-      "best_a95": 1.72,
+      "best_a95": 1.65,
       "best_a98": null,
-      "best_diesel": 2.12,
+      "best_diesel": 2.07,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-26 10:00:00",
+      "price_time": "2026-11-26 15:11:14",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Žygaičių k.",
           "address": "Žygaičių k., Žygaičių g. 2, 73282",
-          "a95": 1.72,
+          "a95": 1.65,
           "a98": null,
-          "diesel": 2.12,
+          "diesel": 2.07,
           "lpg": 0.94,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 15:11:14",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7609,7 +7609,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.97,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 15:11:14",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7620,7 +7620,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.97,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 15:11:14",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7631,7 +7631,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.97,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 15:11:14",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7642,7 +7642,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.97,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-26 15:11:14",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
