@@ -537,28 +537,26 @@ body {
 /* --- VIRŠUTINĖ APŽVALGOS IR VALDIKLIO JUOSTA --- */
 .top-hero-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 370px 1fr;
     gap: 16px;
-    margin-bottom: 24px;
-    align-items: stretch;
+    margin: 22px 0;
+    align-items: center;
 }
 
-@media (max-width: 768px) {
-    .top-hero-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 1024px) { 
+    .top-hero-grid { grid-template-columns: 1fr; } 
 }
 
 .summary-bar {
-    margin-bottom: 0;
     background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
     border: 1px solid #a7f3d0;
     border-left: 5px solid var(--accent-green);
-    padding: 18px 20px;
+    padding: 14px 16px;
     border-radius: 14px;
     color: #065f46;
+    font-size: 0.84rem;
+    line-height: 1.45;
     font-weight: 500;
-    line-height: 1.5;
     display: flex;
     align-items: center;
     box-shadow: var(--shadow-sm);
@@ -568,14 +566,15 @@ body {
     background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
     border: 1px solid #374151;
     border-radius: 14px;
-    padding: 16px 20px;
+    padding: 14px 18px;
     color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s, border-color 0.2s;
     box-shadow: var(--shadow-sm);
+    height: fit-content;
 }
 
 .widget-promo-card:hover {
