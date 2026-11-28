@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-27 16:18",
+  "last_updated": "2026-11-28 06:12",
   "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,55 €/l, kurią siūlo „Eu Verslas“. Kitos pigiausios alternatyvos yra „Jozita“ ir „Alauša“, kuriose kaina siekia 1,57–1,574 €/l.",
   "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 €/l („Bonsa“) iki 2,30 €/l („Tumasa“), o vidutinė rinkos kaina yra apie 2,10–2,15 €/l.",
   "networks": [
@@ -6358,7 +6358,7 @@
       "diff_a95": 0,
       "diff_a98": 0,
       "diff_diesel": 0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-27 20:33:51",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -6369,7 +6369,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.99,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-27 20:33:51",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -6380,7 +6380,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.98,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-27 20:34:15",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -6391,7 +6391,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-27 20:34:33",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
