@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-28 06:12",
-  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,55 €/l, kurią siūlo „Eu Verslas“. Kitos pigiausios alternatyvos yra „Jozita“ ir „Alauša“, kuriose kaina siekia 1,57–1,574 €/l.",
-  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,019 €/l („Bonsa“) iki 2,30 €/l („Tumasa“), o vidutinė rinkos kaina yra apie 2,10–2,15 €/l.",
+  "last_updated": "2026-11-28 09:03",
+  "summary_petrol": "Mažiausia A95 benzino kaina šiuo metu yra 1,55 €/l, kurią siūlo „Eu Verslas“. Kitos pigiausios alternatyvos yra „Jozita“ ir „Alauša“ su kainomis apie 1,57–1,574 €/l.",
+  "summary_diesel": "Dyzelino kainos svyruoja nuo 2,02 €/l („Jozita“) iki 2,30 €/l („Tumasa“), o vidutinė rinka siekia apie 2,10–2,15 €/l.",
   "networks": [
     {
       "id": "viada",
@@ -2587,9 +2587,9 @@
           "address": "Truikių k., Pramogų g. 4, 90110",
           "a95": 1.769,
           "a98": null,
-          "diesel": 2.206,
+          "diesel": 2.196,
           "lpg": 1.096,
-          "time": "2026-11-26 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4220,7 +4220,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -4231,7 +4231,7 @@
           "a98": null,
           "diesel": 2.2,
           "lpg": 1.05,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4271,24 +4271,24 @@
     {
       "id": "ii-m-augustinaicio",
       "name": "Iį M.Augustinaičio",
-      "best_a95": 1.75,
+      "best_a95": 1.64,
       "best_a98": null,
-      "best_diesel": 2.15,
+      "best_diesel": 2.09,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Šingalių k.",
           "address": "Šingalių k., Kėdainių g. 44, 58185",
-          "a95": 1.75,
+          "a95": 1.64,
           "a98": null,
-          "diesel": 2.15,
+          "diesel": 2.09,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4305,7 +4305,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -4316,7 +4316,7 @@
           "a98": null,
           "diesel": 2.14,
           "lpg": 1.04,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4474,7 +4474,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -4485,7 +4485,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.09,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4845,7 +4845,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -4856,7 +4856,7 @@
           "a98": null,
           "diesel": 2.14,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -4984,24 +4984,24 @@
     {
       "id": "atsiauta",
       "name": "Atsiauta",
-      "best_a95": 1.699,
+      "best_a95": 1.649,
       "best_a98": null,
-      "best_diesel": 2.159,
+      "best_diesel": 2.099,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Kuršėnai",
           "address": "Kuršėnai, Vytauto g. 80, 81146",
-          "a95": 1.699,
+          "a95": 1.649,
           "a98": null,
-          "diesel": 2.159,
+          "diesel": 2.099,
           "lpg": 1.039,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -5013,24 +5013,24 @@
     {
       "id": "autograndas",
       "name": "Autograndas",
-      "best_a95": 1.643,
+      "best_a95": 1.632,
       "best_a98": null,
       "best_diesel": 2.087,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Visaginas",
           "address": "Visaginas, Taikos pr. 47, 31217",
-          "a95": 1.643,
+          "a95": 1.632,
           "a98": null,
           "diesel": 2.087,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -6098,7 +6098,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -6109,7 +6109,7 @@
           "a98": null,
           "diesel": 2.019,
           "lpg": 0.97,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -6120,7 +6120,7 @@
           "a98": null,
           "diesel": 2.05,
           "lpg": 1.02,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -6358,7 +6358,7 @@
       "diff_a95": 0,
       "diff_a98": 0,
       "diff_diesel": 0,
-      "price_time": "2026-11-27 20:33:51",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -6369,7 +6369,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.99,
-          "time": "2026-11-27 20:33:51",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -6380,7 +6380,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 0.98,
-          "time": "2026-11-27 20:34:15",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -6391,7 +6391,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.03,
-          "time": "2026-11-27 20:34:33",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -7377,7 +7377,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -7388,7 +7388,7 @@
           "a98": null,
           "diesel": 2.139,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7399,7 +7399,7 @@
           "a98": null,
           "diesel": 2.139,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7410,7 +7410,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7421,7 +7421,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7432,7 +7432,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7443,7 +7443,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7454,7 +7454,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7465,7 +7465,7 @@
           "a98": null,
           "diesel": 2.169,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7476,7 +7476,7 @@
           "a98": null,
           "diesel": 2.139,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7487,7 +7487,7 @@
           "a98": null,
           "diesel": 2.16,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -7532,7 +7532,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -7543,7 +7543,7 @@
           "a98": null,
           "diesel": 2.15,
           "lpg": 1.1,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -7660,7 +7660,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -7671,7 +7671,7 @@
           "a98": null,
           "diesel": 2.16,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -7766,7 +7766,7 @@
       "diff_a95": 0,
       "diff_a98": 0,
       "diff_diesel": 0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -7777,7 +7777,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.04,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7788,7 +7788,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -7799,7 +7799,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.06,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8037,24 +8037,24 @@
     {
       "id": "plunges-laguna",
       "name": "Plungės Lagūna",
-      "best_a95": 1.782,
+      "best_a95": 1.75,
       "best_a98": null,
       "best_diesel": 2.2,
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
         {
           "city": "Rietavas",
           "address": "Rietavas, Plungės g. 32, 90313",
-          "a95": 1.782,
+          "a95": 1.75,
           "a98": null,
           "diesel": 2.2,
           "lpg": 1.099,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8139,7 +8139,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -8150,7 +8150,7 @@
           "a98": null,
           "diesel": 2.09,
           "lpg": 1.04,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8161,7 +8161,7 @@
           "a98": null,
           "diesel": 2.17,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8666,7 +8666,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 11:15:23",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -8677,7 +8677,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8688,7 +8688,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8699,7 +8699,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8710,7 +8710,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8721,7 +8721,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8732,7 +8732,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8743,7 +8743,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8754,7 +8754,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8765,7 +8765,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8776,7 +8776,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8787,7 +8787,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8798,7 +8798,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": 1.049,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8809,7 +8809,7 @@
           "a98": null,
           "diesel": 2.049,
           "lpg": null,
-          "time": "2026-11-27 11:15:23",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8855,7 +8855,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -8866,7 +8866,7 @@
           "a98": null,
           "diesel": 2.199,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8877,7 +8877,7 @@
           "a98": null,
           "diesel": 2.18,
           "lpg": 1.02,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8888,7 +8888,7 @@
           "a98": null,
           "diesel": 2.219,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8905,7 +8905,7 @@
       "diff_a95": 0,
       "diff_a98": 0,
       "diff_diesel": 0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -8916,7 +8916,7 @@
           "a98": null,
           "diesel": null,
           "lpg": 1.0,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -8933,7 +8933,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -8944,7 +8944,7 @@
           "a98": null,
           "diesel": 2.11,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8955,7 +8955,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8966,7 +8966,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8977,7 +8977,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8988,7 +8988,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.08,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -8999,7 +8999,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9010,7 +9010,7 @@
           "a98": null,
           "diesel": 2.11,
           "lpg": 1.04,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9021,7 +9021,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9032,7 +9032,7 @@
           "a98": null,
           "diesel": 2.13,
           "lpg": 1.06,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9043,7 +9043,7 @@
           "a98": null,
           "diesel": 2.11,
           "lpg": 1.07,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9054,7 +9054,7 @@
           "a98": null,
           "diesel": 2.19,
           "lpg": 1.08,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         },
@@ -9065,7 +9065,7 @@
           "a98": null,
           "diesel": 2.19,
           "lpg": 1.08,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9082,7 +9082,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9093,7 +9093,7 @@
           "a98": null,
           "diesel": 2.11,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9111,7 +9111,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9122,7 +9122,7 @@
           "a98": null,
           "diesel": 2.3,
           "lpg": 1.08,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9139,7 +9139,7 @@
       "diff_a95": 0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9150,7 +9150,7 @@
           "a98": null,
           "diesel": 2.079,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9165,7 +9165,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 15:00:25",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9176,7 +9176,7 @@
           "a98": null,
           "diesel": 2.099,
           "lpg": 1.029,
-          "time": "2026-11-27 15:00:25",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9194,7 +9194,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9205,7 +9205,7 @@
           "a98": null,
           "diesel": 2.139,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9223,7 +9223,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9234,7 +9234,7 @@
           "a98": null,
           "diesel": 2.25,
           "lpg": 1.08,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9251,7 +9251,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9262,7 +9262,7 @@
           "a98": null,
           "diesel": 2.134,
           "lpg": 1.074,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9334,7 +9334,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9345,7 +9345,7 @@
           "a98": null,
           "diesel": 2.19,
           "lpg": 1.1,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9362,7 +9362,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9373,7 +9373,7 @@
           "a98": null,
           "diesel": 2.2,
           "lpg": null,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
@@ -9458,7 +9458,7 @@
       "diff_a95": 0.0,
       "diff_a98": 0,
       "diff_diesel": 0.0,
-      "price_time": "2026-11-27 10:00:00",
+      "price_time": "2026-11-28 10:00:00",
       "source_name": "Lietuvos energetikos agentūra (ena.lt)",
       "source_url": "https://www.ena.lt",
       "stations": [
@@ -9469,7 +9469,7 @@
           "a98": null,
           "diesel": 2.11,
           "lpg": 1.03,
-          "time": "2026-11-27 10:00:00",
+          "time": "2026-11-28 10:00:00",
           "source": "Lietuvos energetikos agentūra (ena.lt)",
           "source_url": "https://www.ena.lt"
         }
